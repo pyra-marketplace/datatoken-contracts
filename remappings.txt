@@ -1,0 +1,10 @@
+chainlink/=lib/cybercontracts/lib/chainlink/
+lens-core/=lib/core/
+cybercontracts/=lib/cybercontracts/
+ds-test/=lib/forge-std/lib/ds-test/src/
+forge-std/=lib/forge-std/src/
+kernel/=lib/cybergraph/lib/kernel/
+openzeppelin-contracts/=lib/openzeppelin-contracts/
+@openzeppelin=lib/openzeppelin-contracts
+solady/=lib/cybergraph/lib/kernel/lib/solady/
+solmate/=lib/cybergraph/lib/solmate/

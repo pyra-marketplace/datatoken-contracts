@@ -1,0 +1,11 @@
+[profile.default]
+src = 'src'
+out = 'out'
+libs = ["lib"]
+fs_permissions = [{ access = "read-write", path = "./"}]
+auto_detect_solc = true
+
+# See more config options https://github.com/foundry-rs/foundry/tree/master/config
+[rpc_endpoints]
+anvil = "${ANVIL_RPC_URL}"
+mumbai = "${MUMBAI_RPC_URL}"

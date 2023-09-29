@@ -1,0 +1,1484 @@
+{
+  "abi": [
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "hub",
+          "type": "address"
+        }
+      ],
+      "stateMutability": "nonpayable",
+      "type": "constructor"
+    },
+    {
+      "inputs": [],
+      "name": "FollowInvalid",
+      "type": "error"
+    },
+    {
+      "inputs": [],
+      "name": "InitParamsInvalid",
+      "type": "error"
+    },
+    {
+      "inputs": [],
+      "name": "NotHub",
+      "type": "error"
+    },
+    {
+      "inputs": [],
+      "name": "HUB",
+      "outputs": [
+        {
+          "internalType": "address",
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "profileId",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint256",
+          "name": "pubId",
+          "type": "uint256"
+        },
+        {
+          "internalType": "bytes",
+          "name": "data",
+          "type": "bytes"
+        }
+      ],
+      "name": "initializePublicationCollectModule",
+      "outputs": [
+        {
+          "internalType": "bytes",
+          "name": "",
+          "type": "bytes"
+        }
+      ],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "referrerProfileId",
+          "type": "uint256"
+        },
+        {
+          "internalType": "address",
+          "name": "collector",
+          "type": "address"
+        },
+        {
+          "internalType": "uint256",
+          "name": "profileId",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint256",
+          "name": "pubId",
+          "type": "uint256"
+        },
+        {
+          "internalType": "bytes",
+          "name": "data",
+          "type": "bytes"
+        }
+      ],
+      "name": "processCollect",
+      "outputs": [],
+      "stateMutability": "view",
+      "type": "function"
+    }
+  ],
+  "bytecode": {
+    "object": "0x60a060405234801561001057600080fd5b506040516107f43803806107f483398101604081905261002f916100a0565b806001600160a01b038116610057576040516348be0eb360e01b815260040160405180910390fd5b6001600160a01b03811660808190526040514281527ff1a1fa6b64aa95186f5a1285e76198d0da80d9c5a88062641d447f1d7c54e56c9060200160405180910390a250506100d0565b6000602082840312156100b257600080fd5b81516001600160a01b03811681146100c957600080fd5b9392505050565b6080516106ef61010560003960008181604b0152818160cc015281816101cf015281816102ed01526103fb01526106ef6000f3fe608060405234801561001057600080fd5b50600436106100415760003560e01c8063a4c52b8614610046578063c233f9511461008a578063e49c3dda146100aa575b600080fd5b61006d7f000000000000000000000000000000000000000000000000000000000000000081565b6040516001600160a01b0390911681526020015b60405180910390f35b61009d610098366004610501565b6100bf565b6040516100819190610554565b6100bd6100b83660046105c1565b610184565b005b6060336001600160a01b037f0000000000000000000000000000000000000000000000000000000000000000161461010a576040516313bd2e8360e31b815260040160405180910390fd5b600061011883850185610642565b90508015610143576000868152602081815260408083208884529091529020805460ff191660011790555b83838080601f016020809104026020016040519081016040528093929190818152602001838380828437600092019190915250929998505050505050505050565b60008481526020818152604080832086845290915290205460ff16156101ae576101ae84866101b6565b505050505050565b604051633648f48360e21b8152600481018390526000907f00000000000000000000000000000000000000000000000000000000000000006001600160a01b03169063d923d20c90602401602060405180830381865afa15801561021e573d6000803e3d6000fd5b505050506040513d601f19601f820116820180604052508101906102429190610666565b905060006001600160a01b038216156102d4576040516311470f4360e21b8152600481018590526001600160a01b0384811660248301526000604483015283169063451c3d0c90606401602060405180830381865afa1580156102a9573d6000803e3d6000fd5b505050506040513d601f19601f820116820180604052508101906102cd9190610683565b90506103e6565b60405163a9ec656360e01b8152600481018590526000907f00000000000000000000000000000000000000000000000000000000000000006001600160a01b03169063a9ec656390602401602060405180830381865afa15801561033c573d6000803e3d6000fd5b505050506040513d601f19601f820116820180604052508101906103609190610666565b90506001600160a01b038116158015906103e257506040516370a0823160e01b81526001600160a01b0385811660048301528216906370a0823190602401602060405180830381865afa1580156103bb573d6000803e3d6000fd5b505050506040513d601f19601f820116820180604052508101906103df91906106a0565b15155b9150505b801580156104945750826001600160a01b03167f00000000000000000000000000000000000000000000000000000000000000006001600160a01b0316636352211e866040518263ffffffff1660e01b815260040161044791815260200190565b602060405180830381865afa158015610464573d6000803e3d6000fd5b505050506040513d601f19601f820116820180604052508101906104889190610666565b6001600160a01b031614155b156104b257604051636992d36b60e11b815260040160405180910390fd5b50505050565b60008083601f8401126104ca57600080fd5b50813567ffffffffffffffff8111156104e257600080fd5b6020830191508360208285010111156104fa57600080fd5b9250929050565b6000806000806060858703121561051757600080fd5b8435935060208501359250604085013567ffffffffffffffff81111561053c57600080fd5b610548878288016104b8565b95989497509550505050565b600060208083528351808285015260005b8181101561058157858101830151858201604001528201610565565b81811115610593576000604083870101525b50601f01601f1916929092016040019392505050565b6001600160a01b03811681146105be57600080fd5b50565b60008060008060008060a087890312156105da57600080fd5b8635955060208701356105ec816105a9565b94506040870135935060608701359250608087013567ffffffffffffffff81111561061657600080fd5b61062289828a016104b8565b979a9699509497509295939492505050565b80151581146105be57600080fd5b60006020828403121561065457600080fd5b813561065f81610634565b9392505050565b60006020828403121561067857600080fd5b815161065f816105a9565b60006020828403121561069557600080fd5b815161065f81610634565b6000602082840312156106b257600080fd5b505191905056fea26469706673582212200b1373209c28b769512d2c75bbb37b2024945fac6f1a59e77b44b5b837f8ad6a64736f6c634300080a0033",
+    "sourceMap": "477:1086:13:-:0;;;556:43;;;;;;;;;;;;;;;;;;;;;;;;;;;;:::i;:::-;592:3;-1:-1:-1;;;;;549:17:10;;545:56;;575:26;;-1:-1:-1;;;575:26:10;;;;;;;;;;;545:56;-1:-1:-1;;;;;611:9:10;;;;;;635:50;;669:15;455:25:135;;635:50:10;;443:2:135;428:18;635:50:10;;;;;;;510:182;556:43:13;477:1086;;14:290:135;84:6;137:2;125:9;116:7;112:23;108:32;105:52;;;153:1;150;143:12;105:52;179:16;;-1:-1:-1;;;;;224:31:135;;214:42;;204:70;;270:1;267;260:12;204:70;293:5;14:290;-1:-1:-1;;;14:290:135:o;309:177::-;477:1086:13;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;",
+    "linkReferences": {}
+  },
+  "deployedBytecode": {
+    "object": "0x608060405234801561001057600080fd5b50600436106100415760003560e01c8063a4c52b8614610046578063c233f9511461008a578063e49c3dda146100aa575b600080fd5b61006d7f000000000000000000000000000000000000000000000000000000000000000081565b6040516001600160a01b0390911681526020015b60405180910390f35b61009d610098366004610501565b6100bf565b6040516100819190610554565b6100bd6100b83660046105c1565b610184565b005b6060336001600160a01b037f0000000000000000000000000000000000000000000000000000000000000000161461010a576040516313bd2e8360e31b815260040160405180910390fd5b600061011883850185610642565b90508015610143576000868152602081815260408083208884529091529020805460ff191660011790555b83838080601f016020809104026020016040519081016040528093929190818152602001838380828437600092019190915250929998505050505050505050565b60008481526020818152604080832086845290915290205460ff16156101ae576101ae84866101b6565b505050505050565b604051633648f48360e21b8152600481018390526000907f00000000000000000000000000000000000000000000000000000000000000006001600160a01b03169063d923d20c90602401602060405180830381865afa15801561021e573d6000803e3d6000fd5b505050506040513d601f19601f820116820180604052508101906102429190610666565b905060006001600160a01b038216156102d4576040516311470f4360e21b8152600481018590526001600160a01b0384811660248301526000604483015283169063451c3d0c90606401602060405180830381865afa1580156102a9573d6000803e3d6000fd5b505050506040513d601f19601f820116820180604052508101906102cd9190610683565b90506103e6565b60405163a9ec656360e01b8152600481018590526000907f00000000000000000000000000000000000000000000000000000000000000006001600160a01b03169063a9ec656390602401602060405180830381865afa15801561033c573d6000803e3d6000fd5b505050506040513d601f19601f820116820180604052508101906103609190610666565b90506001600160a01b038116158015906103e257506040516370a0823160e01b81526001600160a01b0385811660048301528216906370a0823190602401602060405180830381865afa1580156103bb573d6000803e3d6000fd5b505050506040513d601f19601f820116820180604052508101906103df91906106a0565b15155b9150505b801580156104945750826001600160a01b03167f00000000000000000000000000000000000000000000000000000000000000006001600160a01b0316636352211e866040518263ffffffff1660e01b815260040161044791815260200190565b602060405180830381865afa158015610464573d6000803e3d6000fd5b505050506040513d601f19601f820116820180604052508101906104889190610666565b6001600160a01b031614155b156104b257604051636992d36b60e11b815260040160405180910390fd5b50505050565b60008083601f8401126104ca57600080fd5b50813567ffffffffffffffff8111156104e257600080fd5b6020830191508360208285010111156104fa57600080fd5b9250929050565b6000806000806060858703121561051757600080fd5b8435935060208501359250604085013567ffffffffffffffff81111561053c57600080fd5b610548878288016104b8565b95989497509550505050565b600060208083528351808285015260005b8181101561058157858101830151858201604001528201610565565b81811115610593576000604083870101525b50601f01601f1916929092016040019392505050565b6001600160a01b03811681146105be57600080fd5b50565b60008060008060008060a087890312156105da57600080fd5b8635955060208701356105ec816105a9565b94506040870135935060608701359250608087013567ffffffffffffffff81111561061657600080fd5b61062289828a016104b8565b979a9699509497509295939492505050565b80151581146105be57600080fd5b60006020828403121561065457600080fd5b813561065f81610634565b9392505050565b60006020828403121561067857600080fd5b815161065f816105a9565b60006020828403121561069557600080fd5b815161065f81610634565b6000602082840312156106b257600080fd5b505191905056fea26469706673582212200b1373209c28b769512d2c75bbb37b2024945fac6f1a59e77b44b5b837f8ad6a64736f6c634300080a0033",
+    "sourceMap": "477:1086:13:-:0;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;377:28:10;;;;;;;;-1:-1:-1;;;;;178:32:135;;;160:51;;148:2;133:18;377:28:10;;;;;;;;772:348:13;;;;;;:::i;:::-;;:::i;:::-;;;;;;;:::i;1237:324::-;;;;;;:::i;:::-;;:::i;:::-;;772:348;936:12;445:10:10;-1:-1:-1;;;;;459:3:10;445:17;;441:45;;471:15;;-1:-1:-1;;;471:15:10;;;;;;;;;;;441:45;960:17:13::1;980:24;::::0;;::::1;991:4:::0;980:24:::1;:::i;:::-;960:44;;1018:12;1014:78;;;1032:35;:46:::0;;;::::1;::::0;;;;;;;:53;;;;;;;;:60;;-1:-1:-1;;1032:60:13::1;1088:4;1032:60;::::0;;1014:78:::1;1109:4;;1102:11;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;::::0;::::1;::::0;;;;-1:-1:-1;1102:11:13;;772:348;-1:-1:-1;;;;;;;;;772:348:13:o;1237:324::-;1445:35;:46;;;;;;;;;;;:53;;;;;;;;;;;1441:113;;;1512:42;1533:9;1544;1512:20;:42::i;:::-;1237:324;;;;;;:::o;1215:628:9:-;1325:40;;-1:-1:-1;;;1325:40:9;;;;;3130:25:135;;;1302:20:9;;1334:3;-1:-1:-1;;;;;1325:29:9;;;;3103:18:135;;1325:40:9;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;:::i;:::-;1302:63;-1:-1:-1;1375:16:9;-1:-1:-1;;;;;1405:26:9;;;1401:312;;1461:59;;-1:-1:-1;;;1461:59:9;;;;;3632:25:135;;;-1:-1:-1;;;;;3693:32:135;;;3673:18;;;3666:60;1518:1:9;3742:18:135;;;3735:34;1461:39:9;;;;;3605:18:135;;1461:59:9;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;:::i;:::-;1447:73;;1401:312;;;1571:37;;-1:-1:-1;;;1571:37:9;;;;;3130:25:135;;;1551:17:9;;1580:3;-1:-1:-1;;;;;1571:26:9;;;;3103:18:135;;1571:37:9;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;:::i;:::-;1551:57;-1:-1:-1;;;;;;1636:23:9;;;;;;:66;;-1:-1:-1;1663:34:9;;-1:-1:-1;;;1663:34:9;;-1:-1:-1;;;;;178:32:135;;;1663:34:9;;;160:51:135;1663:28:9;;;;;133:18:135;;1663:34:9;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;:::i;:::-;:39;;1636:66;1622:80;;1537:176;1401:312;1727:11;1726:12;:55;;;;;1777:4;-1:-1:-1;;;;;1742:39:9;1750:3;-1:-1:-1;;;;;1742:20:9;;1763:9;1742:31;;;;;;;;;;;;;3130:25:135;;3118:2;3103:18;;2984:177;1742:31:9;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;:::i;:::-;-1:-1:-1;;;;;1742:39:9;;;1726:55;1722:115;;;1804:22;;-1:-1:-1;;;1804:22:9;;;;;;;;;;;1722:115;1292:551;;1215:628;;:::o;222:347:135:-;273:8;283:6;337:3;330:4;322:6;318:17;314:27;304:55;;355:1;352;345:12;304:55;-1:-1:-1;378:20:135;;421:18;410:30;;407:50;;;453:1;450;443:12;407:50;490:4;482:6;478:17;466:29;;542:3;535:4;526:6;518;514:19;510:30;507:39;504:59;;;559:1;556;549:12;504:59;222:347;;;;;:::o;574:545::-;662:6;670;678;686;739:2;727:9;718:7;714:23;710:32;707:52;;;755:1;752;745:12;707:52;791:9;778:23;768:33;;848:2;837:9;833:18;820:32;810:42;;903:2;892:9;888:18;875:32;930:18;922:6;919:30;916:50;;;962:1;959;952:12;916:50;1001:58;1051:7;1042:6;1031:9;1027:22;1001:58;:::i;:::-;574:545;;;;-1:-1:-1;1078:8:135;-1:-1:-1;;;;574:545:135:o;1124:595::-;1234:4;1263:2;1292;1281:9;1274:21;1324:6;1318:13;1367:6;1362:2;1351:9;1347:18;1340:34;1392:1;1402:140;1416:6;1413:1;1410:13;1402:140;;;1511:14;;;1507:23;;1501:30;1477:17;;;1496:2;1473:26;1466:66;1431:10;;1402:140;;;1560:6;1557:1;1554:13;1551:91;;;1630:1;1625:2;1616:6;1605:9;1601:22;1597:31;1590:42;1551:91;-1:-1:-1;1703:2:135;1682:15;-1:-1:-1;;1678:29:135;1663:45;;;;1710:2;1659:54;;1124:595;-1:-1:-1;;;1124:595:135:o;1724:131::-;-1:-1:-1;;;;;1799:31:135;;1789:42;;1779:70;;1845:1;1842;1835:12;1779:70;1724:131;:::o;1860:750::-;1966:6;1974;1982;1990;1998;2006;2059:3;2047:9;2038:7;2034:23;2030:33;2027:53;;;2076:1;2073;2066:12;2027:53;2112:9;2099:23;2089:33;;2172:2;2161:9;2157:18;2144:32;2185:31;2210:5;2185:31;:::i;:::-;2235:5;-1:-1:-1;2287:2:135;2272:18;;2259:32;;-1:-1:-1;2338:2:135;2323:18;;2310:32;;-1:-1:-1;2393:3:135;2378:19;;2365:33;2421:18;2410:30;;2407:50;;;2453:1;2450;2443:12;2407:50;2492:58;2542:7;2533:6;2522:9;2518:22;2492:58;:::i;:::-;1860:750;;;;-1:-1:-1;1860:750:135;;-1:-1:-1;1860:750:135;;2569:8;;1860:750;-1:-1:-1;;;1860:750:135:o;2615:118::-;2701:5;2694:13;2687:21;2680:5;2677:32;2667:60;;2723:1;2720;2713:12;2738:241;2794:6;2847:2;2835:9;2826:7;2822:23;2818:32;2815:52;;;2863:1;2860;2853:12;2815:52;2902:9;2889:23;2921:28;2943:5;2921:28;:::i;:::-;2968:5;2738:241;-1:-1:-1;;;2738:241:135:o;3166:251::-;3236:6;3289:2;3277:9;3268:7;3264:23;3260:32;3257:52;;;3305:1;3302;3295:12;3257:52;3337:9;3331:16;3356:31;3381:5;3356:31;:::i;3780:245::-;3847:6;3900:2;3888:9;3879:7;3875:23;3871:32;3868:52;;;3916:1;3913;3906:12;3868:52;3948:9;3942:16;3967:28;3989:5;3967:28;:::i;4030:184::-;4100:6;4153:2;4141:9;4132:7;4128:23;4124:32;4121:52;;;4169:1;4166;4159:12;4121:52;-1:-1:-1;4192:16:135;;4030:184;-1:-1:-1;4030:184:135:o",
+    "linkReferences": {},
+    "immutableReferences": {
+      "5481": [
+        {
+          "start": 75,
+          "length": 32
+        },
+        {
+          "start": 204,
+          "length": 32
+        },
+        {
+          "start": 463,
+          "length": 32
+        },
+        {
+          "start": 749,
+          "length": 32
+        },
+        {
+          "start": 1019,
+          "length": 32
+        }
+      ]
+    }
+  },
+  "methodIdentifiers": {
+    "HUB()": "a4c52b86",
+    "initializePublicationCollectModule(uint256,uint256,bytes)": "c233f951",
+    "processCollect(uint256,address,uint256,uint256,bytes)": "e49c3dda"
+  },
+  "rawMetadata": "{\"compiler\":{\"version\":\"0.8.10+commit.fc410830\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"inputs\":[{\"internalType\":\"address\",\"name\":\"hub\",\"type\":\"address\"}],\"stateMutability\":\"nonpayable\",\"type\":\"constructor\"},{\"inputs\":[],\"name\":\"FollowInvalid\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"InitParamsInvalid\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"NotHub\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"HUB\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"profileId\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"pubId\",\"type\":\"uint256\"},{\"internalType\":\"bytes\",\"name\":\"data\",\"type\":\"bytes\"}],\"name\":\"initializePublicationCollectModule\",\"outputs\":[{\"internalType\":\"bytes\",\"name\":\"\",\"type\":\"bytes\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"referrerProfileId\",\"type\":\"uint256\"},{\"internalType\":\"address\",\"name\":\"collector\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"profileId\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"pubId\",\"type\":\"uint256\"},{\"internalType\":\"bytes\",\"name\":\"data\",\"type\":\"bytes\"}],\"name\":\"processCollect\",\"outputs\":[],\"stateMutability\":\"view\",\"type\":\"function\"}],\"devdoc\":{\"author\":\"Lens Protocol\",\"kind\":\"dev\",\"methods\":{\"initializePublicationCollectModule(uint256,uint256,bytes)\":{\"details\":\"There is nothing needed at initialization.\"},\"processCollect(uint256,address,uint256,uint256,bytes)\":{\"details\":\"Processes a collect by:  1. Ensuring the collector is a follower, if needed\"}},\"title\":\"FreeCollectModule\",\"version\":1},\"userdoc\":{\"kind\":\"user\",\"methods\":{},\"notice\":\"This is a simple Lens CollectModule implementation, inheriting from the ICollectModule interface. This module works by allowing all collects.\",\"version\":1}},\"settings\":{\"compilationTarget\":{\"lib/core/contracts/core/modules/collect/FreeCollectModule.sol\":\"FreeCollectModule\"},\"evmVersion\":\"london\",\"libraries\":{},\"metadata\":{\"bytecodeHash\":\"ipfs\"},\"optimizer\":{\"enabled\":true,\"runs\":200},\"remappings\":[\":@openzeppelin/=lib/openzeppelin-contracts/\",\":chainlink/=lib/cybercontracts/lib/chainlink/\",\":core/=lib/core/contracts/\",\":cybercontracts/=lib/cybercontracts/\",\":ds-test/=lib/forge-std/lib/ds-test/src/\",\":forge-std/=lib/forge-std/src/\",\":kernel/=lib/cybergraph/lib/kernel/\",\":lens-core/=lib/core/\",\":openzeppelin-contracts/=lib/openzeppelin-contracts/\",\":solady/=lib/cybergraph/lib/kernel/lib/solady/\",\":solmate/=lib/cybergraph/lib/solmate/\"]},\"sources\":{\"lib/core/contracts/core/modules/FollowValidationModuleBase.sol\":{\"keccak256\":\"0x3f81954c7ed6d769ab38649e5cc035566cb1ff3ebd37d4f2d08f90a1c5abd04a\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://7a4821aa93fff329a210c348ec72c710611dffb841e0c7d50ba6544c188c0c1c\",\"dweb:/ipfs/QmemthRDXMRx9EqY1HtBAXaFdL6kfMZ6bZVFU56qY8LuD7\"]},\"lib/core/contracts/core/modules/ModuleBase.sol\":{\"keccak256\":\"0x4ab009046c15bbb64dbfa3aa367820ebef50a169498488a792e666e897cd8c1f\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://4c6559fb99c2c712da84e86f72745f1c8c81d6087ae1dbb7e9827bc822af8428\",\"dweb:/ipfs/QmUJBLzSJ1AsFenV2AGSKTMFyQmA61YjjTAdEtgLj56D4Z\"]},\"lib/core/contracts/core/modules/collect/FreeCollectModule.sol\":{\"keccak256\":\"0xc6b67649e139a6252c851f0aaf98925ee1388b4684c26257e66aa816fb24f2cb\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://61b9b573018ece3051458658b396f0f3f6099d07532ceb1456cc0eb75853c307\",\"dweb:/ipfs/QmQPJT5C6hEdzSfFPARwDUpFE9mMWG1K6c9nQNKzcF1pJq\"]},\"lib/core/contracts/interfaces/ICollectModule.sol\":{\"keccak256\":\"0xc7f68b5fdabc69728f5c792b180b166011ff1c99c905bbc40339e635785e8e8f\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://db028b268d6c486ea2e89db139145cfa1b3c1c3089279d16154b95620ba1c780\",\"dweb:/ipfs/QmRZ7YAachJC2Qr6a1fHZdNqAQCJ9wrZfchBqpdvp9WABY\"]},\"lib/core/contracts/interfaces/IFollowModule.sol\":{\"keccak256\":\"0x19bb582b366e62594605037070b2a3fed56c8077a32f8cea96af9ff6aa7b1900\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://92d2476167f094e7566417a11883fd9e22220e5d1edfdb9fa7de682439e865a3\",\"dweb:/ipfs/QmZ4XDrnTrnsxmG2QJiqMRhqWvo1xRAM4RjTwbGDCaL9LM\"]},\"lib/core/contracts/interfaces/ILensHub.sol\":{\"keccak256\":\"0x789b8bad742032bb7d9f5499aec3f6f899f5265e26aa4b38cadaef5d9fcb0ec3\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://ad9f5434eff3128db6a51209b803375d630fac04df6c282ff2623045b23f34d0\",\"dweb:/ipfs/QmSzGyRhvL8vWfVfDC6PgEzdcEf6NaBUt9y2tmVcYyzmvZ\"]},\"lib/core/contracts/libraries/DataTypes.sol\":{\"keccak256\":\"0xd30c16c967482000c605b8ba9db23c061fdb5ce4dd1a90ec40d9b249290dbee4\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://1bb544ffaf7527d79f0a92b1ae864ee1e515776ede71002962d5abd55a9c338b\",\"dweb:/ipfs/QmVmUsEvkZ2aQHnWGzzhxGCHpAPzhjDBNqQwxDpsG51Wq9\"]},\"lib/core/contracts/libraries/Errors.sol\":{\"keccak256\":\"0x9e826415bf004ef0fa11981171bf9d232a47993eed8412905106fabe4edecff4\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://1f79bd3e87216857815be12b2b8c7ba3c0bf214a35622030a2631519c50ccc81\",\"dweb:/ipfs/QmTYCBFmQqrPNeGBQLwZvcB5hd3vQXNctVsANDsSiqV2ja\"]},\"lib/core/contracts/libraries/Events.sol\":{\"keccak256\":\"0x01169d2dbfe115a42915a85b6471064dd77cb164b8cb7ecc4110299633dba7a3\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://0fde2ce09990d9c3569efe62ffe089ed97b5d39c4b631c47a44154141deea2ff\",\"dweb:/ipfs/QmPwBXUPzUNYU1ZsVzb4Gv467iANPQwegGxouiEPvzDAwT\"]},\"lib/openzeppelin-contracts/contracts/token/ERC721/IERC721.sol\":{\"keccak256\":\"0x086fbe904291497e1532ef340f1bd589078f49e3d4d0bbfd88f5e02fb89261eb\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://0df1e3e965b78a0d98dda2d1d6a6acde88f515b1d3a9ad02f505e93fa7babeda\",\"dweb:/ipfs/QmW4cSbGriRAj7XRZu6zSaqspe4eyYWkF7WfJbj3rmmLbk\"]},\"lib/openzeppelin-contracts/contracts/utils/introspection/IERC165.sol\":{\"keccak256\":\"0x447a5f3ddc18419d41ff92b3773fb86471b1db25773e07f877f548918a185bf1\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://be161e54f24e5c6fae81a12db1a8ae87bc5ae1b0ddc805d82a1440a68455088f\",\"dweb:/ipfs/QmP7C3CHdY9urF4dEMb9wmsp1wMxHF6nhA2yQE5SKiPAdy\"]}},\"version\":1}",
+  "metadata": {
+    "compiler": {
+      "version": "0.8.10+commit.fc410830"
+    },
+    "language": "Solidity",
+    "output": {
+      "abi": [
+        {
+          "inputs": [
+            {
+              "internalType": "address",
+              "name": "hub",
+              "type": "address"
+            }
+          ],
+          "stateMutability": "nonpayable",
+          "type": "constructor"
+        },
+        {
+          "inputs": [],
+          "type": "error",
+          "name": "FollowInvalid"
+        },
+        {
+          "inputs": [],
+          "type": "error",
+          "name": "InitParamsInvalid"
+        },
+        {
+          "inputs": [],
+          "type": "error",
+          "name": "NotHub"
+        },
+        {
+          "inputs": [],
+          "stateMutability": "view",
+          "type": "function",
+          "name": "HUB",
+          "outputs": [
+            {
+              "internalType": "address",
+              "name": "",
+              "type": "address"
+            }
+          ]
+        },
+        {
+          "inputs": [
+            {
+              "internalType": "uint256",
+              "name": "profileId",
+              "type": "uint256"
+            },
+            {
+              "internalType": "uint256",
+              "name": "pubId",
+              "type": "uint256"
+            },
+            {
+              "internalType": "bytes",
+              "name": "data",
+              "type": "bytes"
+            }
+          ],
+          "stateMutability": "nonpayable",
+          "type": "function",
+          "name": "initializePublicationCollectModule",
+          "outputs": [
+            {
+              "internalType": "bytes",
+              "name": "",
+              "type": "bytes"
+            }
+          ]
+        },
+        {
+          "inputs": [
+            {
+              "internalType": "uint256",
+              "name": "referrerProfileId",
+              "type": "uint256"
+            },
+            {
+              "internalType": "address",
+              "name": "collector",
+              "type": "address"
+            },
+            {
+              "internalType": "uint256",
+              "name": "profileId",
+              "type": "uint256"
+            },
+            {
+              "internalType": "uint256",
+              "name": "pubId",
+              "type": "uint256"
+            },
+            {
+              "internalType": "bytes",
+              "name": "data",
+              "type": "bytes"
+            }
+          ],
+          "stateMutability": "view",
+          "type": "function",
+          "name": "processCollect"
+        }
+      ],
+      "devdoc": {
+        "kind": "dev",
+        "methods": {
+          "initializePublicationCollectModule(uint256,uint256,bytes)": {
+            "details": "There is nothing needed at initialization."
+          },
+          "processCollect(uint256,address,uint256,uint256,bytes)": {
+            "details": "Processes a collect by:  1. Ensuring the collector is a follower, if needed"
+          }
+        },
+        "version": 1
+      },
+      "userdoc": {
+        "kind": "user",
+        "methods": {},
+        "version": 1
+      }
+    },
+    "settings": {
+      "remappings": [
+        ":@openzeppelin/=lib/openzeppelin-contracts/",
+        ":chainlink/=lib/cybercontracts/lib/chainlink/",
+        ":core/=lib/core/contracts/",
+        ":cybercontracts/=lib/cybercontracts/",
+        ":ds-test/=lib/forge-std/lib/ds-test/src/",
+        ":forge-std/=lib/forge-std/src/",
+        ":kernel/=lib/cybergraph/lib/kernel/",
+        ":lens-core/=lib/core/",
+        ":openzeppelin-contracts/=lib/openzeppelin-contracts/",
+        ":solady/=lib/cybergraph/lib/kernel/lib/solady/",
+        ":solmate/=lib/cybergraph/lib/solmate/"
+      ],
+      "optimizer": {
+        "enabled": true,
+        "runs": 200
+      },
+      "metadata": {
+        "bytecodeHash": "ipfs"
+      },
+      "compilationTarget": {
+        "lib/core/contracts/core/modules/collect/FreeCollectModule.sol": "FreeCollectModule"
+      },
+      "libraries": {}
+    },
+    "sources": {
+      "lib/core/contracts/core/modules/FollowValidationModuleBase.sol": {
+        "keccak256": "0x3f81954c7ed6d769ab38649e5cc035566cb1ff3ebd37d4f2d08f90a1c5abd04a",
+        "urls": [
+          "bzz-raw://7a4821aa93fff329a210c348ec72c710611dffb841e0c7d50ba6544c188c0c1c",
+          "dweb:/ipfs/QmemthRDXMRx9EqY1HtBAXaFdL6kfMZ6bZVFU56qY8LuD7"
+        ],
+        "license": "MIT"
+      },
+      "lib/core/contracts/core/modules/ModuleBase.sol": {
+        "keccak256": "0x4ab009046c15bbb64dbfa3aa367820ebef50a169498488a792e666e897cd8c1f",
+        "urls": [
+          "bzz-raw://4c6559fb99c2c712da84e86f72745f1c8c81d6087ae1dbb7e9827bc822af8428",
+          "dweb:/ipfs/QmUJBLzSJ1AsFenV2AGSKTMFyQmA61YjjTAdEtgLj56D4Z"
+        ],
+        "license": "MIT"
+      },
+      "lib/core/contracts/core/modules/collect/FreeCollectModule.sol": {
+        "keccak256": "0xc6b67649e139a6252c851f0aaf98925ee1388b4684c26257e66aa816fb24f2cb",
+        "urls": [
+          "bzz-raw://61b9b573018ece3051458658b396f0f3f6099d07532ceb1456cc0eb75853c307",
+          "dweb:/ipfs/QmQPJT5C6hEdzSfFPARwDUpFE9mMWG1K6c9nQNKzcF1pJq"
+        ],
+        "license": "MIT"
+      },
+      "lib/core/contracts/interfaces/ICollectModule.sol": {
+        "keccak256": "0xc7f68b5fdabc69728f5c792b180b166011ff1c99c905bbc40339e635785e8e8f",
+        "urls": [
+          "bzz-raw://db028b268d6c486ea2e89db139145cfa1b3c1c3089279d16154b95620ba1c780",
+          "dweb:/ipfs/QmRZ7YAachJC2Qr6a1fHZdNqAQCJ9wrZfchBqpdvp9WABY"
+        ],
+        "license": "MIT"
+      },
+      "lib/core/contracts/interfaces/IFollowModule.sol": {
+        "keccak256": "0x19bb582b366e62594605037070b2a3fed56c8077a32f8cea96af9ff6aa7b1900",
+        "urls": [
+          "bzz-raw://92d2476167f094e7566417a11883fd9e22220e5d1edfdb9fa7de682439e865a3",
+          "dweb:/ipfs/QmZ4XDrnTrnsxmG2QJiqMRhqWvo1xRAM4RjTwbGDCaL9LM"
+        ],
+        "license": "MIT"
+      },
+      "lib/core/contracts/interfaces/ILensHub.sol": {
+        "keccak256": "0x789b8bad742032bb7d9f5499aec3f6f899f5265e26aa4b38cadaef5d9fcb0ec3",
+        "urls": [
+          "bzz-raw://ad9f5434eff3128db6a51209b803375d630fac04df6c282ff2623045b23f34d0",
+          "dweb:/ipfs/QmSzGyRhvL8vWfVfDC6PgEzdcEf6NaBUt9y2tmVcYyzmvZ"
+        ],
+        "license": "MIT"
+      },
+      "lib/core/contracts/libraries/DataTypes.sol": {
+        "keccak256": "0xd30c16c967482000c605b8ba9db23c061fdb5ce4dd1a90ec40d9b249290dbee4",
+        "urls": [
+          "bzz-raw://1bb544ffaf7527d79f0a92b1ae864ee1e515776ede71002962d5abd55a9c338b",
+          "dweb:/ipfs/QmVmUsEvkZ2aQHnWGzzhxGCHpAPzhjDBNqQwxDpsG51Wq9"
+        ],
+        "license": "MIT"
+      },
+      "lib/core/contracts/libraries/Errors.sol": {
+        "keccak256": "0x9e826415bf004ef0fa11981171bf9d232a47993eed8412905106fabe4edecff4",
+        "urls": [
+          "bzz-raw://1f79bd3e87216857815be12b2b8c7ba3c0bf214a35622030a2631519c50ccc81",
+          "dweb:/ipfs/QmTYCBFmQqrPNeGBQLwZvcB5hd3vQXNctVsANDsSiqV2ja"
+        ],
+        "license": "MIT"
+      },
+      "lib/core/contracts/libraries/Events.sol": {
+        "keccak256": "0x01169d2dbfe115a42915a85b6471064dd77cb164b8cb7ecc4110299633dba7a3",
+        "urls": [
+          "bzz-raw://0fde2ce09990d9c3569efe62ffe089ed97b5d39c4b631c47a44154141deea2ff",
+          "dweb:/ipfs/QmPwBXUPzUNYU1ZsVzb4Gv467iANPQwegGxouiEPvzDAwT"
+        ],
+        "license": "MIT"
+      },
+      "lib/openzeppelin-contracts/contracts/token/ERC721/IERC721.sol": {
+        "keccak256": "0x086fbe904291497e1532ef340f1bd589078f49e3d4d0bbfd88f5e02fb89261eb",
+        "urls": [
+          "bzz-raw://0df1e3e965b78a0d98dda2d1d6a6acde88f515b1d3a9ad02f505e93fa7babeda",
+          "dweb:/ipfs/QmW4cSbGriRAj7XRZu6zSaqspe4eyYWkF7WfJbj3rmmLbk"
+        ],
+        "license": "MIT"
+      },
+      "lib/openzeppelin-contracts/contracts/utils/introspection/IERC165.sol": {
+        "keccak256": "0x447a5f3ddc18419d41ff92b3773fb86471b1db25773e07f877f548918a185bf1",
+        "urls": [
+          "bzz-raw://be161e54f24e5c6fae81a12db1a8ae87bc5ae1b0ddc805d82a1440a68455088f",
+          "dweb:/ipfs/QmP7C3CHdY9urF4dEMb9wmsp1wMxHF6nhA2yQE5SKiPAdy"
+        ],
+        "license": "MIT"
+      }
+    },
+    "version": 1
+  },
+  "ast": {
+    "absolutePath": "lib/core/contracts/core/modules/collect/FreeCollectModule.sol",
+    "id": 6427,
+    "exportedSymbols": {
+      "FollowValidationModuleBase": [
+        5472
+      ],
+      "FreeCollectModule": [
+        6426
+      ],
+      "ICollectModule": [
+        9218
+      ],
+      "ModuleBase": [
+        5526
+      ]
+    },
+    "nodeType": "SourceUnit",
+    "src": "33:1531:13",
+    "nodes": [
+      {
+        "id": 6334,
+        "nodeType": "PragmaDirective",
+        "src": "33:23:13",
+        "nodes": [],
+        "literals": [
+          "solidity",
+          "0.8",
+          ".10"
+        ]
+      },
+      {
+        "id": 6336,
+        "nodeType": "ImportDirective",
+        "src": "58:70:13",
+        "nodes": [],
+        "absolutePath": "lib/core/contracts/interfaces/ICollectModule.sol",
+        "file": "../../../interfaces/ICollectModule.sol",
+        "nameLocation": "-1:-1:-1",
+        "scope": 6427,
+        "sourceUnit": 9219,
+        "symbolAliases": [
+          {
+            "foreign": {
+              "id": 6335,
+              "name": "ICollectModule",
+              "nodeType": "Identifier",
+              "overloadedDeclarations": [],
+              "src": "66:14:13",
+              "typeDescriptions": {}
+            },
+            "nameLocation": "-1:-1:-1"
+          }
+        ],
+        "unitAlias": ""
+      },
+      {
+        "id": 6338,
+        "nodeType": "ImportDirective",
+        "src": "129:45:13",
+        "nodes": [],
+        "absolutePath": "lib/core/contracts/core/modules/ModuleBase.sol",
+        "file": "../ModuleBase.sol",
+        "nameLocation": "-1:-1:-1",
+        "scope": 6427,
+        "sourceUnit": 5527,
+        "symbolAliases": [
+          {
+            "foreign": {
+              "id": 6337,
+              "name": "ModuleBase",
+              "nodeType": "Identifier",
+              "overloadedDeclarations": [],
+              "src": "137:10:13",
+              "typeDescriptions": {}
+            },
+            "nameLocation": "-1:-1:-1"
+          }
+        ],
+        "unitAlias": ""
+      },
+      {
+        "id": 6340,
+        "nodeType": "ImportDirective",
+        "src": "175:77:13",
+        "nodes": [],
+        "absolutePath": "lib/core/contracts/core/modules/FollowValidationModuleBase.sol",
+        "file": "../FollowValidationModuleBase.sol",
+        "nameLocation": "-1:-1:-1",
+        "scope": 6427,
+        "sourceUnit": 5473,
+        "symbolAliases": [
+          {
+            "foreign": {
+              "id": 6339,
+              "name": "FollowValidationModuleBase",
+              "nodeType": "Identifier",
+              "overloadedDeclarations": [],
+              "src": "183:26:13",
+              "typeDescriptions": {}
+            },
+            "nameLocation": "-1:-1:-1"
+          }
+        ],
+        "unitAlias": ""
+      },
+      {
+        "id": 6426,
+        "nodeType": "ContractDefinition",
+        "src": "477:1086:13",
+        "nodes": [
+          {
+            "id": 6354,
+            "nodeType": "FunctionDefinition",
+            "src": "556:43:13",
+            "nodes": [],
+            "body": {
+              "id": 6353,
+              "nodeType": "Block",
+              "src": "597:2:13",
+              "nodes": [],
+              "statements": []
+            },
+            "implemented": true,
+            "kind": "constructor",
+            "modifiers": [
+              {
+                "arguments": [
+                  {
+                    "id": 6350,
+                    "name": "hub",
+                    "nodeType": "Identifier",
+                    "overloadedDeclarations": [],
+                    "referencedDeclaration": 6347,
+                    "src": "592:3:13",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_address",
+                      "typeString": "address"
+                    }
+                  }
+                ],
+                "id": 6351,
+                "kind": "baseConstructorSpecifier",
+                "modifierName": {
+                  "id": 6349,
+                  "name": "ModuleBase",
+                  "nodeType": "IdentifierPath",
+                  "referencedDeclaration": 5526,
+                  "src": "581:10:13"
+                },
+                "nodeType": "ModifierInvocation",
+                "src": "581:15:13"
+              }
+            ],
+            "name": "",
+            "nameLocation": "-1:-1:-1",
+            "parameters": {
+              "id": 6348,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 6347,
+                  "mutability": "mutable",
+                  "name": "hub",
+                  "nameLocation": "576:3:13",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 6354,
+                  "src": "568:11:13",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  },
+                  "typeName": {
+                    "id": 6346,
+                    "name": "address",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "568:7:13",
+                    "stateMutability": "nonpayable",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_address",
+                      "typeString": "address"
+                    }
+                  },
+                  "visibility": "internal"
+                }
+              ],
+              "src": "567:13:13"
+            },
+            "returnParameters": {
+              "id": 6352,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "597:0:13"
+            },
+            "scope": 6426,
+            "stateMutability": "nonpayable",
+            "virtual": false,
+            "visibility": "public"
+          },
+          {
+            "id": 6360,
+            "nodeType": "VariableDeclaration",
+            "src": "605:89:13",
+            "nodes": [],
+            "constant": false,
+            "mutability": "mutable",
+            "name": "_followerOnlyByPublicationByProfile",
+            "nameLocation": "659:35:13",
+            "scope": 6426,
+            "stateVariable": true,
+            "storageLocation": "default",
+            "typeDescriptions": {
+              "typeIdentifier": "t_mapping$_t_uint256_$_t_mapping$_t_uint256_$_t_bool_$_$",
+              "typeString": "mapping(uint256 => mapping(uint256 => bool))"
+            },
+            "typeName": {
+              "id": 6359,
+              "keyType": {
+                "id": 6355,
+                "name": "uint256",
+                "nodeType": "ElementaryTypeName",
+                "src": "613:7:13",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_uint256",
+                  "typeString": "uint256"
+                }
+              },
+              "nodeType": "Mapping",
+              "src": "605:44:13",
+              "typeDescriptions": {
+                "typeIdentifier": "t_mapping$_t_uint256_$_t_mapping$_t_uint256_$_t_bool_$_$",
+                "typeString": "mapping(uint256 => mapping(uint256 => bool))"
+              },
+              "valueType": {
+                "id": 6358,
+                "keyType": {
+                  "id": 6356,
+                  "name": "uint256",
+                  "nodeType": "ElementaryTypeName",
+                  "src": "632:7:13",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  }
+                },
+                "nodeType": "Mapping",
+                "src": "624:24:13",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_mapping$_t_uint256_$_t_bool_$",
+                  "typeString": "mapping(uint256 => bool)"
+                },
+                "valueType": {
+                  "id": 6357,
+                  "name": "bool",
+                  "nodeType": "ElementaryTypeName",
+                  "src": "643:4:13",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_bool",
+                    "typeString": "bool"
+                  }
+                }
+              }
+            },
+            "visibility": "internal"
+          },
+          {
+            "id": 6398,
+            "nodeType": "FunctionDefinition",
+            "src": "772:348:13",
+            "nodes": [],
+            "body": {
+              "id": 6397,
+              "nodeType": "Block",
+              "src": "950:170:13",
+              "nodes": [],
+              "statements": [
+                {
+                  "assignments": [
+                    6376
+                  ],
+                  "declarations": [
+                    {
+                      "constant": false,
+                      "id": 6376,
+                      "mutability": "mutable",
+                      "name": "followerOnly",
+                      "nameLocation": "965:12:13",
+                      "nodeType": "VariableDeclaration",
+                      "scope": 6397,
+                      "src": "960:17:13",
+                      "stateVariable": false,
+                      "storageLocation": "default",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_bool",
+                        "typeString": "bool"
+                      },
+                      "typeName": {
+                        "id": 6375,
+                        "name": "bool",
+                        "nodeType": "ElementaryTypeName",
+                        "src": "960:4:13",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_bool",
+                          "typeString": "bool"
+                        }
+                      },
+                      "visibility": "internal"
+                    }
+                  ],
+                  "id": 6384,
+                  "initialValue": {
+                    "arguments": [
+                      {
+                        "id": 6379,
+                        "name": "data",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 6367,
+                        "src": "991:4:13",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_bytes_calldata_ptr",
+                          "typeString": "bytes calldata"
+                        }
+                      },
+                      {
+                        "components": [
+                          {
+                            "id": 6381,
+                            "isConstant": false,
+                            "isLValue": false,
+                            "isPure": true,
+                            "lValueRequested": false,
+                            "nodeType": "ElementaryTypeNameExpression",
+                            "src": "998:4:13",
+                            "typeDescriptions": {
+                              "typeIdentifier": "t_type$_t_bool_$",
+                              "typeString": "type(bool)"
+                            },
+                            "typeName": {
+                              "id": 6380,
+                              "name": "bool",
+                              "nodeType": "ElementaryTypeName",
+                              "src": "998:4:13",
+                              "typeDescriptions": {}
+                            }
+                          }
+                        ],
+                        "id": 6382,
+                        "isConstant": false,
+                        "isInlineArray": false,
+                        "isLValue": false,
+                        "isPure": true,
+                        "lValueRequested": false,
+                        "nodeType": "TupleExpression",
+                        "src": "997:6:13",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_type$_t_bool_$",
+                          "typeString": "type(bool)"
+                        }
+                      }
+                    ],
+                    "expression": {
+                      "argumentTypes": [
+                        {
+                          "typeIdentifier": "t_bytes_calldata_ptr",
+                          "typeString": "bytes calldata"
+                        },
+                        {
+                          "typeIdentifier": "t_type$_t_bool_$",
+                          "typeString": "type(bool)"
+                        }
+                      ],
+                      "expression": {
+                        "id": 6377,
+                        "name": "abi",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": -1,
+                        "src": "980:3:13",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_magic_abi",
+                          "typeString": "abi"
+                        }
+                      },
+                      "id": 6378,
+                      "isConstant": false,
+                      "isLValue": false,
+                      "isPure": true,
+                      "lValueRequested": false,
+                      "memberName": "decode",
+                      "nodeType": "MemberAccess",
+                      "src": "980:10:13",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_function_abidecode_pure$__$returns$__$",
+                        "typeString": "function () pure"
+                      }
+                    },
+                    "id": 6383,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "kind": "functionCall",
+                    "lValueRequested": false,
+                    "names": [],
+                    "nodeType": "FunctionCall",
+                    "src": "980:24:13",
+                    "tryCall": false,
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bool",
+                      "typeString": "bool"
+                    }
+                  },
+                  "nodeType": "VariableDeclarationStatement",
+                  "src": "960:44:13"
+                },
+                {
+                  "condition": {
+                    "id": 6385,
+                    "name": "followerOnly",
+                    "nodeType": "Identifier",
+                    "overloadedDeclarations": [],
+                    "referencedDeclaration": 6376,
+                    "src": "1018:12:13",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bool",
+                      "typeString": "bool"
+                    }
+                  },
+                  "id": 6394,
+                  "nodeType": "IfStatement",
+                  "src": "1014:78:13",
+                  "trueBody": {
+                    "expression": {
+                      "id": 6392,
+                      "isConstant": false,
+                      "isLValue": false,
+                      "isPure": false,
+                      "lValueRequested": false,
+                      "leftHandSide": {
+                        "baseExpression": {
+                          "baseExpression": {
+                            "id": 6386,
+                            "name": "_followerOnlyByPublicationByProfile",
+                            "nodeType": "Identifier",
+                            "overloadedDeclarations": [],
+                            "referencedDeclaration": 6360,
+                            "src": "1032:35:13",
+                            "typeDescriptions": {
+                              "typeIdentifier": "t_mapping$_t_uint256_$_t_mapping$_t_uint256_$_t_bool_$_$",
+                              "typeString": "mapping(uint256 => mapping(uint256 => bool))"
+                            }
+                          },
+                          "id": 6389,
+                          "indexExpression": {
+                            "id": 6387,
+                            "name": "profileId",
+                            "nodeType": "Identifier",
+                            "overloadedDeclarations": [],
+                            "referencedDeclaration": 6363,
+                            "src": "1068:9:13",
+                            "typeDescriptions": {
+                              "typeIdentifier": "t_uint256",
+                              "typeString": "uint256"
+                            }
+                          },
+                          "isConstant": false,
+                          "isLValue": true,
+                          "isPure": false,
+                          "lValueRequested": false,
+                          "nodeType": "IndexAccess",
+                          "src": "1032:46:13",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_mapping$_t_uint256_$_t_bool_$",
+                            "typeString": "mapping(uint256 => bool)"
+                          }
+                        },
+                        "id": 6390,
+                        "indexExpression": {
+                          "id": 6388,
+                          "name": "pubId",
+                          "nodeType": "Identifier",
+                          "overloadedDeclarations": [],
+                          "referencedDeclaration": 6365,
+                          "src": "1079:5:13",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_uint256",
+                            "typeString": "uint256"
+                          }
+                        },
+                        "isConstant": false,
+                        "isLValue": true,
+                        "isPure": false,
+                        "lValueRequested": true,
+                        "nodeType": "IndexAccess",
+                        "src": "1032:53:13",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_bool",
+                          "typeString": "bool"
+                        }
+                      },
+                      "nodeType": "Assignment",
+                      "operator": "=",
+                      "rightHandSide": {
+                        "hexValue": "74727565",
+                        "id": 6391,
+                        "isConstant": false,
+                        "isLValue": false,
+                        "isPure": true,
+                        "kind": "bool",
+                        "lValueRequested": false,
+                        "nodeType": "Literal",
+                        "src": "1088:4:13",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_bool",
+                          "typeString": "bool"
+                        },
+                        "value": "true"
+                      },
+                      "src": "1032:60:13",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_bool",
+                        "typeString": "bool"
+                      }
+                    },
+                    "id": 6393,
+                    "nodeType": "ExpressionStatement",
+                    "src": "1032:60:13"
+                  }
+                },
+                {
+                  "expression": {
+                    "id": 6395,
+                    "name": "data",
+                    "nodeType": "Identifier",
+                    "overloadedDeclarations": [],
+                    "referencedDeclaration": 6367,
+                    "src": "1109:4:13",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bytes_calldata_ptr",
+                      "typeString": "bytes calldata"
+                    }
+                  },
+                  "functionReturnParameters": 6374,
+                  "id": 6396,
+                  "nodeType": "Return",
+                  "src": "1102:11:13"
+                }
+              ]
+            },
+            "baseFunctions": [
+              9203
+            ],
+            "documentation": {
+              "id": 6361,
+              "nodeType": "StructuredDocumentation",
+              "src": "701:66:13",
+              "text": " @dev There is nothing needed at initialization."
+            },
+            "functionSelector": "c233f951",
+            "implemented": true,
+            "kind": "function",
+            "modifiers": [
+              {
+                "id": 6371,
+                "kind": "modifierInvocation",
+                "modifierName": {
+                  "id": 6370,
+                  "name": "onlyHub",
+                  "nodeType": "IdentifierPath",
+                  "referencedDeclaration": 5495,
+                  "src": "919:7:13"
+                },
+                "nodeType": "ModifierInvocation",
+                "src": "919:7:13"
+              }
+            ],
+            "name": "initializePublicationCollectModule",
+            "nameLocation": "781:34:13",
+            "overrides": {
+              "id": 6369,
+              "nodeType": "OverrideSpecifier",
+              "overrides": [],
+              "src": "910:8:13"
+            },
+            "parameters": {
+              "id": 6368,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 6363,
+                  "mutability": "mutable",
+                  "name": "profileId",
+                  "nameLocation": "833:9:13",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 6398,
+                  "src": "825:17:13",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  },
+                  "typeName": {
+                    "id": 6362,
+                    "name": "uint256",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "825:7:13",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 6365,
+                  "mutability": "mutable",
+                  "name": "pubId",
+                  "nameLocation": "860:5:13",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 6398,
+                  "src": "852:13:13",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  },
+                  "typeName": {
+                    "id": 6364,
+                    "name": "uint256",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "852:7:13",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 6367,
+                  "mutability": "mutable",
+                  "name": "data",
+                  "nameLocation": "890:4:13",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 6398,
+                  "src": "875:19:13",
+                  "stateVariable": false,
+                  "storageLocation": "calldata",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_bytes_calldata_ptr",
+                    "typeString": "bytes"
+                  },
+                  "typeName": {
+                    "id": 6366,
+                    "name": "bytes",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "875:5:13",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bytes_storage_ptr",
+                      "typeString": "bytes"
+                    }
+                  },
+                  "visibility": "internal"
+                }
+              ],
+              "src": "815:85:13"
+            },
+            "returnParameters": {
+              "id": 6374,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 6373,
+                  "mutability": "mutable",
+                  "name": "",
+                  "nameLocation": "-1:-1:-1",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 6398,
+                  "src": "936:12:13",
+                  "stateVariable": false,
+                  "storageLocation": "memory",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_bytes_memory_ptr",
+                    "typeString": "bytes"
+                  },
+                  "typeName": {
+                    "id": 6372,
+                    "name": "bytes",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "936:5:13",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bytes_storage_ptr",
+                      "typeString": "bytes"
+                    }
+                  },
+                  "visibility": "internal"
+                }
+              ],
+              "src": "935:14:13"
+            },
+            "scope": 6426,
+            "stateMutability": "nonpayable",
+            "virtual": false,
+            "visibility": "external"
+          },
+          {
+            "id": 6425,
+            "nodeType": "FunctionDefinition",
+            "src": "1237:324:13",
+            "nodes": [],
+            "body": {
+              "id": 6424,
+              "nodeType": "Block",
+              "src": "1431:130:13",
+              "nodes": [],
+              "statements": [
+                {
+                  "condition": {
+                    "baseExpression": {
+                      "baseExpression": {
+                        "id": 6413,
+                        "name": "_followerOnlyByPublicationByProfile",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 6360,
+                        "src": "1445:35:13",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_mapping$_t_uint256_$_t_mapping$_t_uint256_$_t_bool_$_$",
+                          "typeString": "mapping(uint256 => mapping(uint256 => bool))"
+                        }
+                      },
+                      "id": 6415,
+                      "indexExpression": {
+                        "id": 6414,
+                        "name": "profileId",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 6405,
+                        "src": "1481:9:13",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_uint256",
+                          "typeString": "uint256"
+                        }
+                      },
+                      "isConstant": false,
+                      "isLValue": true,
+                      "isPure": false,
+                      "lValueRequested": false,
+                      "nodeType": "IndexAccess",
+                      "src": "1445:46:13",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_mapping$_t_uint256_$_t_bool_$",
+                        "typeString": "mapping(uint256 => bool)"
+                      }
+                    },
+                    "id": 6417,
+                    "indexExpression": {
+                      "id": 6416,
+                      "name": "pubId",
+                      "nodeType": "Identifier",
+                      "overloadedDeclarations": [],
+                      "referencedDeclaration": 6407,
+                      "src": "1492:5:13",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_uint256",
+                        "typeString": "uint256"
+                      }
+                    },
+                    "isConstant": false,
+                    "isLValue": true,
+                    "isPure": false,
+                    "lValueRequested": false,
+                    "nodeType": "IndexAccess",
+                    "src": "1445:53:13",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bool",
+                      "typeString": "bool"
+                    }
+                  },
+                  "id": 6423,
+                  "nodeType": "IfStatement",
+                  "src": "1441:113:13",
+                  "trueBody": {
+                    "expression": {
+                      "arguments": [
+                        {
+                          "id": 6419,
+                          "name": "profileId",
+                          "nodeType": "Identifier",
+                          "overloadedDeclarations": [],
+                          "referencedDeclaration": 6405,
+                          "src": "1533:9:13",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_uint256",
+                            "typeString": "uint256"
+                          }
+                        },
+                        {
+                          "id": 6420,
+                          "name": "collector",
+                          "nodeType": "Identifier",
+                          "overloadedDeclarations": [],
+                          "referencedDeclaration": 6403,
+                          "src": "1544:9:13",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_address",
+                            "typeString": "address"
+                          }
+                        }
+                      ],
+                      "expression": {
+                        "argumentTypes": [
+                          {
+                            "typeIdentifier": "t_uint256",
+                            "typeString": "uint256"
+                          },
+                          {
+                            "typeIdentifier": "t_address",
+                            "typeString": "address"
+                          }
+                        ],
+                        "id": 6418,
+                        "name": "_checkFollowValidity",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 5471,
+                        "src": "1512:20:13",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_function_internal_view$_t_uint256_$_t_address_$returns$__$",
+                          "typeString": "function (uint256,address) view"
+                        }
+                      },
+                      "id": 6421,
+                      "isConstant": false,
+                      "isLValue": false,
+                      "isPure": false,
+                      "kind": "functionCall",
+                      "lValueRequested": false,
+                      "names": [],
+                      "nodeType": "FunctionCall",
+                      "src": "1512:42:13",
+                      "tryCall": false,
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_tuple$__$",
+                        "typeString": "tuple()"
+                      }
+                    },
+                    "id": 6422,
+                    "nodeType": "ExpressionStatement",
+                    "src": "1512:42:13"
+                  }
+                }
+              ]
+            },
+            "baseFunctions": [
+              9217
+            ],
+            "documentation": {
+              "id": 6399,
+              "nodeType": "StructuredDocumentation",
+              "src": "1126:106:13",
+              "text": " @dev Processes a collect by:\n  1. Ensuring the collector is a follower, if needed"
+            },
+            "functionSelector": "e49c3dda",
+            "implemented": true,
+            "kind": "function",
+            "modifiers": [],
+            "name": "processCollect",
+            "nameLocation": "1246:14:13",
+            "overrides": {
+              "id": 6411,
+              "nodeType": "OverrideSpecifier",
+              "overrides": [],
+              "src": "1422:8:13"
+            },
+            "parameters": {
+              "id": 6410,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 6401,
+                  "mutability": "mutable",
+                  "name": "referrerProfileId",
+                  "nameLocation": "1278:17:13",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 6425,
+                  "src": "1270:25:13",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  },
+                  "typeName": {
+                    "id": 6400,
+                    "name": "uint256",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "1270:7:13",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 6403,
+                  "mutability": "mutable",
+                  "name": "collector",
+                  "nameLocation": "1313:9:13",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 6425,
+                  "src": "1305:17:13",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  },
+                  "typeName": {
+                    "id": 6402,
+                    "name": "address",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "1305:7:13",
+                    "stateMutability": "nonpayable",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_address",
+                      "typeString": "address"
+                    }
+                  },
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 6405,
+                  "mutability": "mutable",
+                  "name": "profileId",
+                  "nameLocation": "1340:9:13",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 6425,
+                  "src": "1332:17:13",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  },
+                  "typeName": {
+                    "id": 6404,
+                    "name": "uint256",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "1332:7:13",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 6407,
+                  "mutability": "mutable",
+                  "name": "pubId",
+                  "nameLocation": "1367:5:13",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 6425,
+                  "src": "1359:13:13",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  },
+                  "typeName": {
+                    "id": 6406,
+                    "name": "uint256",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "1359:7:13",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 6409,
+                  "mutability": "mutable",
+                  "name": "data",
+                  "nameLocation": "1397:4:13",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 6425,
+                  "src": "1382:19:13",
+                  "stateVariable": false,
+                  "storageLocation": "calldata",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_bytes_calldata_ptr",
+                    "typeString": "bytes"
+                  },
+                  "typeName": {
+                    "id": 6408,
+                    "name": "bytes",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "1382:5:13",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bytes_storage_ptr",
+                      "typeString": "bytes"
+                    }
+                  },
+                  "visibility": "internal"
+                }
+              ],
+              "src": "1260:147:13"
+            },
+            "returnParameters": {
+              "id": 6412,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "1431:0:13"
+            },
+            "scope": 6426,
+            "stateMutability": "view",
+            "virtual": false,
+            "visibility": "external"
+          }
+        ],
+        "abstract": false,
+        "baseContracts": [
+          {
+            "baseName": {
+              "id": 6342,
+              "name": "FollowValidationModuleBase",
+              "nodeType": "IdentifierPath",
+              "referencedDeclaration": 5472,
+              "src": "507:26:13"
+            },
+            "id": 6343,
+            "nodeType": "InheritanceSpecifier",
+            "src": "507:26:13"
+          },
+          {
+            "baseName": {
+              "id": 6344,
+              "name": "ICollectModule",
+              "nodeType": "IdentifierPath",
+              "referencedDeclaration": 9218,
+              "src": "535:14:13"
+            },
+            "id": 6345,
+            "nodeType": "InheritanceSpecifier",
+            "src": "535:14:13"
+          }
+        ],
+        "canonicalName": "FreeCollectModule",
+        "contractDependencies": [],
+        "contractKind": "contract",
+        "documentation": {
+          "id": 6341,
+          "nodeType": "StructuredDocumentation",
+          "src": "254:222:13",
+          "text": " @title FreeCollectModule\n @author Lens Protocol\n @notice This is a simple Lens CollectModule implementation, inheriting from the ICollectModule interface.\n This module works by allowing all collects."
+        },
+        "fullyImplemented": true,
+        "linearizedBaseContracts": [
+          6426,
+          9218,
+          5472,
+          5526
+        ],
+        "name": "FreeCollectModule",
+        "nameLocation": "486:17:13",
+        "scope": 6427,
+        "usedErrors": [
+          10263,
+          10315,
+          10319
+        ]
+      }
+    ],
+    "license": "MIT"
+  },
+  "id": 13
+}
