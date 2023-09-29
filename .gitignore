@@ -1,0 +1,16 @@
+# Compiler files
+cache/
+out/
+
+# Ignores development broadcast logs
+/broadcast
+
+# Dotenv file
+.env
+
+# sdk
+node_modules
+pnpm-lock.yaml
+dist
+
+.DS_Store
