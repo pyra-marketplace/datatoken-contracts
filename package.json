@@ -1,0 +1,17 @@
+{
+  "name": "dataverse-contracts",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "build": "forge build",
+    "test": "forge test",
+    "lint": "solhint contracts/**/*.sol"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "solhint": "^3.6.2"
+  }
+}

@@ -5,12 +5,12 @@ import {DataTypes} from "cybercontracts/src/libraries/DataTypes.sol";
 import {TestLib712} from "cybercontracts/test/utils/TestLib712.sol";
 import {Constants} from "cybercontracts/src/libraries/Constants.sol";
 
-import {CyberDataToken} from "../../src/core/cyber/CyberDataToken.sol";
-import {CyberDataTokenFactory} from "../../src/core/cyber/CyberDataTokenFactory.sol";
-import {DataTokenHub} from "../../src/DataTokenHub.sol";
-import {CurrencyMock} from "../../src/mocks/CurrencyMock.sol";
-import {DataTypes as DataTokenDataTypes} from "../../src/libraries/DataTypes.sol";
-import {IDataToken} from "../../src/interfaces/IDataToken.sol";
+import {CyberDataToken} from "../../contracts/core/cyber/CyberDataToken.sol";
+import {CyberDataTokenFactory} from "../../contracts/core/cyber/CyberDataTokenFactory.sol";
+import {DataTokenHub} from "../../contracts/DataTokenHub.sol";
+import {CurrencyMock} from "../../contracts/mocks/CurrencyMock.sol";
+import {DataTypes as DataTokenDataTypes} from "../../contracts/libraries/DataTypes.sol";
+import {IDataToken} from "../../contracts/interfaces/IDataToken.sol";
 
 import {CyberBaseTest} from "./Base.t.sol";
 

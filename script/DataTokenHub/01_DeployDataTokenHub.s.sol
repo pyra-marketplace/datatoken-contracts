@@ -2,8 +2,8 @@
 pragma solidity ^0.8.10;
 
 import "forge-std/Script.sol";
-import {ERC1967Proxy} from "../../src/upgradeability/ERC1967Proxy.sol";
-import {DataTokenHub} from "../../src/DataTokenHub.sol";
+import {ERC1967Proxy} from "../../contracts/upgradeability/ERC1967Proxy.sol";
+import {DataTokenHub} from "../../contracts/DataTokenHub.sol";
 import {Config} from "../Config.sol";
 
 contract DeployDataTokenHub is Script, Config {

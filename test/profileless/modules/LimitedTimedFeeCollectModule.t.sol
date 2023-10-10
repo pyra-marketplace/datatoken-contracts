@@ -4,12 +4,12 @@ pragma solidity ^0.8.10;
 import {
     LimitedTimedFeeCollectModule,
     ProfilePublicationData
-} from "../../../src/core/profileless/modules/LimitedTimedFeeCollectModule.sol";
-import {ProfilelessDataToken} from "../../../src/core/profileless/ProfilelessDataToken.sol";
+} from "../../../contracts/core/profileless/modules/LimitedTimedFeeCollectModule.sol";
+import {ProfilelessDataToken} from "../../../contracts/core/profileless/ProfilelessDataToken.sol";
 import {ProfilelessCollectModuleBaseTest} from "./Base.t.sol";
-import {DataTypes} from "../../../src/libraries/DataTypes.sol";
-import {Constants} from "../../../src/libraries/Constants.sol";
-import {Errors} from "../../../src/libraries/Errors.sol";
+import {DataTypes} from "../../../contracts/libraries/DataTypes.sol";
+import {Constants} from "../../../contracts/libraries/Constants.sol";
+import {Errors} from "../../../contracts/libraries/Errors.sol";
 
 contract LimitedTimedFeeCollectModuleTest is ProfilelessCollectModuleBaseTest {
     uint40 constant ONE_DAY = 24 hours;

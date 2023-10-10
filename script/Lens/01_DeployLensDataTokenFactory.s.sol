@@ -2,7 +2,7 @@
 pragma solidity ^0.8.10;
 
 import "forge-std/Script.sol";
-import {LensDataTokenFactory} from "../../src/core/lens/LensDataTokenFactory.sol";
+import {LensDataTokenFactory} from "../../contracts/core/lens/LensDataTokenFactory.sol";
 import {Config} from "../Config.sol";
 
 contract DeployLensDataTokenFactory is Script, Config {
