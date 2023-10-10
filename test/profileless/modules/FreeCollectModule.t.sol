@@ -1,7 +1,10 @@
 // SPDX-License-Identifier: AGPL-3.0-or-later
 pragma solidity ^0.8.10;
 
-import {FreeCollectModule, ProfilePublicationData} from "../../../contracts/core/profileless/modules/FreeCollectModule.sol";
+import {
+    FreeCollectModule,
+    ProfilePublicationData
+} from "../../../contracts/core/profileless/modules/FreeCollectModule.sol";
 import {ProfilelessDataToken} from "../../../contracts/core/profileless/ProfilelessDataToken.sol";
 import {ProfilelessCollectModuleBaseTest} from "./Base.t.sol";
 import {DataTypes} from "../../../contracts/libraries/DataTypes.sol";

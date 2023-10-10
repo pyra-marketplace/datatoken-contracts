@@ -6,6 +6,7 @@
   "scripts": {
     "build": "forge build",
     "test": "forge test",
+    "format": "forge fmt",
     "lint": "solhint contracts/**/*.sol"
   },
   "keywords": [],

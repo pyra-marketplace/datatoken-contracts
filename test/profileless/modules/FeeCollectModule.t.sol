@@ -2,7 +2,9 @@
 pragma solidity ^0.8.10;
 
 import {ProfilelessCollectModuleBaseTest} from "./Base.t.sol";
-import {FeeCollectModule, ProfilePublicationData} from "../../../contracts/core/profileless/modules/FeeCollectModule.sol";
+import {
+    FeeCollectModule, ProfilePublicationData
+} from "../../../contracts/core/profileless/modules/FeeCollectModule.sol";
 import {ProfilelessDataToken} from "../../../contracts/core/profileless/ProfilelessDataToken.sol";
 import {DataTypes} from "../../../contracts/libraries/DataTypes.sol";
 
