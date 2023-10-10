@@ -15,7 +15,7 @@ import {Events} from "../../libraries/Events.sol";
 contract ProfilelessDataTokenFactory is Ownable, ProfilelessDataTokenFactoryBase, SigBase, IDataTokenFactory {
     address internal immutable DATA_TOKEN_HUB;
 
-    constructor(address dataTokenHub) SigBase("ProfilelessDataTokenFactory", "1.0") {
+    constructor(address dataTokenHub) SigBase("Profileless DataTokenFactory", "1") {
         DATA_TOKEN_HUB = dataTokenHub;
     }
 
