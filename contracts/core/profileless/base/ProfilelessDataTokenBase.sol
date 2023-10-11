@@ -16,7 +16,7 @@ abstract contract ProfilelessDataTokenBase is ERC721, DataTokenBase {
     uint256 internal _royaltyRate;
 
     constructor(address dataTokenHub, string memory contentURI, DataTypes.Metadata memory metadata)
-        ERC721("DataToken-AccessToken", "DTAT")
+        ERC721("Profileless Collection NFT", "PCN")
         DataTokenBase(dataTokenHub, contentURI, metadata)
     {}
 

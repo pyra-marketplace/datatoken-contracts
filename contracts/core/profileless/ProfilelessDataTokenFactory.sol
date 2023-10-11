@@ -4,7 +4,6 @@ pragma solidity ^0.8.10;
 import {Ownable} from "openzeppelin-contracts/contracts/access/Ownable.sol";
 import {ProfilelessDataTokenFactoryBase} from "./base/ProfilelessDataTokenFactoryBase.sol";
 import {ProfilelessDataToken} from "./ProfilelessDataToken.sol";
-import {SigBase} from "./base/SigBase.sol";
 import {IDataTokenModule} from "./interface/IDataTokenModule.sol";
 import {IDataTokenFactory} from "../../interfaces/IDataTokenFactory.sol";
 import {IDataTokenHub} from "../../interfaces/IDataTokenHub.sol";
@@ -12,10 +11,10 @@ import {DataTypes} from "../../libraries/DataTypes.sol";
 import {Errors} from "../../libraries/Errors.sol";
 import {Events} from "../../libraries/Events.sol";
 
-contract ProfilelessDataTokenFactory is Ownable, ProfilelessDataTokenFactoryBase, SigBase, IDataTokenFactory {
+contract ProfilelessDataTokenFactory is Ownable, ProfilelessDataTokenFactoryBase, IDataTokenFactory {
     address internal immutable DATA_TOKEN_HUB;
 
-    constructor(address dataTokenHub) SigBase("Profileless DataTokenFactory", "1") {
+    constructor(address dataTokenHub) {
         DATA_TOKEN_HUB = dataTokenHub;
     }
 

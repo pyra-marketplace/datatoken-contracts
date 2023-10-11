@@ -11,7 +11,7 @@ import {Test} from "forge-std/Test.sol";
 contract ProfilelessDataTokenFactoryTest is Test {
     bytes32 public constant CREATE_DATA_TOKEN_WITH_SIG_TYPEHASH = keccak256(
         bytes(
-            "CreateDataTokenWithSig(string contentURI,address collectModule,bytes collectModuleInitData,uint256 nonce,uin256 deadline)"
+            "CreateDataTokenWithSig(string contentURI,address collectModule,bytes collectModuleInitData,uint256 nonce,uint256 deadline)"
         )
     );
 
