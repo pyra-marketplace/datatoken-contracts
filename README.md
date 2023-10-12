@@ -92,12 +92,12 @@ const DeployedContracts = {
     },
     Cyber: {},
     Profileless: {
-      DataTokenFactory: "0xEB68ebEfA0AF4f7aa75ED2279e713766f310040e",
+      DataTokenFactory: "0x183aeB3F3f88c2d6f615e844bB4938249A57D9c4",
 
-      FeeCollectModule: "0xaF3b795bDEd331a88933a5fDAF8FDBEC8A913622",
-      FreeCollectModule: "0x94C8A2778C3c320F8B95f093b142B4603abfCC3D",
+      FeeCollectModule: "0xC4F8392196FFbaf8eb5Abce8656288D0C3421ec7",
+      FreeCollectModule: "0x907b737e88AC5eBF3032Df4E106F2579688161A3",
       LimitedTimedFeeCollectModule:
-        "0x390871167C8E3E1fbB75DaC34c532B8456F58571",
+        "0x5d2B41c42e858D1F756A3CCF663d8e526076c129",
     },
   },
   BSCT: {

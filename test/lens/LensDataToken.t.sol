@@ -1,18 +1,18 @@
-// SPDX-License-Identifier: AGPL-3.0-or-later
+// SPDX-License-Identifier: MIT
 pragma solidity ^0.8.10;
 
 import {LensHub} from "lens-core/contracts/core/LensHub.sol";
 import {FreeCollectModule} from "lens-core/contracts/core/modules/collect/FreeCollectModule.sol";
 import {DataTypes as LensTypes} from "lens-core/contracts/libraries/DataTypes.sol";
-import {DataTokenHub} from "../../src/DataTokenHub.sol";
-import {LensDataTokenFactory} from "../../src/core/lens/LensDataTokenFactory.sol";
-import {LensDataToken} from "../../src/core/lens/LensDataToken.sol";
-import {IDataToken} from "../../src/interfaces/IDataToken.sol";
-import {DataTypes} from "../../src/libraries/DataTypes.sol";
-import {Errors} from "../../src/libraries/Errors.sol";
-import {Constants} from "../../src/libraries/Constants.sol";
-import {LensDeployerMock, LensContracts} from "../../src/mocks/LensDeployerMock.sol";
-import {EIP712Mock} from "../../src/mocks/EIP712Mock.sol";
+import {DataTokenHub} from "../../contracts/DataTokenHub.sol";
+import {LensDataTokenFactory} from "../../contracts/core/lens/LensDataTokenFactory.sol";
+import {LensDataToken} from "../../contracts/core/lens/LensDataToken.sol";
+import {IDataToken} from "../../contracts/interfaces/IDataToken.sol";
+import {DataTypes} from "../../contracts/libraries/DataTypes.sol";
+import {Errors} from "../../contracts/libraries/Errors.sol";
+import {Constants} from "../../contracts/libraries/Constants.sol";
+import {LensDeployerMock, LensContracts} from "../../contracts/mocks/LensDeployerMock.sol";
+import {EIP712Mock} from "../../contracts/mocks/EIP712Mock.sol";
 import {Test} from "forge-std/Test.sol";
 
 contract LensDataTokenTest is Test {

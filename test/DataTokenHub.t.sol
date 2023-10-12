@@ -1,14 +1,14 @@
-// SPDX-License-Identifier: AGPL-3.0-or-later
+// SPDX-License-Identifier: MIT
 pragma solidity ^0.8.10;
 
-import {DataTokenHub} from "../src/DataTokenHub.sol";
-import {ProfilelessDataTokenFactory} from "../src/core/profileless/ProfilelessDataTokenFactory.sol";
-import {DataTokenHubMock} from "../src/mocks/DataTokenHubMock.sol";
-import {IDataTokenHub} from "../src/interfaces/IDataTokenHub.sol";
-import {DataTypes} from "../src/libraries/DataTypes.sol";
-import {Errors} from "../src/libraries/Errors.sol";
-import {Events} from "../src/libraries/Events.sol";
-import {ERC1967Proxy} from "../src/upgradeability/ERC1967Proxy.sol";
+import {DataTokenHub} from "../contracts/DataTokenHub.sol";
+import {ProfilelessDataTokenFactory} from "../contracts/core/profileless/ProfilelessDataTokenFactory.sol";
+import {DataTokenHubMock} from "../contracts/mocks/DataTokenHubMock.sol";
+import {IDataTokenHub} from "../contracts/interfaces/IDataTokenHub.sol";
+import {DataTypes} from "../contracts/libraries/DataTypes.sol";
+import {Errors} from "../contracts/libraries/Errors.sol";
+import {Events} from "../contracts/libraries/Events.sol";
+import {ERC1967Proxy} from "../contracts/upgradeability/ERC1967Proxy.sol";
 import {Test} from "forge-std/Test.sol";
 
 contract DataTokenHubTest is Test {

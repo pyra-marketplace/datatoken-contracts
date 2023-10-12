@@ -1,10 +1,10 @@
-// SPDX-License-Identifier: AGPL-3.0-or-later
+// SPDX-License-Identifier: MIT
 pragma solidity ^0.8.10;
 
-import {DataTokenHub} from "../../../src/DataTokenHub.sol";
-import {ProfilelessDataTokenFactory} from "../../../src/core/profileless/ProfilelessDataTokenFactory.sol";
-import {ProfilelessDataToken} from "../../../src/core/profileless/ProfilelessDataToken.sol";
-import {CurrencyMock} from "../../../src/mocks/CurrencyMock.sol";
+import {DataTokenHub} from "../../../contracts/DataTokenHub.sol";
+import {ProfilelessDataTokenFactory} from "../../../contracts/core/profileless/ProfilelessDataTokenFactory.sol";
+import {ProfilelessDataToken} from "../../../contracts/core/profileless/ProfilelessDataToken.sol";
+import {CurrencyMock} from "../../../contracts/mocks/CurrencyMock.sol";
 import {Test} from "forge-std/Test.sol";
 
 contract ProfilelessCollectModuleBaseTest is Test {

@@ -1,8 +1,8 @@
-// SPDX-License-Identifier: AGPL-3.0-or-later
+// SPDX-License-Identifier: MIT
 pragma solidity ^0.8.10;
 
 import "forge-std/Script.sol";
-import {CyberDataTokenFactory} from "../../src/core/cyber/CyberDataTokenFactory.sol";
+import {CyberDataTokenFactory} from "../../contracts/core/cyber/CyberDataTokenFactory.sol";
 import {Config} from "../Config.sol";
 
 contract DeployCyberDataTokenFactory is Script, Config {

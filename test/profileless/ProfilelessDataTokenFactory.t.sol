@@ -1,17 +1,17 @@
-// SPDX-License-Identifier: AGPL-3.0-or-later
+// SPDX-License-Identifier: MIT
 pragma solidity ^0.8.10;
 
-import {DataTokenHub} from "../../src/DataTokenHub.sol";
-import {ProfilelessDataTokenFactory} from "../../src/core/profileless/ProfilelessDataTokenFactory.sol";
-import {FeeCollectModule} from "../../src/core/profileless/modules/FeeCollectModule.sol";
-import {DataTypes} from "../../src/libraries/DataTypes.sol";
-import {Constants} from "../../src/libraries/Constants.sol";
+import {DataTokenHub} from "../../contracts/DataTokenHub.sol";
+import {ProfilelessDataTokenFactory} from "../../contracts/core/profileless/ProfilelessDataTokenFactory.sol";
+import {FeeCollectModule} from "../../contracts/core/profileless/modules/FeeCollectModule.sol";
+import {DataTypes} from "../../contracts/libraries/DataTypes.sol";
+import {Constants} from "../../contracts/libraries/Constants.sol";
 import {Test} from "forge-std/Test.sol";
 
 contract ProfilelessDataTokenFactoryTest is Test {
     bytes32 public constant CREATE_DATA_TOKEN_WITH_SIG_TYPEHASH = keccak256(
         bytes(
-            "CreateDataTokenWithSig(string contentURI,address collectModule,bytes collectModuleInitData,uint256 nonce,uin256 deadline)"
+            "CreateDataTokenWithSig(string contentURI,address collectModule,bytes collectModuleInitData,uint256 nonce,uint256 deadline)"
         )
     );
 

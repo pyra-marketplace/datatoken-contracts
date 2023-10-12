@@ -1,8 +1,8 @@
-// SPDX-License-Identifier: AGPL-3.0-or-later
+// SPDX-License-Identifier: MIT
 pragma solidity ^0.8.10;
 
 import "forge-std/Script.sol";
-import {ProfilelessDataTokenFactory} from "../../src/core/profileless/ProfilelessDataTokenFactory.sol";
+import {ProfilelessDataTokenFactory} from "../../contracts/core/profileless/ProfilelessDataTokenFactory.sol";
 import {Config} from "../Config.sol";
 
 contract DeployProfilelessDataTokenFactory is Script, Config {

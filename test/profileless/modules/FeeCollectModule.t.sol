@@ -1,10 +1,12 @@
-// SPDX-License-Identifier: AGPL-3.0-or-later
+// SPDX-License-Identifier: MIT
 pragma solidity ^0.8.10;
 
 import {ProfilelessCollectModuleBaseTest} from "./Base.t.sol";
-import {FeeCollectModule, ProfilePublicationData} from "../../../src/core/profileless/modules/FeeCollectModule.sol";
-import {ProfilelessDataToken} from "../../../src/core/profileless/ProfilelessDataToken.sol";
-import {DataTypes} from "../../../src/libraries/DataTypes.sol";
+import {
+    FeeCollectModule, ProfilePublicationData
+} from "../../../contracts/core/profileless/modules/FeeCollectModule.sol";
+import {ProfilelessDataToken} from "../../../contracts/core/profileless/ProfilelessDataToken.sol";
+import {DataTypes} from "../../../contracts/libraries/DataTypes.sol";
 
 contract FeeCollectModuleTest is ProfilelessCollectModuleBaseTest {
     FeeCollectModule collectModule;

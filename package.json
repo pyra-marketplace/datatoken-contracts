@@ -1,0 +1,18 @@
+{
+  "name": "datatoken-contracts",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "build": "forge build",
+    "test": "forge test",
+    "format": "forge fmt",
+    "lint": "solhint contracts/**/*.sol"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "solhint": "^3.6.2"
+  }
+}
