@@ -124,7 +124,3 @@ const DeployedContracts = {
   BSC: {},
 };
 ```
-
-## SDK
-
-The SDK for this project can be found in the `sdk` directory. For more detailed information about the SDK and its usage, please refer to the `README` file located in the sdk directory.
