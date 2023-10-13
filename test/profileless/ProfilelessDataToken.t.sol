@@ -4,7 +4,7 @@ pragma solidity ^0.8.10;
 import {DataTokenHub} from "../../contracts/DataTokenHub.sol";
 import {ProfilelessDataTokenFactory} from "../../contracts/core/profileless/ProfilelessDataTokenFactory.sol";
 import {ProfilelessDataToken} from "../../contracts/core/profileless/ProfilelessDataToken.sol";
-import {FeeCollectModule} from "../../contracts/core/profileless/modules/FeeCollectModule.sol";
+import {LimitedFeeCollectModule} from "../../contracts/core/profileless/modules/LimitedFeeCollectModule.sol";
 import {CurrencyMock} from "../../contracts/mocks/CurrencyMock.sol";
 import {DataTypes} from "../../contracts/libraries/DataTypes.sol";
 import {Errors} from "../../contracts/libraries/Errors.sol";
@@ -20,7 +20,7 @@ contract ProfilelessDataTokenTest is Test {
     CurrencyMock currency;
     DataTokenHub dataTokenHub;
     ProfilelessDataTokenFactory dataTokenFactory;
-    FeeCollectModule collectModule;
+    LimitedFeeCollectModule collectModule;
     ProfilelessDataToken dataToken;
 
     string contentURI;
@@ -156,8 +156,8 @@ contract ProfilelessDataTokenTest is Test {
         return new ProfilelessDataTokenFactory(address(dataTokenHub));
     }
 
-    function _createCollectModule() internal returns (FeeCollectModule) {
-        return new FeeCollectModule(address(dataTokenHub), address(dataTokenFactory));
+    function _createCollectModule() internal returns (LimitedFeeCollectModule) {
+        return new LimitedFeeCollectModule(address(dataTokenHub), address(dataTokenFactory));
     }
 
     function _createDataverseDataToken() internal returns (ProfilelessDataToken) {

@@ -3,17 +3,18 @@ pragma solidity ^0.8.10;
 
 import {ProfilelessCollectModuleBaseTest} from "./Base.t.sol";
 import {
-    FeeCollectModule, ProfilePublicationData
-} from "../../../contracts/core/profileless/modules/FeeCollectModule.sol";
+    LimitedFeeCollectModule,
+    ProfilePublicationData
+} from "../../../contracts/core/profileless/modules/LimitedFeeCollectModule.sol";
 import {ProfilelessDataToken} from "../../../contracts/core/profileless/ProfilelessDataToken.sol";
 import {DataTypes} from "../../../contracts/libraries/DataTypes.sol";
 
-contract FeeCollectModuleTest is ProfilelessCollectModuleBaseTest {
-    FeeCollectModule collectModule;
+contract LimitedFeeCollectModuleTest is ProfilelessCollectModuleBaseTest {
+    LimitedFeeCollectModule collectModule;
 
     function setUp() public {
         baseSetUp();
-        collectModule = new FeeCollectModule(
+        collectModule = new LimitedFeeCollectModule(
             address(dataTokenHub), 
             address(dataTokenFactory)
         );

@@ -3,7 +3,7 @@ pragma solidity ^0.8.10;
 
 import {DataTokenHub} from "../../contracts/DataTokenHub.sol";
 import {ProfilelessDataTokenFactory} from "../../contracts/core/profileless/ProfilelessDataTokenFactory.sol";
-import {FeeCollectModule} from "../../contracts/core/profileless/modules/FeeCollectModule.sol";
+import {LimitedFeeCollectModule} from "../../contracts/core/profileless/modules/LimitedFeeCollectModule.sol";
 import {DataTypes} from "../../contracts/libraries/DataTypes.sol";
 import {Constants} from "../../contracts/libraries/Constants.sol";
 import {Test} from "forge-std/Test.sol";
@@ -23,7 +23,7 @@ contract ProfilelessDataTokenFactoryTest is Test {
     ProfilelessDataTokenFactory public dataTokenFactory;
 
     string public contentURI;
-    FeeCollectModule public collectModule;
+    LimitedFeeCollectModule public collectModule;
     uint256 public collectLimit;
     uint256 public amount;
     address public currency;
@@ -45,7 +45,7 @@ contract ProfilelessDataTokenFactoryTest is Test {
         dataTokenFactory = new ProfilelessDataTokenFactory(address(dataTokenHub));
         dataTokenHub.whitelistDataTokenFactory(address(dataTokenFactory), true);
 
-        collectModule = new FeeCollectModule(address(dataTokenHub), address(dataTokenFactory));
+        collectModule = new LimitedFeeCollectModule(address(dataTokenHub), address(dataTokenFactory));
 
         vm.stopPrank();
 

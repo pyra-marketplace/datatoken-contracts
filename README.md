@@ -84,17 +84,17 @@ const DeployedContracts = {
       DataTokenFactory: "0xBD33A154970C33c99233971509aaED4322b84961",
 
       LensHub: "0x60Ae865ee4C725cd04353b5AAb364553f56ceF82",
-      FeeCollectModule: "0xeb4f3EC9d01856Cec2413bA5338bF35CeF932D82",
+
+      LimitedFeeCollectModule: "0xFCDA2801a31ba70dfe542793020a934F880D54aB",
       FreeCollectModule: "0x0BE6bD7092ee83D44a6eC1D949626FeE48caB30c",
       LimitedTimedFeeCollectModule:
         "0xDa76E44775C441eF53B9c769d175fB2948F15e1C",
-      LimitedFeeCollectModule: "0xFCDA2801a31ba70dfe542793020a934F880D54aB",
     },
     Cyber: {},
     Profileless: {
       DataTokenFactory: "0x183aeB3F3f88c2d6f615e844bB4938249A57D9c4",
 
-      FeeCollectModule: "0xC4F8392196FFbaf8eb5Abce8656288D0C3421ec7",
+      LimitedFeeCollectModule: "0xC4F8392196FFbaf8eb5Abce8656288D0C3421ec7",
       FreeCollectModule: "0x907b737e88AC5eBF3032Df4E106F2579688161A3",
       LimitedTimedFeeCollectModule:
         "0x5d2B41c42e858D1F756A3CCF663d8e526076c129",

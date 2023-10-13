@@ -15,7 +15,7 @@ struct ProfilePublicationData {
     address dataToken;
 }
 
-contract FeeCollectModule is ProfilelessCollectModuleBase {
+contract LimitedFeeCollectModule is ProfilelessCollectModuleBase {
     using SafeERC20 for IERC20;
 
     address public immutable DATA_TOKEN_FACTORY;
