@@ -2,13 +2,14 @@
 pragma solidity ^0.8.9;
 
 import {ERC721} from "openzeppelin-contracts/contracts/token/ERC721/ERC721.sol";
+import {ERC721Enumerable} from "openzeppelin-contracts/contracts/token/ERC721/extensions/ERC721Enumerable.sol";
 import {ProfilelessDataTokenFactoryBase} from "./ProfilelessDataTokenFactoryBase.sol";
 import {DataTokenBase} from "../../../base/DataTokenBase.sol";
 import {Constants} from "../../../libraries/Constants.sol";
 import {DataTypes} from "../../../libraries/DataTypes.sol";
 import {Errors} from "../../../libraries/Errors.sol";
 
-abstract contract ProfilelessDataTokenBase is ERC721, DataTokenBase {
+abstract contract ProfilelessDataTokenBase is ERC721Enumerable, DataTokenBase {
     uint256 private _tokenIdCount = 0;
 
     // bytes4(keccak256('royaltyInfo(uint256,uint256)')) == 0x2a55205a

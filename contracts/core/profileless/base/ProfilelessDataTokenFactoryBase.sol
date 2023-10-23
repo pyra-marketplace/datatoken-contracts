@@ -2,11 +2,12 @@
 pragma solidity ^0.8.10;
 
 import {ERC721} from "openzeppelin-contracts/contracts/token/ERC721/ERC721.sol";
+import {ERC721Enumerable} from "openzeppelin-contracts/contracts/token/ERC721/extensions/ERC721Enumerable.sol";
 import {EIP712} from "openzeppelin-contracts/contracts/utils/cryptography/draft-EIP712.sol";
 import {DataTypes} from "../../../libraries/DataTypes.sol";
 import {Errors} from "../../../libraries/Errors.sol";
 
-contract ProfilelessDataTokenFactoryBase is ERC721, EIP712 {
+contract ProfilelessDataTokenFactoryBase is ERC721Enumerable, EIP712 {
     uint256 internal _tokenIdCount = 0;
     mapping(address => uint256) public sigNonces;
 
