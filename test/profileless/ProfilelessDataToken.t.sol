@@ -128,7 +128,6 @@ contract ProfilelessDataTokenTest is Test {
     function test_GetMetadata() public {
         DataTypes.Metadata memory metadata = dataToken.getMetadata();
         assertEq(metadata.profileId, 0);
-        assertEq(metadata.originalContract, address(dataTokenFactory));
         assertEq(metadata.pubId, 0);
     }
 
@@ -161,11 +160,11 @@ contract ProfilelessDataTokenTest is Test {
     }
 
     function _createDataverseDataToken() internal returns (ProfilelessDataToken) {
-        DataTypes.ProfilelessPostData memory postData;
-        postData.contentURI = contentURI;
-        postData.collectModule = address(collectModule);
-        postData.collectModuleInitData = abi.encode(collectLimit, amount, currency, dataTokenOwner);
-        bytes memory initVars = abi.encode(postData);
+        DataTypes.PostParams memory postParams;
+        postParams.contentURI = contentURI;
+        postParams.collectModule = address(collectModule);
+        postParams.collectModuleInitData = abi.encode(collectLimit, amount, currency, dataTokenOwner);
+        bytes memory initVars = abi.encode(postParams);
         return ProfilelessDataToken(dataTokenFactory.createDataToken(initVars));
     }
 }

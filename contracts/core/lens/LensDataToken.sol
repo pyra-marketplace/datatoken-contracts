@@ -1,16 +1,20 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.10;
 
-import {ILensHub} from "lens-core/contracts/interfaces/ILensHub.sol";
-import {DataTypes as LensTypes} from "lens-core/contracts/libraries/DataTypes.sol";
+import {LensTypes} from "../../vendor/lens/LensTypes.sol";
+import {ILensHub} from "../../vendor/lens/ILensHub.sol";
+import {ICollectPublicationAction} from "../../vendor/lens/ICollectPublicationAction.sol";
 import {IERC721} from "openzeppelin-contracts/contracts/token/ERC721/IERC721.sol";
 import {IDataToken} from "../../interfaces/IDataToken.sol";
+import {IDataTokenFactory} from "../../interfaces/IDataTokenFactory.sol";
 import {IDataTokenHub} from "../../interfaces/IDataTokenHub.sol";
 import {DataTokenBase} from "../../base/DataTokenBase.sol";
 import {DataTypes} from "../../libraries/DataTypes.sol";
 import {Errors} from "../../libraries/Errors.sol";
 
 contract LensDataToken is DataTokenBase, IDataToken {
+    DataTypes.GraphType public constant graphType = DataTypes.GraphType.Lens;
+
     constructor(address dataTokenHub, string memory contentURI, DataTypes.Metadata memory metadata)
         DataTokenBase(dataTokenHub, contentURI, metadata)
     {}
@@ -18,17 +22,19 @@ contract LensDataToken is DataTokenBase, IDataToken {
     /**
      * @inheritdoc IDataToken
      */
-    function collect(bytes memory encodedCollectWithSigData) external returns (uint256) {
+    function collect(bytes memory encodedActWithSigData) external returns (uint256) {
+        // DataTypes.LensContracts memory lensContracts = _getLensContracts();
         // 1.decode
-        LensTypes.CollectWithSigData memory decodedCollectWithSigData =
-            abi.decode(encodedCollectWithSigData, (LensTypes.CollectWithSigData));
+        (LensTypes.PublicationActionParams memory publicationActionParams, LensTypes.EIP712Signature memory signature) =
+            abi.decode(encodedActWithSigData, (LensTypes.PublicationActionParams, LensTypes.EIP712Signature));
 
         // 2.collect
-        uint256 tokenId = ILensHub(_metadata.originalContract).collectWithSig(decodedCollectWithSigData);
+        bytes memory returnedData = ILensHub(_metadata.originalContract).actWithSig(publicationActionParams, signature);
+        (uint256 tokenId,) = abi.decode(returnedData, (uint256, bytes));
 
         // 3.emit event
-        address collectNFT = ILensHub(_metadata.originalContract).getCollectNFT(_metadata.profileId, _metadata.pubId);
-        IDataTokenHub(DATA_TOKEN_HUB).emitCollected(decodedCollectWithSigData.collector, collectNFT, tokenId);
+        address collectNFT = _getLensCollectNFT();
+        IDataTokenHub(DATA_TOKEN_HUB).emitCollected(signature.signer, collectNFT, tokenId);
 
         return tokenId;
     }
@@ -55,7 +61,7 @@ contract LensDataToken is DataTokenBase, IDataToken {
             return true;
         }
 
-        address collectNFT = getCollectNFT();
+        address collectNFT = _getLensCollectNFT();
         if (collectNFT != address(0) && IERC721(collectNFT).balanceOf(user) > 0) {
             return true;
         }
@@ -66,8 +72,8 @@ contract LensDataToken is DataTokenBase, IDataToken {
     /**
      * @inheritdoc IDataToken
      */
-    function getCollectNFT() public view returns (address) {
-        return ILensHub(_metadata.originalContract).getCollectNFT(_metadata.profileId, _metadata.pubId);
+    function getCollectNFT() external view returns (address) {
+        return _getLensCollectNFT();
     }
 
     /**
@@ -87,6 +93,19 @@ contract LensDataToken is DataTokenBase, IDataToken {
     }
 
     function _getLensTokenOwner() internal view returns (address) {
+        // DataTypes.LensContracts memory lensContracts = _getLensContracts();
         return IERC721(_metadata.originalContract).ownerOf(_metadata.profileId);
     }
+
+    function _getLensCollectNFT() internal view returns (address) {
+        // DataTypes.LensContracts memory lensContracts = _getLensContracts();
+        return ICollectPublicationAction(_metadata.collectMiddleware).getCollectData(
+            _metadata.profileId, _metadata.pubId
+        ).collectNFT;
+    }
+
+    // function _getLensContracts() internal view returns (DataTypes.LensContracts memory) {
+    //     bytes memory contractsData = IDataTokenFactory(DATA_TOKEN_FACTORY).getGraphContracts();
+    //     return abi.decode(contractsData, (DataTypes.LensContracts));
+    // }
 }

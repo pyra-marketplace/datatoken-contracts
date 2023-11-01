@@ -9,6 +9,7 @@
 [submodule "lib/core"]
 	path = lib/core
 	url = https://github.com/lens-protocol/core
+	branch = v2
 [submodule "lib/cybercontracts"]
 	path = lib/cybercontracts
 	url = https://github.com/cyberconnecthq/cybercontracts

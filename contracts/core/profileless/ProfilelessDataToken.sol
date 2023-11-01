@@ -8,6 +8,8 @@ import {IDataTokenHub} from "../../interfaces/IDataTokenHub.sol";
 import {DataTypes} from "../../libraries/DataTypes.sol";
 
 contract ProfilelessDataToken is ProfilelessDataTokenBase, IDataToken {
+    DataTypes.GraphType public constant graphType = DataTypes.GraphType.Profileless;
+
     constructor(address dataTokenHub, string memory contentURI, DataTypes.Metadata memory metadata)
         ProfilelessDataTokenBase(dataTokenHub, contentURI, metadata)
     {}
@@ -20,7 +22,7 @@ contract ProfilelessDataToken is ProfilelessDataTokenBase, IDataToken {
         (address collector, bytes memory validateData) = abi.decode(data, (address, bytes));
 
         // 2.collect
-        IDataTokenModule(_metadata.collectModule).processCollect(_metadata.pubId, collector, validateData);
+        IDataTokenModule(_metadata.collectMiddleware).processCollect(_metadata.pubId, collector, validateData);
         uint256 tokenId = _mintCollectNFT(collector);
 
         // 3.emit event

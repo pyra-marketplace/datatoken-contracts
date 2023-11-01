@@ -1,61 +1,69 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.10;
 
-import {LensHub} from "lens-core/contracts/core/LensHub.sol";
-import {FreeCollectModule} from "lens-core/contracts/core/modules/collect/FreeCollectModule.sol";
-import {DataTypes as LensTypes} from "lens-core/contracts/libraries/DataTypes.sol";
-import {DataTokenHub} from "../../contracts/DataTokenHub.sol";
+// import {LensHub} from "lens-core/contracts/core/LensHub.sol";
+// import {FreeCollectModule} from "lens-core/contracts/core/modules/collect/FreeCollectModule.sol";
+// import {DataTypes as LensTypes} from "lens-core/contracts/libraries/DataTypes.sol";
+import {LensTypes} from "../../contracts/vendor/lens/LensTypes.sol";
+import {Typehash} from "../../contracts/vendor/lens/Typehash.sol";
+import {ICollectPublicationAction} from "../../contracts/vendor/lens/ICollectPublicationAction.sol";
+// import {DataTokenHub} from "../../contracts/DataTokenHub.sol";
 import {LensDataTokenFactory} from "../../contracts/core/lens/LensDataTokenFactory.sol";
 import {IDataToken} from "../../contracts/interfaces/IDataToken.sol";
 import {DataTypes} from "../../contracts/libraries/DataTypes.sol";
 import {Events} from "../../contracts/libraries/Events.sol";
 import {Errors} from "../../contracts/libraries/Errors.sol";
 import {Constants} from "../../contracts/libraries/Constants.sol";
-import {LensDeployerMock, LensContracts} from "../../contracts/mocks/LensDeployerMock.sol";
-import {EIP712Mock} from "../../contracts/mocks/EIP712Mock.sol";
+// import {LensDeployerMock, LensContracts} from "../../contracts/mocks/LensDeployerMock.sol";
+// import {EIP712Mock} from "../../contracts/mocks/EIP712Mock.sol";
 import {Test} from "forge-std/Test.sol";
+import {LensBaseTest} from "./Base.t.sol";
 
-contract LensDataTokenFactoryTest is Test {
+contract LensDataTokenFactoryTest is Test, LensBaseTest {
     address governor;
     address notGovernor;
     address dataTokenOwner;
     uint256 dataTokenOwnerPK;
     uint256 dataTokenOwnerProfileId;
-    DataTokenHub dataTokenHub;
-    FreeCollectModule collectModule;
-    LensDeployerMock lensDeployer;
-    address lensTreasury;
-    uint256 lensTreasuryFeeRate;
+    // FreeCollectModule collectModule;
+    // LensDeployerMock lensDeployer;
+    // address lensTreasury;
+    // uint256 lensTreasuryFeeRate;
     LensDataTokenFactory dataTokenFactory;
-    LensContracts lensContracts;
+    // LensContracts lensContracts;
 
+    string contentURI;
     bytes initVars;
-    bytes collectModuleInitData;
 
     function setUp() public {
+        _setUp();
         governor = makeAddr("governor");
         notGovernor = makeAddr("notGovernor");
-        (dataTokenOwner, dataTokenOwnerPK) = makeAddrAndKey("dataTokenOwner");
-        lensTreasury = makeAddr("lensTreasury");
-        lensTreasuryFeeRate = 100; // 100/10000 = 1%
+        // (dataTokenOwner, dataTokenOwnerPK) = makeAddrAndKey("dataTokenOwner");
+        dataTokenOwnerPK = vm.envUint("PRIVATE_KEY");
+        dataTokenOwner = vm.addr(dataTokenOwnerPK);
+        contentURI = "https://dataverse-os.com";
+        // lensTreasury = makeAddr("lensTreasury");
+        // lensTreasuryFeeRate = 100; // 100/10000 = 1%
 
         vm.startPrank(governor);
         _createDataTokenHub();
-        lensContracts = _createLens();
+        // lensContracts = _createLens();
 
-        dataTokenFactory = new LensDataTokenFactory(address(lensContracts.lensHub), address(dataTokenHub));
+        dataTokenFactory = new LensDataTokenFactory(address(dataTokenHub), address(LENS_CONTRACTS.lensHub));
         dataTokenHub.whitelistDataTokenFactory(address(dataTokenFactory), true);
 
-        collectModule = new FreeCollectModule(address(lensContracts.lensHub));
+        // collectModule = new FreeCollectModule(address(lensContracts.lensHub));
 
-        lensContracts.lensHub.whitelistCollectModule(address(collectModule), true);
-        lensContracts.lensHub.whitelistProfileCreator(dataTokenOwner, true);
+        // lensContracts.lensHub.whitelistCollectModule(address(collectModule), true);
+        // lensContracts.lensHub.whitelistProfileCreator(dataTokenOwner, true);
 
         vm.stopPrank();
 
-        lensDeployer.whitelistLens(lensContracts, governor);
+        // lensDeployer.whitelistLens(lensContracts, governor);
         dataTokenOwnerProfileId = _createLensProfile();
 
+        vm.selectFork(forkId);
         initVars = _getPostWithSigDataBytes();
     }
 
@@ -64,8 +72,14 @@ contract LensDataTokenFactoryTest is Test {
         address dataToken = dataTokenFactory.createDataToken(initVars);
 
         DataTypes.Metadata memory metadata = IDataToken(dataToken).getMetadata();
-        assertEq(metadata.originalContract, address(lensContracts.lensHub));
+        // assertEq(metadata.originalContract, address(lensContracts.lensHub));
         assertEq(metadata.profileId, dataTokenOwnerProfileId);
+        assertEq(metadata.collectMiddleware, LENS_CONTRACTS.collectPublicationAction);
+        ICollectPublicationAction.CollectData memory collectData = ICollectPublicationAction(
+            LENS_CONTRACTS.collectPublicationAction
+        ).getCollectData(metadata.profileId, metadata.pubId);
+        assertEq(collectData.collectNFT, address(0));
+        assertEq(collectData.collectModule, LENS_CONTRACTS.simpleFeeCollectModule);
     }
 
     function test_CreateDataTokenWithSig() public {
@@ -73,77 +87,107 @@ contract LensDataTokenFactoryTest is Test {
         address dataToken = dataTokenFactory.createDataTokenWithSig(initVars);
 
         DataTypes.Metadata memory metadata = IDataToken(dataToken).getMetadata();
-        assertEq(metadata.originalContract, address(lensContracts.lensHub));
+        // assertEq(metadata.originalContract, address(lensContracts.lensHub));
         assertEq(metadata.profileId, dataTokenOwnerProfileId);
+        assertEq(metadata.collectMiddleware, LENS_CONTRACTS.collectPublicationAction);
+        ICollectPublicationAction.CollectData memory collectData = ICollectPublicationAction(
+            LENS_CONTRACTS.collectPublicationAction
+        ).getCollectData(metadata.profileId, metadata.pubId);
+        assertEq(collectData.collectNFT, address(0));
+        assertEq(collectData.collectModule, LENS_CONTRACTS.simpleFeeCollectModule);
     }
 
-    function _createLens() internal returns (LensContracts memory) {
-        lensDeployer = new LensDeployerMock();
-        (bool success, bytes memory result) = address(lensDeployer).delegatecall(
-            abi.encodeWithSelector(LensDeployerMock.deployLens.selector, address(governor), lensTreasury)
-        );
-        require(success, "Lens deployed failed");
-        return abi.decode(result, (LensContracts));
-    }
+    // function _createLens() internal returns (LensContracts memory) {
+    //     lensDeployer = new LensDeployerMock();
+    //     (bool success, bytes memory result) = address(lensDeployer).delegatecall(
+    //         abi.encodeWithSelector(LensDeployerMock.deployLens.selector, address(governor), lensTreasury)
+    //     );
+    //     require(success, "Lens deployed failed");
+    //     return abi.decode(result, (LensContracts));
+    // }
 
     function _createLensProfile() internal returns (uint256 profileId) {
-        vm.prank(dataTokenOwner);
-        profileId = lensContracts.lensHub.createProfile(
-            LensTypes.CreateProfileData({
-                to: dataTokenOwner,
-                handle: "sdasdawqewqqw",
-                imageURI: "",
-                followModule: address(lensContracts.approvalFollowModule),
-                followModuleInitData: "",
-                followNFTURI: ""
-            })
-        );
+        // vm.prank(dataTokenOwner);
+        // profileId = lensContracts.lensHub.createProfile(
+        //     LensTypes.CreateProfileData({
+        //         to: dataTokenOwner,
+        //         handle: "sdasdawqewqqw",
+        //         imageURI: "",
+        //         followModule: address(lensContracts.approvalFollowModule),
+        //         followModuleInitData: "",
+        //         followNFTURI: ""
+        //     })
+        // );
+        // (profileId, ) = LENS_CONTRACTS.profileCreationProxy.proxyCreateProfileWithHandle(
+        //     LensTypes.CreateProfileParams({to: dataTokenOwner, followModule: address(0), followModuleInitData: new bytes(0)}),
+        //     "sdasdawqewqqw"
+        // );
+        return 0x0250;
     }
 
     function _getPostWithSigDataBytes() internal view returns (bytes memory) {
-        LensTypes.PostWithSigData memory postWithSigData;
+        address[] memory actionModules = new address[](1);
+        actionModules[0] = LENS_CONTRACTS.collectPublicationAction;
 
-        postWithSigData.profileId = dataTokenOwnerProfileId;
-        postWithSigData.contentURI = "https://dataverse-os.com";
-        postWithSigData.collectModuleInitData = _getCollectModuleInitData();
-        postWithSigData.collectModule = address(collectModule);
-        postWithSigData.referenceModule = address(lensContracts.followerOnlyReferenceModule);
-        postWithSigData.referenceModuleInitData = new bytes(0);
-        postWithSigData.sig = _getEIP712PostSigData(postWithSigData, dataTokenOwner, dataTokenOwnerPK);
+        bytes[] memory actionModulesInitDatas = new bytes[](1);
+        actionModulesInitDatas[0] = _getActionModuleInitData();
 
-        return abi.encode(postWithSigData);
+        LensTypes.PostParams memory postParams = LensTypes.PostParams({
+            profileId: dataTokenOwnerProfileId,
+            contentURI: contentURI,
+            actionModules: actionModules,
+            actionModulesInitDatas: actionModulesInitDatas,
+            referenceModule: address(0),
+            referenceModuleInitData: new bytes(0)
+        });
+
+        LensTypes.EIP712Signature memory signature =
+            _getEIP712PostSignature(postParams, dataTokenOwner, dataTokenOwnerPK);
+
+        return abi.encode(postParams, signature);
     }
 
-    function _getCollectModuleInitData() internal pure returns (bytes memory) {
-        bool followerOnly = false;
-        return abi.encode(followerOnly);
+    function _getActionModuleInitData() internal view returns (bytes memory) {
+        // bool followerOnly = false;
+        LensTypes.BaseFeeCollectModuleInitData memory collectModuleInitParams = LensTypes.BaseFeeCollectModuleInitData({
+            amount: 10,
+            collectLimit: 20,
+            currency: LENS_CONTRACTS.WMATIC,
+            referralFee: 0,
+            followerOnly: false,
+            endTimestamp: type(uint72).max,
+            recipient: dataTokenOwner
+        });
+        bytes memory collectModuleInitData = abi.encode(collectModuleInitParams);
+
+        return abi.encode(LENS_CONTRACTS.simpleFeeCollectModule, collectModuleInitData);
     }
 
-    function _getEIP712PostSigData(
-        LensTypes.PostWithSigData memory postWithoutSigData,
-        address signer,
-        uint256 signerPK
-    ) internal view returns (LensTypes.EIP712Signature memory) {
-        uint256 nonce = EIP712Mock.getSigNonce(address(lensContracts.lensHub), signer);
-        bytes32 domainSeparator = lensContracts.lensHub.getDomainSeparator();
+    function _getEIP712PostSignature(LensTypes.PostParams memory postParams, address signer, uint256 signerPK)
+        internal
+        view
+        returns (LensTypes.EIP712Signature memory)
+    {
+        uint256 nonce = LENS_CONTRACTS.lensHub.nonces(signer);
+        bytes32 domainSeparator = LENS_CONTRACTS.lensHub.getDomainSeparator();
         uint256 deadline = block.timestamp + 1 days;
         bytes32 digest;
         {
             bytes32 hashedMessage = keccak256(
                 abi.encode(
-                    EIP712Mock.POST_WITH_SIG_TYPEHASH,
-                    postWithoutSigData.profileId,
-                    keccak256(bytes(postWithoutSigData.contentURI)),
-                    postWithoutSigData.collectModule,
-                    keccak256(postWithoutSigData.collectModuleInitData),
-                    postWithoutSigData.referenceModule,
-                    keccak256(postWithoutSigData.referenceModuleInitData),
+                    Typehash.POST,
+                    postParams.profileId,
+                    _encodeUsingEIP712Rules(postParams.contentURI),
+                    _encodeUsingEIP712Rules(postParams.actionModules),
+                    _encodeUsingEIP712Rules(postParams.actionModulesInitDatas),
+                    postParams.referenceModule,
+                    _encodeUsingEIP712Rules(postParams.referenceModuleInitData),
                     nonce,
                     deadline
                 )
             );
 
-            digest = EIP712Mock.calculateDigest(domainSeparator, hashedMessage);
+            digest = _calculateDigest(domainSeparator, hashedMessage);
         }
         LensTypes.EIP712Signature memory signature;
         {
@@ -151,13 +195,9 @@ contract LensDataTokenFactoryTest is Test {
             signature.v = v;
             signature.r = r;
             signature.s = s;
+            signature.deadline = deadline;
+            signature.signer = signer;
         }
-        signature.deadline = deadline;
         return signature;
-    }
-
-    function _createDataTokenHub() internal {
-        dataTokenHub = new DataTokenHub();
-        dataTokenHub.initialize();
     }
 }

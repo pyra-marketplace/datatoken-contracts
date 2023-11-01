@@ -18,66 +18,77 @@ contract ProfilelessDataTokenFactory is Ownable, ProfilelessDataTokenFactoryBase
         DATA_TOKEN_HUB = dataTokenHub;
     }
 
+    // /**
+    //  * @inheritdoc IDataTokenFactory
+    //  */
+    // function getGraphContracts() external view returns (bytes memory) {
+    //     return abi.encode(address(this));
+    // }
+
     /**
      * @inheritdoc IDataTokenFactory
      */
     function createDataToken(bytes calldata initVars) external returns (address) {
-        DataTypes.ProfilelessPostData memory postData = abi.decode(initVars, (DataTypes.ProfilelessPostData));
-        return _createDataToken(msg.sender, postData);
+        DataTypes.PostParams memory postParams = abi.decode(initVars, (DataTypes.PostParams));
+        return _createDataToken(msg.sender, postParams);
     }
 
     /**
      * @inheritdoc IDataTokenFactory
      */
     function createDataTokenWithSig(bytes memory initVars) external returns (address) {
-        (DataTypes.ProfilelessPostData memory postData, DataTypes.ProfilelessPostDataSigParams memory sigParams) =
-            abi.decode(initVars, (DataTypes.ProfilelessPostData, DataTypes.ProfilelessPostDataSigParams));
+        (DataTypes.PostParams memory postParams, DataTypes.EIP712Signature memory signature) =
+            abi.decode(initVars, (DataTypes.PostParams, DataTypes.EIP712Signature));
         address recoveredAddr = _recoverSigner(
             _hashTypedDataV4(
                 keccak256(
                     abi.encode(
                         CREATE_DATA_TOKEN_WITH_SIG_TYPEHASH,
-                        keccak256(bytes(postData.contentURI)),
-                        postData.collectModule,
-                        keccak256(bytes(postData.collectModuleInitData)),
-                        sigNonces[sigParams.dataTokenCreator]++,
-                        sigParams.sig.deadline
+                        keccak256(bytes(postParams.contentURI)),
+                        postParams.collectModule,
+                        keccak256(bytes(postParams.collectModuleInitData)),
+                        sigNonces[signature.signer]++,
+                        signature.deadline
                     )
                 )
             ),
-            sigParams.sig
+            signature
         );
 
-        // 0. check recovered address
-        if (sigParams.dataTokenCreator != recoveredAddr) {
+        // check recovered address
+        if (signature.signer != recoveredAddr) {
             revert Errors.CreatorNotMatch();
         }
 
-        return _createDataToken(sigParams.dataTokenCreator, postData);
+        return _createDataToken(signature.signer, postParams);
     }
 
-    function _createDataToken(address dataTokenCreator, DataTypes.ProfilelessPostData memory postData)
+    function _createDataToken(address dataTokenCreator, DataTypes.PostParams memory postParams)
         internal
         returns (address)
     {
-        // 2. mint pub NFT to get pubId
+        // 1. mint pub NFT to get pubId
         uint256 pubId = _mintPublicationNFT(dataTokenCreator);
 
-        // 3. create DataToke contract
-        DataTypes.Metadata memory metadata;
-        metadata.originalContract = address(this);
-        metadata.profileId = 0;
-        metadata.pubId = pubId;
-        metadata.collectModule = postData.collectModule;
+        // 2. create DataToke contract
+        DataTypes.Metadata memory metadata = DataTypes.Metadata({
+            originalContract: address(this),
+            profileId: 0,
+            pubId: pubId,
+            collectMiddleware: postParams.collectModule
+        });
+        // metadata.profileId = 0;
+        // metadata.pubId = pubId;
+        // metadata.collectModule = postParams.collectModule;
 
-        ProfilelessDataToken dataToken = new ProfilelessDataToken(DATA_TOKEN_HUB, postData.contentURI, metadata);
+        ProfilelessDataToken dataToken = new ProfilelessDataToken(DATA_TOKEN_HUB, postParams.contentURI, metadata);
 
-        // 4. register DataToke to DataTokenHub
+        // 3. register DataToke to DataTokenHub
         IDataTokenHub(DATA_TOKEN_HUB).registerDataToken(dataTokenCreator, address(this), address(dataToken));
 
-        // 5. init collect module by passing encoded parameters
-        IDataTokenModule(postData.collectModule).initializePublicationCollectModule(
-            pubId, postData.collectModuleInitData, address(dataToken)
+        // 4. init collect module by passing encoded parameters
+        IDataTokenModule(postParams.collectModule).initializePublicationCollectModule(
+            pubId, postParams.collectModuleInitData, address(dataToken)
         );
 
         // 5. change contract state

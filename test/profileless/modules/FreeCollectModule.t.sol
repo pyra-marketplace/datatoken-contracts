@@ -51,11 +51,11 @@ contract FreeCollectModuleTest is ProfilelessCollectModuleBaseTest {
     }
 
     function _createDataverseDataToken() internal returns (ProfilelessDataToken) {
-        DataTypes.ProfilelessPostData memory postData;
-        postData.contentURI = contentURI;
-        postData.collectModule = address(collectModule);
-        postData.collectModuleInitData = abi.encode(collectLimit);
-        bytes memory initVars = abi.encode(postData);
+        DataTypes.PostParams memory postParams;
+        postParams.contentURI = contentURI;
+        postParams.collectModule = address(collectModule);
+        postParams.collectModuleInitData = abi.encode(collectLimit);
+        bytes memory initVars = abi.encode(postParams);
 
         vm.prank(dataTokenOwner);
         address dataTokenAddress = dataTokenFactory.createDataToken(initVars);

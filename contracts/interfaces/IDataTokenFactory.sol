@@ -2,6 +2,12 @@
 pragma solidity ^0.8.10;
 
 interface IDataTokenFactory {
+    // /**
+    //  * @dev get deployed social graph contracts
+    //  * @return encodedContracts encoded contract addresses
+    //  */
+    // function getGraphContracts() external view returns (bytes memory);
+
     /**
      * @dev create data token from lens, cyberconnect or profileless
      * @param initVars encoded bytes contains initialization

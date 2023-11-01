@@ -78,7 +78,7 @@ contract ProfilelessDataTokenFactoryTest is Test {
     }
 
     function _getInitVars() internal view returns (bytes memory) {
-        DataTypes.ProfilelessPostData memory postData;
+        DataTypes.PostParams memory postData;
         postData.contentURI = contentURI;
         postData.collectModule = address(collectModule);
         postData.collectModuleInitData = abi.encode(collectLimit, amount, currency, dataTokenOwner);
@@ -86,18 +86,17 @@ contract ProfilelessDataTokenFactoryTest is Test {
     }
 
     function _getInitVarsWithSig() internal view returns (bytes memory) {
-        DataTypes.ProfilelessPostData memory postData;
-        DataTypes.ProfilelessPostDataSigParams memory sigParams;
+        DataTypes.PostParams memory postData;
+        DataTypes.EIP712Signature memory signature;
         postData.contentURI = contentURI;
         postData.collectModule = address(collectModule);
         postData.collectModuleInitData = abi.encode(collectLimit, amount, currency, dataTokenOwner);
 
-        sigParams.dataTokenCreator = dataTokenOwner;
-        sigParams.sig = _buildCreateDataTokenSig(postData, dataTokenOwner, dataTokenOwnerPK);
-        return abi.encode(postData, sigParams);
+        signature = _buildCreateDataTokenSig(postData, dataTokenOwner, dataTokenOwnerPK);
+        return abi.encode(postData, signature);
     }
 
-    function _buildCreateDataTokenSig(DataTypes.ProfilelessPostData memory postData, address signer, uint256 signerPK)
+    function _buildCreateDataTokenSig(DataTypes.PostParams memory postData, address signer, uint256 signerPK)
         internal
         view
         returns (DataTypes.EIP712Signature memory)
@@ -128,6 +127,7 @@ contract ProfilelessDataTokenFactoryTest is Test {
             signature.s = s;
         }
         signature.deadline = deadline;
+        signature.signer = signer;
         return signature;
     }
 

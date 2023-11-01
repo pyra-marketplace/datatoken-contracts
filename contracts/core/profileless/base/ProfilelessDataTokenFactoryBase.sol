@@ -38,9 +38,13 @@ contract ProfilelessDataTokenFactoryBase is ERC721Enumerable, EIP712 {
         return _domainSeparatorV4();
     }
 
-    function _recoverSigner(bytes32 digest, DataTypes.EIP712Signature memory sig) internal view returns (address) {
-        if (sig.deadline < block.timestamp) revert Errors.SignatureExpired();
-        address recoveredAddress = ecrecover(digest, sig.v, sig.r, sig.s);
+    function _recoverSigner(bytes32 digest, DataTypes.EIP712Signature memory signature)
+        internal
+        view
+        returns (address)
+    {
+        if (signature.deadline < block.timestamp) revert Errors.SignatureExpired();
+        address recoveredAddress = ecrecover(digest, signature.v, signature.r, signature.s);
         return recoveredAddress;
     }
 }

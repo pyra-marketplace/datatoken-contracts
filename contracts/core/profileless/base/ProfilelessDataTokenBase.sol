@@ -42,7 +42,7 @@ abstract contract ProfilelessDataTokenBase is ERC721Enumerable, DataTokenBase {
     }
 
     function _getProfilelessTokenOwner() internal view returns (address) {
-        return ProfilelessDataTokenFactoryBase(_metadata.originalContract).getOwnerByDataToken(address(this));
+        return ProfilelessDataTokenFactoryBase(DATA_TOKEN_FACTORY).getOwnerByDataToken(address(this));
     }
 
     /**
