@@ -21,7 +21,7 @@ contract ProfilelessDataTokenTest is Test {
     DataTokenHub dataTokenHub;
     ProfilelessDataTokenFactory dataTokenFactory;
     LimitedFeeCollectModule collectModule;
-    ProfilelessDataToken dataToken;
+    ProfilelessDataToken profilelessDataToken;
 
     string contentURI;
     string newContentURI;
@@ -52,16 +52,16 @@ contract ProfilelessDataTokenTest is Test {
         vm.stopPrank();
 
         vm.prank(dataTokenOwner);
-        dataToken = _createDataverseDataToken();
+        profilelessDataToken = _createDataverseDataToken();
     }
 
     function test_SetRoyalty() public {
         uint256 salePrice = 10e18;
         uint256 royaltyRate = 100; // 100/10000 = 1%
         vm.prank(dataTokenOwner);
-        dataToken.setRoyalty(royaltyRate);
+        profilelessDataToken.setRoyalty(royaltyRate);
 
-        (address receiver, uint256 royaltyAmount) = dataToken.getRoyaltyInfo(0, salePrice);
+        (address receiver, uint256 royaltyAmount) = profilelessDataToken.getRoyaltyInfo(0, salePrice);
         assertEq(receiver, dataTokenOwner);
         assertEq(royaltyAmount, salePrice * royaltyRate / Constants.BASIS_POINTS);
     }
@@ -71,7 +71,7 @@ contract ProfilelessDataTokenTest is Test {
 
         vm.expectRevert(Errors.NotDataTokenOwner.selector);
         vm.prank(notDataTokenOwner);
-        dataToken.setRoyalty(royaltyRate);
+        profilelessDataToken.setRoyalty(royaltyRate);
     }
 
     function testRevert_SetRoyalty_WhenInvalidRoyaltyRate() public {
@@ -79,7 +79,7 @@ contract ProfilelessDataTokenTest is Test {
 
         vm.expectRevert(abi.encodeWithSelector(Errors.InvalidRoyaltyRate.selector, royaltyRate, Constants.BASIS_POINTS));
         vm.prank(dataTokenOwner);
-        dataToken.setRoyalty(royaltyRate);
+        profilelessDataToken.setRoyalty(royaltyRate);
     }
 
     function test_SupportsInterface() public {
@@ -87,11 +87,11 @@ contract ProfilelessDataTokenTest is Test {
         bool isSupported;
 
         interfaceId = 0x2a55205a;
-        isSupported = dataToken.supportsInterface(interfaceId);
+        isSupported = profilelessDataToken.supportsInterface(interfaceId);
         assertEq(isSupported, true);
 
         interfaceId = 0x11111111;
-        isSupported = dataToken.supportsInterface(interfaceId);
+        isSupported = profilelessDataToken.supportsInterface(interfaceId);
         assertEq(isSupported, false);
     }
 
@@ -101,7 +101,7 @@ contract ProfilelessDataTokenTest is Test {
 
         vm.startPrank(collector);
         currency.approve(address(collectModule), balance);
-        dataToken.collect(data);
+        profilelessDataToken.collect(data);
         vm.stopPrank();
     }
 
@@ -111,22 +111,26 @@ contract ProfilelessDataTokenTest is Test {
 
         vm.startPrank(collector);
         currency.approve(address(collectModule), balance);
-        dataToken.collect(data);
+        profilelessDataToken.collect(data);
         vm.stopPrank();
 
-        assertEq(dataToken.isCollected(collector), true);
+        assertEq(profilelessDataToken.isCollected(collector), true);
+    }
+
+    function test_GetCollectNFT() public {
+        assertEq(profilelessDataToken.getCollectNFT(), address(profilelessDataToken));
     }
 
     function test_GetDataTokenOwner() public {
-        assertEq(dataTokenOwner, dataToken.getDataTokenOwner());
+        assertEq(dataTokenOwner, profilelessDataToken.getDataTokenOwner());
     }
 
     function test_GetContentURI() public {
-        assertEq(contentURI, dataToken.getContentURI());
+        assertEq(contentURI, profilelessDataToken.getContentURI());
     }
 
     function test_GetMetadata() public {
-        DataTypes.Metadata memory metadata = dataToken.getMetadata();
+        DataTypes.Metadata memory metadata = profilelessDataToken.getMetadata();
         assertEq(metadata.profileId, 0);
         assertEq(metadata.pubId, 0);
     }
@@ -138,7 +142,7 @@ contract ProfilelessDataTokenTest is Test {
         vm.startPrank(collector);
         currency.approve(address(collectModule), balance);
         vm.expectRevert();
-        dataToken.collect(data);
+        profilelessDataToken.collect(data);
         vm.stopPrank();
     }
 

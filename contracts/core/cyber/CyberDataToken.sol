@@ -23,8 +23,6 @@ contract CyberDataToken is DataTokenBase, IDataToken {
      * @inheritdoc IDataToken
      */
     function collect(bytes memory data) external returns (uint256) {
-        // DataTypes.CyberContracts memory cyberContracts = _getCyberContracts();
-
         // 1.decode
         (
             CyberTypes.CollectParams memory collectParams,
@@ -97,18 +95,10 @@ contract CyberDataToken is DataTokenBase, IDataToken {
     }
 
     function _getCyberTokenOwner() internal view returns (address) {
-        // DataTypes.CyberContracts memory cyberContracts = _getCyberContracts();
         return IERC721(_metadata.originalContract).ownerOf(_metadata.profileId);
     }
 
     function _getCyberCollectNFT() internal view returns (address) {
-        // DataTypes.CyberContracts memory cyberContracts = _getCyberContracts();
-        // return IProfileNFT(cyberContracts.profileNFT).getEssenceNFT(_metadata.profileId, _metadata.pubId);
         return IProfileNFT(_metadata.originalContract).getEssenceNFT(_metadata.profileId, _metadata.pubId);
     }
-
-    // function _getCyberContracts() internal view returns (DataTypes.CyberContracts memory) {
-    //     bytes memory contractsData = IDataTokenFactory(DATA_TOKEN_FACTORY).getGraphContracts();
-    //     return abi.decode(contractsData, (DataTypes.CyberContracts));
-    // }
 }

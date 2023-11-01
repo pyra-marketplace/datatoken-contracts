@@ -23,14 +23,13 @@ contract LensDataToken is DataTokenBase, IDataToken {
      * @inheritdoc IDataToken
      */
     function collect(bytes memory encodedActWithSigData) external returns (uint256) {
-        // DataTypes.LensContracts memory lensContracts = _getLensContracts();
         // 1.decode
         (LensTypes.PublicationActionParams memory publicationActionParams, LensTypes.EIP712Signature memory signature) =
             abi.decode(encodedActWithSigData, (LensTypes.PublicationActionParams, LensTypes.EIP712Signature));
 
         // 2.collect
         bytes memory returnedData = ILensHub(_metadata.originalContract).actWithSig(publicationActionParams, signature);
-        (uint256 tokenId,) = abi.decode(returnedData, (uint256, bytes));
+        (,uint256 tokenId,,) = abi.decode(returnedData, (address, uint256, address, bytes));
 
         // 3.emit event
         address collectNFT = _getLensCollectNFT();
@@ -93,19 +92,12 @@ contract LensDataToken is DataTokenBase, IDataToken {
     }
 
     function _getLensTokenOwner() internal view returns (address) {
-        // DataTypes.LensContracts memory lensContracts = _getLensContracts();
         return IERC721(_metadata.originalContract).ownerOf(_metadata.profileId);
     }
 
     function _getLensCollectNFT() internal view returns (address) {
-        // DataTypes.LensContracts memory lensContracts = _getLensContracts();
         return ICollectPublicationAction(_metadata.collectMiddleware).getCollectData(
             _metadata.profileId, _metadata.pubId
         ).collectNFT;
     }
-
-    // function _getLensContracts() internal view returns (DataTypes.LensContracts memory) {
-    //     bytes memory contractsData = IDataTokenFactory(DATA_TOKEN_FACTORY).getGraphContracts();
-    //     return abi.decode(contractsData, (DataTypes.LensContracts));
-    // }
 }

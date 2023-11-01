@@ -1,69 +1,53 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.10;
 
-// import {LensHub} from "lens-core/contracts/core/LensHub.sol";
-// import {FreeCollectModule} from "lens-core/contracts/core/modules/collect/FreeCollectModule.sol";
-// import {DataTypes as LensTypes} from "lens-core/contracts/libraries/DataTypes.sol";
 import {LensTypes} from "../../contracts/vendor/lens/LensTypes.sol";
 import {Typehash} from "../../contracts/vendor/lens/Typehash.sol";
 import {ICollectPublicationAction} from "../../contracts/vendor/lens/ICollectPublicationAction.sol";
-// import {DataTokenHub} from "../../contracts/DataTokenHub.sol";
 import {LensDataTokenFactory} from "../../contracts/core/lens/LensDataTokenFactory.sol";
 import {IDataToken} from "../../contracts/interfaces/IDataToken.sol";
 import {DataTypes} from "../../contracts/libraries/DataTypes.sol";
 import {Events} from "../../contracts/libraries/Events.sol";
 import {Errors} from "../../contracts/libraries/Errors.sol";
-import {Constants} from "../../contracts/libraries/Constants.sol";
-// import {LensDeployerMock, LensContracts} from "../../contracts/mocks/LensDeployerMock.sol";
-// import {EIP712Mock} from "../../contracts/mocks/EIP712Mock.sol";
 import {Test} from "forge-std/Test.sol";
 import {LensBaseTest} from "./Base.t.sol";
 
-contract LensDataTokenFactoryTest is Test, LensBaseTest {
+contract LensDataTokenTest is Test, LensBaseTest {
     address governor;
     address notGovernor;
     address dataTokenOwner;
     uint256 dataTokenOwnerPK;
     uint256 dataTokenOwnerProfileId;
-    // FreeCollectModule collectModule;
-    // LensDeployerMock lensDeployer;
-    // address lensTreasury;
-    // uint256 lensTreasuryFeeRate;
     LensDataTokenFactory dataTokenFactory;
-    // LensContracts lensContracts;
 
     string contentURI;
+    address currency;
+    uint160 amount;
+    uint96 collectLimit;
+    uint256 deadline;
+
     bytes initVars;
 
     function setUp() public {
         _setUp();
         governor = makeAddr("governor");
         notGovernor = makeAddr("notGovernor");
-        // (dataTokenOwner, dataTokenOwnerPK) = makeAddrAndKey("dataTokenOwner");
         dataTokenOwnerPK = vm.envUint("PRIVATE_KEY");
         dataTokenOwner = vm.addr(dataTokenOwnerPK);
         contentURI = "https://dataverse-os.com";
-        // lensTreasury = makeAddr("lensTreasury");
-        // lensTreasuryFeeRate = 100; // 100/10000 = 1%
+        currency = LENS_CONTRACTS.WMATIC;
+        amount = 10;
+        collectLimit = type(uint96).max;
+        deadline = block.timestamp + 1 days;
 
         vm.startPrank(governor);
         _createDataTokenHub();
-        // lensContracts = _createLens();
 
         dataTokenFactory = new LensDataTokenFactory(address(dataTokenHub), address(LENS_CONTRACTS.lensHub));
         dataTokenHub.whitelistDataTokenFactory(address(dataTokenFactory), true);
-
-        // collectModule = new FreeCollectModule(address(lensContracts.lensHub));
-
-        // lensContracts.lensHub.whitelistCollectModule(address(collectModule), true);
-        // lensContracts.lensHub.whitelistProfileCreator(dataTokenOwner, true);
-
         vm.stopPrank();
 
-        // lensDeployer.whitelistLens(lensContracts, governor);
         dataTokenOwnerProfileId = _createLensProfile();
-
-        vm.selectFork(forkId);
         initVars = _getPostWithSigDataBytes();
     }
 
@@ -72,7 +56,7 @@ contract LensDataTokenFactoryTest is Test, LensBaseTest {
         address dataToken = dataTokenFactory.createDataToken(initVars);
 
         DataTypes.Metadata memory metadata = IDataToken(dataToken).getMetadata();
-        // assertEq(metadata.originalContract, address(lensContracts.lensHub));
+        assertEq(metadata.originalContract, address(LENS_CONTRACTS.lensHub));
         assertEq(metadata.profileId, dataTokenOwnerProfileId);
         assertEq(metadata.collectMiddleware, LENS_CONTRACTS.collectPublicationAction);
         ICollectPublicationAction.CollectData memory collectData = ICollectPublicationAction(
@@ -87,7 +71,7 @@ contract LensDataTokenFactoryTest is Test, LensBaseTest {
         address dataToken = dataTokenFactory.createDataTokenWithSig(initVars);
 
         DataTypes.Metadata memory metadata = IDataToken(dataToken).getMetadata();
-        // assertEq(metadata.originalContract, address(lensContracts.lensHub));
+        assertEq(metadata.originalContract, address(LENS_CONTRACTS.lensHub));
         assertEq(metadata.profileId, dataTokenOwnerProfileId);
         assertEq(metadata.collectMiddleware, LENS_CONTRACTS.collectPublicationAction);
         ICollectPublicationAction.CollectData memory collectData = ICollectPublicationAction(
@@ -97,16 +81,7 @@ contract LensDataTokenFactoryTest is Test, LensBaseTest {
         assertEq(collectData.collectModule, LENS_CONTRACTS.simpleFeeCollectModule);
     }
 
-    // function _createLens() internal returns (LensContracts memory) {
-    //     lensDeployer = new LensDeployerMock();
-    //     (bool success, bytes memory result) = address(lensDeployer).delegatecall(
-    //         abi.encodeWithSelector(LensDeployerMock.deployLens.selector, address(governor), lensTreasury)
-    //     );
-    //     require(success, "Lens deployed failed");
-    //     return abi.decode(result, (LensContracts));
-    // }
-
-    function _createLensProfile() internal returns (uint256 profileId) {
+    function _createLensProfile() internal pure returns (uint256 profileId) {
         // vm.prank(dataTokenOwner);
         // profileId = lensContracts.lensHub.createProfile(
         //     LensTypes.CreateProfileData({
@@ -148,11 +123,10 @@ contract LensDataTokenFactoryTest is Test, LensBaseTest {
     }
 
     function _getActionModuleInitData() internal view returns (bytes memory) {
-        // bool followerOnly = false;
         LensTypes.BaseFeeCollectModuleInitData memory collectModuleInitParams = LensTypes.BaseFeeCollectModuleInitData({
-            amount: 10,
-            collectLimit: 20,
-            currency: LENS_CONTRACTS.WMATIC,
+            amount: amount,
+            collectLimit: collectLimit,
+            currency: currency,
             referralFee: 0,
             followerOnly: false,
             endTimestamp: type(uint72).max,
@@ -170,7 +144,6 @@ contract LensDataTokenFactoryTest is Test, LensBaseTest {
     {
         uint256 nonce = LENS_CONTRACTS.lensHub.nonces(signer);
         bytes32 domainSeparator = LENS_CONTRACTS.lensHub.getDomainSeparator();
-        uint256 deadline = block.timestamp + 1 days;
         bytes32 digest;
         {
             bytes32 hashedMessage = keccak256(

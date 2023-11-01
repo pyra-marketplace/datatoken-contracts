@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build": "forge build",
+    "build": "forge build --sizes",
     "test": "forge test",
     "format": "forge fmt",
     "lint": "solhint contracts/**/*.sol"
