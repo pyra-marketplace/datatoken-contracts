@@ -16,20 +16,10 @@ contract CyberDataTokenFactory is IDataTokenFactory {
     address internal immutable DATA_TOKEN_HUB;
     address internal immutable CYBER_PROFILE_NFT;
 
-    // DataTypes.CyberContracts internal _cyberContracts;
-
     constructor(address dataTokenHub, address cyberProfileNFT) {
         DATA_TOKEN_HUB = dataTokenHub;
-        // _cyberContracts = DataTypes.CyberContracts({profileNFT: cyberProfileNFT});
         CYBER_PROFILE_NFT = cyberProfileNFT;
     }
-
-    // /**
-    //  * @inheritdoc IDataTokenFactory
-    //  */
-    // function getGraphContracts() external view returns (bytes memory) {
-    //     return abi.encode(_cyberContracts);
-    // }
 
     /**
      * @inheritdoc IDataTokenFactory
@@ -41,7 +31,7 @@ contract CyberDataTokenFactory is IDataTokenFactory {
             CyberTypes.EIP712Signature memory _sig
         ) = abi.decode(initVars, (CyberTypes.RegisterEssenceParams, bytes, CyberTypes.EIP712Signature));
 
-        // 1.check caller is profile owner
+        // check caller is profile owner
         address profileOwner = IERC721(CYBER_PROFILE_NFT).ownerOf(_essenceParams.profileId);
         if (profileOwner != msg.sender) {
             revert Errors.NotProfileOwner(msg.sender);
@@ -56,7 +46,7 @@ contract CyberDataTokenFactory is IDataTokenFactory {
             CyberTypes.EIP712Signature memory _sig
         ) = abi.decode(initVars, (CyberTypes.RegisterEssenceParams, bytes, CyberTypes.EIP712Signature));
 
-        // 1.check caller is profile owner
+        // check caller is profile owner
         address profileOwner = IERC721(CYBER_PROFILE_NFT).ownerOf(_essenceParams.profileId);
         return _createDataToken(profileOwner, _essenceParams, _initData, _sig);
     }
@@ -78,9 +68,7 @@ contract CyberDataTokenFactory is IDataTokenFactory {
             pubId: pubId,
             collectMiddleware: essenceParams.essenceMw
         });
-        // metadata.profileId = essenceParams.profileId;
-        // metadata.pubId = pubId;
-        // metadata.collectModule = essenceParams.essenceMw;
+
         CyberDataToken cyberDataToken = new CyberDataToken(DATA_TOKEN_HUB, contentURI, metadata);
 
         // 3. register DataToken to DataTokenHub

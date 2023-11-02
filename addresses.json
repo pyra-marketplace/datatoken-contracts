@@ -1,0 +1,52 @@
+{
+    "Polygon": {},
+    "Mumbai": {
+      "DataTokenHub": "0x494aF879388679f4712676C06eFaA048ff7ec2db",
+      "Lens": {
+        "DataTokenFactory": "0x5a958CFAf002389eE57F2D07f31f8fBefFE2E1A1",
+  
+        "LensHubProxy": "0xC1E77eE73403B8a7478884915aA599932A677870",
+        "CollectPublicationAction": "0x5FE7918C3Ef48E6C5Fd79dD22A3120a3C4967aC2",
+        "SimpleFeeCollectModule": "0x98daD8B389417A5A7D971D7F83406Ac7c646A8e2",
+        "MultirecipientFeeCollectModule": "0xa878101e04518693ABE7fccd03778174A2B08159"
+      },
+      "Profileless": {
+        "DataTokenFactory": "0x766ba3562F9919bDC93576865C5766a71E6aC3a9",
+  
+        "LimitedFeeCollectModule": "0xAF23c2ED42dd547A498d534B2Da29A3940dE6F36",
+        "FreeCollectModule": "0xb3160dc2455B894E2a877F0fdf19404C688b8678",
+        "LimitedTimedFeeCollectModule": "0xACAD96Ef26f00266327c63aFc7783132E29f6673"
+      }
+    },
+    "BSC": {},
+    "BSCT": {
+      "DataTokenHub": "0xFc8aa004fb58Cb965AFa2b81BFaA3dC1d1748710",
+      "Cyber": {
+        "DataTokenFactory": "0xB449ce1FF3E1e3818FE3403dc4ECbCE77C570e20",
+  
+        "CyberProfileProxy": "0x57e12b7a5F38A7F9c23eBD0400e6E53F2a45F271",
+        "CollectPaidMw": "0x4e0d14e52418881511fd8156585d4b03eec1ff36"
+      },
+      "Profileless": {
+        "DataTokenFactory": "0xFd6c37C7A9b488078Ed5051a0D7C8546A4C058B1",
+  
+        "LimitedFeeCollectModule": "0x2FDfaE31ceB5e0B8551db8196A5f38eb00e1470c",
+        "FreeCollectModule": "0x60A0fe994591086e5294EFDF9903a3c1c09e1322",
+        "LimitedTimedFeeCollectModule":
+          "0xe7bA6F76d36d3ea0e27293055B424E4084cE2a34"
+      }
+    },
+    "Scroll": {},
+    "ScrollSepolia": {
+      "DataTokenHub": "0x3D1b842D48D7cc033bA75B69e58b0D955b831623",
+      "Profileless": {
+        "DataTokenFactory": "0xF7663f786C26B0a4966fC00c229F0C681aF6EF1e",
+  
+        "LimitedFeeCollectModule": "0x26901779a942818Ecd4b961b52413DE740db2eD0",
+        "FreeCollectModule": "0x13F2BF6c0559f5b73aF336b9E5996d2C37492789",
+        "LimitedTimedFeeCollectModule": "0x9F8B1EE6A603B686Cf3b284b7d73DbbA9Ee39682"
+      }
+    },
+    "Filecoin":{},
+    "FilecoinCalibration": {}
+}

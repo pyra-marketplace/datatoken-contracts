@@ -13,6 +13,9 @@ import {DataTypes} from "../../libraries/DataTypes.sol";
 import {Errors} from "../../libraries/Errors.sol";
 
 contract LensDataToken is DataTokenBase, IDataToken {
+    /**
+     * @inheritdoc IDataToken
+     */
     DataTypes.GraphType public constant graphType = DataTypes.GraphType.Lens;
 
     constructor(address dataTokenHub, string memory contentURI, DataTypes.Metadata memory metadata)
@@ -29,7 +32,7 @@ contract LensDataToken is DataTokenBase, IDataToken {
 
         // 2.collect
         bytes memory returnedData = ILensHub(_metadata.originalContract).actWithSig(publicationActionParams, signature);
-        (,uint256 tokenId,,) = abi.decode(returnedData, (address, uint256, address, bytes));
+        (, uint256 tokenId,,) = abi.decode(returnedData, (address, uint256, address, bytes));
 
         // 3.emit event
         address collectNFT = _getLensCollectNFT();

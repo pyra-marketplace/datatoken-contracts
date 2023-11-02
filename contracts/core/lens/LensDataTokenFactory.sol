@@ -16,22 +16,10 @@ contract LensDataTokenFactory is IDataTokenFactory {
     address internal immutable DATA_TOKEN_HUB;
     address internal immutable LENS_HUB;
 
-    // DataTypes.LensContracts internal _lensContracts;
-
     constructor(address dataTokenHub, address lensHub) {
         DATA_TOKEN_HUB = dataTokenHub;
         LENS_HUB = lensHub;
-        // _lensContracts = DataTypes.LensContracts({
-        //     lensHub: lensHub
-        // });
     }
-
-    // /**
-    //  * @inheritdoc IDataTokenFactory
-    //  */
-    // function getGraphContracts() external view returns (bytes memory) {
-    //     return abi.encode(_lensContracts);
-    // }
 
     /**
      * @inheritdoc IDataTokenFactory
@@ -73,9 +61,6 @@ contract LensDataTokenFactory is IDataTokenFactory {
             pubId: pubId,
             collectMiddleware: postParams.actionModules[0]
         });
-        // metadata.profileId = postParams.profileId;
-        // metadata.pubId = pubId;
-        // metadata.collectModule = postParams.actionModules[0];
 
         LensDataToken lensDataToken = new LensDataToken(DATA_TOKEN_HUB, contentURI, metadata);
 

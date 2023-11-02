@@ -1,7 +1,6 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.10;
 
-import {Ownable} from "openzeppelin-contracts/contracts/access/Ownable.sol";
 import {ProfilelessDataTokenFactoryBase} from "./base/ProfilelessDataTokenFactoryBase.sol";
 import {ProfilelessDataToken} from "./ProfilelessDataToken.sol";
 import {IDataTokenModule} from "./interface/IDataTokenModule.sol";
@@ -11,19 +10,12 @@ import {DataTypes} from "../../libraries/DataTypes.sol";
 import {Errors} from "../../libraries/Errors.sol";
 import {Events} from "../../libraries/Events.sol";
 
-contract ProfilelessDataTokenFactory is Ownable, ProfilelessDataTokenFactoryBase, IDataTokenFactory {
+contract ProfilelessDataTokenFactory is ProfilelessDataTokenFactoryBase, IDataTokenFactory {
     address internal immutable DATA_TOKEN_HUB;
 
     constructor(address dataTokenHub) {
         DATA_TOKEN_HUB = dataTokenHub;
     }
-
-    // /**
-    //  * @inheritdoc IDataTokenFactory
-    //  */
-    // function getGraphContracts() external view returns (bytes memory) {
-    //     return abi.encode(address(this));
-    // }
 
     /**
      * @inheritdoc IDataTokenFactory
@@ -77,9 +69,6 @@ contract ProfilelessDataTokenFactory is Ownable, ProfilelessDataTokenFactoryBase
             pubId: pubId,
             collectMiddleware: postParams.collectModule
         });
-        // metadata.profileId = 0;
-        // metadata.pubId = pubId;
-        // metadata.collectModule = postParams.collectModule;
 
         ProfilelessDataToken dataToken = new ProfilelessDataToken(DATA_TOKEN_HUB, postParams.contentURI, metadata);
 

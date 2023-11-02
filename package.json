@@ -1,5 +1,5 @@
 {
-  "name": "datatoken-contracts",
+  "name": "@dataverse/datatoken-contracts",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -7,6 +7,10 @@
     "build": "forge build --sizes",
     "test": "forge test",
     "format": "forge fmt",
+    "deploy:polygon_mumbai": "source .env && forge script script/Deploy.s.sol --rpc-url polygon_mumbai --broadcast --legacy -vvvv",
+    "deploy:bsc_testnet": "source .env && forge script script/Deploy.s.sol --rpc-url bsc_testnet --broadcast --legacy -vvvv",
+    "deploy:scroll_sepolia": "source .env && forge script script/Deploy.s.sol --rpc-url scroll_sepolia --broadcast --legacy -vvvv",
+    "deploy:filecoin_calibration": "source .env && forge script script/Deploy.s.sol --rpc-url filecoin_calibration --broadcast --legacy -vvvv",
     "lint": "solhint contracts/**/*.sol"
   },
   "keywords": [],

@@ -59,8 +59,8 @@ contract LensDataTokenTest is Test, LensBaseTest {
         dataTokenHub.whitelistDataTokenFactory(address(dataTokenFactory), true);
         vm.stopPrank();
 
-        dataTokenOwnerProfileId = _createLensProfile();
-        collectorProfileId = _createLensProfile();
+        dataTokenOwnerProfileId = _getLensProfiles(dataTokenOwner)[0];
+        collectorProfileId = _getLensProfiles(collector)[0];
 
         lensDataToken = _createDataToken();
     }
@@ -141,11 +141,8 @@ contract LensDataTokenTest is Test, LensBaseTest {
             referenceModuleInitData: new bytes(0)
         });
 
-        LensTypes.EIP712Signature memory signature = _getEIP712PostSignature(
-            postParams,
-            dataTokenOwner,
-            dataTokenOwnerPK
-        );
+        LensTypes.EIP712Signature memory signature =
+            _getEIP712PostSignature(postParams, dataTokenOwner, dataTokenOwnerPK);
 
         return abi.encode(postParams, signature);
     }
@@ -153,64 +150,47 @@ contract LensDataTokenTest is Test, LensBaseTest {
     function _getActWithSigDataBytes() internal view returns (bytes memory) {
         DataTypes.Metadata memory metadata = lensDataToken.getMetadata();
         bytes memory actionModuleData = _getActionModuleProcessData();
-        LensTypes.PublicationActionParams memory actParams = LensTypes
-            .PublicationActionParams({
-                publicationActedProfileId: metadata.profileId,
-                publicationActedId: metadata.pubId,
-                actorProfileId: collectorProfileId,
-                referrerProfileIds: new uint256[](0),
-                referrerPubIds: new uint256[](0),
-                actionModuleAddress: metadata.collectMiddleware,
-                actionModuleData: actionModuleData
-            });
+        LensTypes.PublicationActionParams memory actParams = LensTypes.PublicationActionParams({
+            publicationActedProfileId: metadata.profileId,
+            publicationActedId: metadata.pubId,
+            actorProfileId: collectorProfileId,
+            referrerProfileIds: new uint256[](0),
+            referrerPubIds: new uint256[](0),
+            actionModuleAddress: metadata.collectMiddleware,
+            actionModuleData: actionModuleData
+        });
 
-        LensTypes.EIP712Signature memory signature = _getEIP712ActSignature(
-            actParams,
-            collector,
-            collectorPK
-        );
+        LensTypes.EIP712Signature memory signature = _getEIP712ActSignature(actParams, collector, collectorPK);
 
         return abi.encode(actParams, signature);
     }
 
     function _getActionModuleInitData() internal view returns (bytes memory) {
-        LensTypes.BaseFeeCollectModuleInitData
-            memory collectModuleInitParams = LensTypes
-                .BaseFeeCollectModuleInitData({
-                    amount: amount,
-                    collectLimit: collectLimit,
-                    currency: currency,
-                    referralFee: 0,
-                    followerOnly: false,
-                    endTimestamp: type(uint72).max,
-                    recipient: dataTokenOwner
-                });
-        bytes memory collectModuleInitData = abi.encode(
-            collectModuleInitParams
-        );
+        LensTypes.BaseFeeCollectModuleInitData memory collectModuleInitParams = LensTypes.BaseFeeCollectModuleInitData({
+            amount: amount,
+            collectLimit: collectLimit,
+            currency: currency,
+            referralFee: 0,
+            followerOnly: false,
+            endTimestamp: type(uint72).max,
+            recipient: dataTokenOwner
+        });
+        bytes memory collectModuleInitData = abi.encode(collectModuleInitParams);
 
-        return
-            abi.encode(
-                LENS_CONTRACTS.simpleFeeCollectModule,
-                collectModuleInitData
-            );
+        return abi.encode(LENS_CONTRACTS.simpleFeeCollectModule, collectModuleInitData);
     }
 
-    function _getActionModuleProcessData()
-        internal
-        view
-        returns (bytes memory)
-    {
+    function _getActionModuleProcessData() internal view returns (bytes memory) {
         address collectNftRecipient = collector;
         bytes memory collectData = abi.encode(currency, amount);
         return abi.encode(collectNftRecipient, collectData);
     }
 
-    function _getEIP712PostSignature(
-        LensTypes.PostParams memory postParams,
-        address signer,
-        uint256 signerPK
-    ) internal view returns (LensTypes.EIP712Signature memory) {
+    function _getEIP712PostSignature(LensTypes.PostParams memory postParams, address signer, uint256 signerPK)
+        internal
+        view
+        returns (LensTypes.EIP712Signature memory)
+    {
         uint256 nonce = LENS_CONTRACTS.lensHub.nonces(signer);
         bytes32 domainSeparator = LENS_CONTRACTS.lensHub.getDomainSeparator();
         bytes32 digest;

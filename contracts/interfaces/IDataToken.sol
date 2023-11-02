@@ -5,6 +5,11 @@ import {DataTypes} from "../libraries/DataTypes.sol";
 
 interface IDataToken {
     /**
+     * @dev get graph type (Lens, Cyber or Profileless)
+     */
+    function graphType() external returns (DataTypes.GraphType);
+
+    /**
      * @dev execute collect
      * @param data eg. encoded LensTypes.CollectWithSigData bytes
      * @return tokenId

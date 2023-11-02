@@ -8,6 +8,9 @@ import {IDataTokenHub} from "../../interfaces/IDataTokenHub.sol";
 import {DataTypes} from "../../libraries/DataTypes.sol";
 
 contract ProfilelessDataToken is ProfilelessDataTokenBase, IDataToken {
+    /**
+     * @inheritdoc IDataToken
+     */
     DataTypes.GraphType public constant graphType = DataTypes.GraphType.Profileless;
 
     constructor(address dataTokenHub, string memory contentURI, DataTypes.Metadata memory metadata)

@@ -5,6 +5,7 @@ import {ILensHub} from "../../contracts/vendor/lens/ILensHub.sol";
 import {IProfileCreationProxy} from "../../contracts/vendor/lens/IProfileCreationProxy.sol";
 import {DataTokenHub} from "../../contracts/DataTokenHub.sol";
 import {Test} from "forge-std/Test.sol";
+import {console} from "forge-std/console.sol";
 
 contract LensBaseTest is Test {
     struct LensDeployedContracts {
@@ -14,14 +15,12 @@ contract LensBaseTest is Test {
         address WMATIC;
     }
 
-    uint256 forkId;
-
+    uint256 MUMBAI_FORK;
     LensDeployedContracts internal LENS_CONTRACTS;
-
     DataTokenHub dataTokenHub;
 
     function _setUp() internal {
-        forkId = vm.createFork(vm.envString("MUMBAI_RPC_URL"), 80001);
+        MUMBAI_FORK = vm.createSelectFork(vm.envString("MUMBAI_RPC_URL"));
 
         LENS_CONTRACTS = LensDeployedContracts({
             lensHub: ILensHub(0xC1E77eE73403B8a7478884915aA599932A677870),
@@ -34,6 +33,33 @@ contract LensBaseTest is Test {
     function _createDataTokenHub() internal {
         dataTokenHub = new DataTokenHub();
         dataTokenHub.initialize();
+    }
+
+    function _getLensProfiles(address profileOwner) internal pure returns (uint256[] memory profileIds) {
+        profileIds = new uint256[](1);
+        profileIds[0] = 0x0250;
+    }
+
+    function _createLensProfile(address creator, string memory handle) internal view returns (uint256) {
+        // vm.prank(creator);
+        // profileId = lensContracts.lensHub.createProfile(
+        //     LensTypes.CreateProfileData({
+        //         to: creator,
+        //         handle: handle,
+        //         imageURI: "",
+        //         followModule: address(lensContracts.approvalFollowModule),
+        //         followModuleInitData: "",
+        //         followNFTURI: ""
+        //     })
+        // );
+        // (profileId, ) = LENS_CONTRACTS.profileCreationProxy.proxyCreateProfileWithHandle(
+        //     LensTypes.CreateProfileParams({to: creator, followModule: address(0), followModuleInitData: new bytes(0)}),
+        //     handle
+        // );
+        console.log("Lens protocol unable to create profile except owner");
+        console.log("Please go to lens mumbai testnent hey.xyz to get a profile");
+
+        return 0;
     }
 
     function _calculateDigest(bytes32 domainSeparator, bytes32 hashedMessage) internal pure returns (bytes32) {

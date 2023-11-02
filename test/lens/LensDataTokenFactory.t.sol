@@ -12,7 +12,7 @@ import {Errors} from "../../contracts/libraries/Errors.sol";
 import {Test} from "forge-std/Test.sol";
 import {LensBaseTest} from "./Base.t.sol";
 
-contract LensDataTokenTest is Test, LensBaseTest {
+contract LensDataTokenFactoryTest is Test, LensBaseTest {
     address governor;
     address notGovernor;
     address dataTokenOwner;
@@ -47,7 +47,7 @@ contract LensDataTokenTest is Test, LensBaseTest {
         dataTokenHub.whitelistDataTokenFactory(address(dataTokenFactory), true);
         vm.stopPrank();
 
-        dataTokenOwnerProfileId = _createLensProfile();
+        dataTokenOwnerProfileId = _getLensProfiles(dataTokenOwner)[0];
         initVars = _getPostWithSigDataBytes();
     }
 
@@ -79,25 +79,6 @@ contract LensDataTokenTest is Test, LensBaseTest {
         ).getCollectData(metadata.profileId, metadata.pubId);
         assertEq(collectData.collectNFT, address(0));
         assertEq(collectData.collectModule, LENS_CONTRACTS.simpleFeeCollectModule);
-    }
-
-    function _createLensProfile() internal pure returns (uint256 profileId) {
-        // vm.prank(dataTokenOwner);
-        // profileId = lensContracts.lensHub.createProfile(
-        //     LensTypes.CreateProfileData({
-        //         to: dataTokenOwner,
-        //         handle: "sdasdawqewqqw",
-        //         imageURI: "",
-        //         followModule: address(lensContracts.approvalFollowModule),
-        //         followModuleInitData: "",
-        //         followNFTURI: ""
-        //     })
-        // );
-        // (profileId, ) = LENS_CONTRACTS.profileCreationProxy.proxyCreateProfileWithHandle(
-        //     LensTypes.CreateProfileParams({to: dataTokenOwner, followModule: address(0), followModuleInitData: new bytes(0)}),
-        //     "sdasdawqewqqw"
-        // );
-        return 0x0250;
     }
 
     function _getPostWithSigDataBytes() internal view returns (bytes memory) {

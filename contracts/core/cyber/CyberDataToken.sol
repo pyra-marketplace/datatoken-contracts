@@ -13,6 +13,9 @@ import {DataTypes} from "../../libraries/DataTypes.sol";
 import {Errors} from "../../libraries/Errors.sol";
 
 contract CyberDataToken is DataTokenBase, IDataToken {
+    /**
+     * @inheritdoc IDataToken
+     */
     DataTypes.GraphType public constant graphType = DataTypes.GraphType.Cyber;
 
     constructor(address dataTokenHub, string memory contentURI, DataTypes.Metadata memory metadata)
