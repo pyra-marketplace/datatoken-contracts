@@ -1,6 +1,6 @@
 {
     "Polygon": {},
-    "Mumbai": {
+    "PolygonMumbai": {
       "DataTokenHub": "0x494aF879388679f4712676C06eFaA048ff7ec2db",
       "Lens": {
         "DataTokenFactory": "0x5a958CFAf002389eE57F2D07f31f8fBefFE2E1A1",
@@ -19,7 +19,7 @@
       }
     },
     "BSC": {},
-    "BSCT": {
+    "BSCTestnet": {
       "DataTokenHub": "0xFc8aa004fb58Cb965AFa2b81BFaA3dC1d1748710",
       "Cyber": {
         "DataTokenFactory": "0xB449ce1FF3E1e3818FE3403dc4ECbCE77C570e20",
