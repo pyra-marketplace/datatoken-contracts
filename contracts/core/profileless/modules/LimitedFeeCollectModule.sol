@@ -59,12 +59,12 @@ contract LimitedFeeCollectModule is ProfilelessCollectModuleBase {
         return data;
     }
 
-    function processCollect(uint256 id, address collector, bytes calldata data) external onlyDataToken(id) {
-        if (_dataByPublication[id].currentCollects >= _dataByPublication[id].collectLimit) {
+    function processCollect(uint256 pubId, address collector, bytes calldata data) external onlyDataToken(pubId) {
+        if (_dataByPublication[pubId].currentCollects >= _dataByPublication[pubId].collectLimit) {
             revert Errors.ExceedCollectLimit();
         }
-        ++_dataByPublication[id].currentCollects;
-        _processCollect(collector, id, data);
+        ++_dataByPublication[pubId].currentCollects;
+        _processCollect(collector, pubId, data);
     }
 
     function _processCollect(address collector, uint256 pubId, bytes calldata data) internal {
@@ -89,12 +89,12 @@ contract LimitedFeeCollectModule is ProfilelessCollectModuleBase {
         }
     }
 
-    function getPublicationData(uint256 id) external view returns (ProfilePublicationData memory) {
-        return _dataByPublication[id];
+    function getPublicationData(uint256 pubId) external view returns (ProfilePublicationData memory) {
+        return _dataByPublication[pubId];
     }
 
-    function _isFromDataToken(uint256 id) internal view override {
-        if (_dataByPublication[id].dataToken != msg.sender) {
+    function _isFromDataToken(uint256 pubId) internal view override {
+        if (_dataByPublication[pubId].dataToken != msg.sender) {
             revert Errors.NotDataToken();
         }
     }

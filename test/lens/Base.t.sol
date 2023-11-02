@@ -20,7 +20,7 @@ contract LensBaseTest is Test {
     DataTokenHub dataTokenHub;
 
     function _setUp() internal {
-        MUMBAI_FORK = vm.createSelectFork(vm.envString("MUMBAI_RPC_URL"));
+        MUMBAI_FORK = vm.createSelectFork("polygon_mumbai");
 
         LENS_CONTRACTS = LensDeployedContracts({
             lensHub: ILensHub(0xC1E77eE73403B8a7478884915aA599932A677870),
