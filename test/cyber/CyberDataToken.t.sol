@@ -47,6 +47,10 @@ contract CyberDataTokenTest is CyberBaseTest {
         cyberDataToken = _createCyberDataToken();
     }
 
+    function test_GraphType() public {
+        assertTrue(cyberDataToken.graphType() == DataTypes.GraphType.Cyber);
+    }
+
     function test_Collect() public {
         DataTypes.Metadata memory metadata = cyberDataToken.getMetadata();
 

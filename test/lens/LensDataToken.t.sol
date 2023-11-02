@@ -65,6 +65,10 @@ contract LensDataTokenTest is Test, LensBaseTest {
         lensDataToken = _createDataToken();
     }
 
+    function test_GraphType() public {
+        assertTrue(lensDataToken.graphType() == DataTypes.GraphType.Lens);
+    }
+
     function test_Collect() public {
         bytes memory data = _getActWithSigDataBytes();
         vm.startPrank(collector);

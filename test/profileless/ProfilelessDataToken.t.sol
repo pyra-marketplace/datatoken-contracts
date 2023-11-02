@@ -55,6 +55,10 @@ contract ProfilelessDataTokenTest is Test {
         profilelessDataToken = _createDataverseDataToken();
     }
 
+    function test_GraphType() public {
+        assertTrue(profilelessDataToken.graphType() == DataTypes.GraphType.Profileless);
+    }
+
     function test_SetRoyalty() public {
         uint256 salePrice = 10e18;
         uint256 royaltyRate = 100; // 100/10000 = 1%
