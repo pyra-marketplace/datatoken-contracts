@@ -78,25 +78,25 @@ contract ProfilelessDataTokenFactoryTest is Test {
     }
 
     function _getInitVars() internal view returns (bytes memory) {
-        DataTypes.PostParams memory postData;
-        postData.contentURI = contentURI;
-        postData.collectModule = address(collectModule);
-        postData.collectModuleInitData = abi.encode(collectLimit, amount, currency, dataTokenOwner);
-        return abi.encode(postData);
+        DataTypes.PostParams memory postParams;
+        postParams.contentURI = contentURI;
+        postParams.collectModule = address(collectModule);
+        postParams.collectModuleInitData = abi.encode(collectLimit, amount, currency, dataTokenOwner);
+        return abi.encode(postParams);
     }
 
     function _getInitVarsWithSig() internal view returns (bytes memory) {
-        DataTypes.PostParams memory postData;
+        DataTypes.PostParams memory postParams;
         DataTypes.EIP712Signature memory signature;
-        postData.contentURI = contentURI;
-        postData.collectModule = address(collectModule);
-        postData.collectModuleInitData = abi.encode(collectLimit, amount, currency, dataTokenOwner);
+        postParams.contentURI = contentURI;
+        postParams.collectModule = address(collectModule);
+        postParams.collectModuleInitData = abi.encode(collectLimit, amount, currency, dataTokenOwner);
 
-        signature = _buildCreateDataTokenSig(postData, dataTokenOwner, dataTokenOwnerPK);
-        return abi.encode(postData, signature);
+        signature = _buildCreateDataTokenSig(postParams, dataTokenOwner, dataTokenOwnerPK);
+        return abi.encode(postParams, signature);
     }
 
-    function _buildCreateDataTokenSig(DataTypes.PostParams memory postData, address signer, uint256 signerPK)
+    function _buildCreateDataTokenSig(DataTypes.PostParams memory postParams, address signer, uint256 signerPK)
         internal
         view
         returns (DataTypes.EIP712Signature memory)
@@ -109,9 +109,9 @@ contract ProfilelessDataTokenFactoryTest is Test {
             bytes32 hashedMessage = keccak256(
                 abi.encode(
                     CREATE_DATA_TOKEN_WITH_SIG_TYPEHASH,
-                    keccak256(bytes(postData.contentURI)),
-                    postData.collectModule,
-                    keccak256(bytes(postData.collectModuleInitData)),
+                    keccak256(bytes(postParams.contentURI)),
+                    postParams.collectModule,
+                    keccak256(bytes(postParams.collectModuleInitData)),
                     nonce,
                     deadline
                 )
