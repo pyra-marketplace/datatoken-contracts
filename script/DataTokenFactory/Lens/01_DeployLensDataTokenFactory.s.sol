@@ -12,7 +12,7 @@ contract DeployLensDataTokenFactory is Script, Config {
             _privateKey = vm.envUint("PRIVATE_KEY");
 
             vm.startBroadcast(_privateKey);
-            LensDataTokenFactory factory = new LensDataTokenFactory(_lensHubProxy, dataTokenHub);
+            LensDataTokenFactory factory = new LensDataTokenFactory(dataTokenHub, _lensHubProxy);
             vm.stopBroadcast();
 
             return address(factory);

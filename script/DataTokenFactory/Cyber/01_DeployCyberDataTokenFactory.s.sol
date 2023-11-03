@@ -13,7 +13,7 @@ contract DeployCyberDataTokenFactory is Script, Config {
             _privateKey = vm.envUint("PRIVATE_KEY");
 
             vm.startBroadcast(_privateKey);
-            CyberDataTokenFactory factory = new CyberDataTokenFactory(_cyberProfileProxy, dataTokenHub);
+            CyberDataTokenFactory factory = new CyberDataTokenFactory(dataTokenHub, _cyberProfileProxy);
             vm.stopBroadcast();
 
             return address(factory);

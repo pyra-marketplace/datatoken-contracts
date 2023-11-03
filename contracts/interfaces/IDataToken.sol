@@ -7,7 +7,7 @@ interface IDataToken {
     /**
      * @dev get graph type (Lens, Cyber or Profileless)
      */
-    function graphType() external returns (DataTypes.GraphType);
+    function graphType() external view returns (DataTypes.GraphType);
 
     /**
      * @dev execute collect
