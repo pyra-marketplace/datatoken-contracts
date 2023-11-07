@@ -49,14 +49,15 @@ contract LimitedTimedFeeCollectModule is ProfilelessCollectModuleBase {
             revert Errors.InitParamsInvalid();
         }
 
-        ProfilePublicationData memory _profilePublicationData;
-
-        _profilePublicationData.collectLimit = collectLimit;
-        _profilePublicationData.amount = amount;
-        _profilePublicationData.currency = currency;
-        _profilePublicationData.recipient = recipient;
-        _profilePublicationData.endTimestamp = endTimestamp;
-        _profilePublicationData.dataToken = dataToken;
+        ProfilePublicationData memory _profilePublicationData = ProfilePublicationData({
+            collectLimit: collectLimit,
+            currentCollects: 0,
+            amount: amount,
+            currency: currency,
+            recipient: recipient,
+            endTimestamp: endTimestamp,
+            dataToken: dataToken
+        });
 
         _dataByPublication[pubId] = _profilePublicationData;
 
@@ -70,8 +71,8 @@ contract LimitedTimedFeeCollectModule is ProfilelessCollectModuleBase {
         if (_dataByPublication[pubId].currentCollects >= _dataByPublication[pubId].collectLimit) {
             revert Errors.ExceedCollectLimit();
         }
-        _processCollect(collector, pubId, data);
         ++_dataByPublication[pubId].currentCollects;
+        _processCollect(collector, pubId, data);
     }
 
     function _processCollect(address collector, uint256 pubId, bytes calldata data) internal {

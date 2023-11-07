@@ -40,10 +40,11 @@ contract FreeCollectModule is ProfilelessCollectModuleBase {
             revert Errors.InitParamsInvalid();
         }
 
-        ProfilePublicationData memory _profilePublicationData;
-
-        _profilePublicationData.collectLimit = collectLimit;
-        _profilePublicationData.dataToken = dataToken;
+        ProfilePublicationData memory _profilePublicationData = ProfilePublicationData({
+            collectLimit: collectLimit,
+            currentCollects: 0,
+            dataToken: dataToken
+        });
 
         _dataByPublication[pubId] = _profilePublicationData;
 

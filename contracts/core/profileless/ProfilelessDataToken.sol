@@ -1,13 +1,15 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.10;
 
+import {ReentrancyGuard} from "openzeppelin-contracts/contracts/security/ReentrancyGuard.sol";
+
 import {ProfilelessDataTokenBase} from "./base/ProfilelessDataTokenBase.sol";
 import {IDataTokenModule} from "./interface/IDataTokenModule.sol";
 import {IDataToken} from "../../interfaces/IDataToken.sol";
 import {IDataTokenHub} from "../../interfaces/IDataTokenHub.sol";
 import {DataTypes} from "../../libraries/DataTypes.sol";
 
-contract ProfilelessDataToken is ProfilelessDataTokenBase, IDataToken {
+contract ProfilelessDataToken is ProfilelessDataTokenBase, IDataToken, ReentrancyGuard {
     /**
      * @inheritdoc IDataToken
      */
@@ -20,7 +22,7 @@ contract ProfilelessDataToken is ProfilelessDataTokenBase, IDataToken {
     /**
      * @inheritdoc IDataToken
      */
-    function collect(bytes memory data) external returns (uint256) {
+    function collect(bytes memory data) external nonReentrant returns (uint256) {
         // 1.decode
         (address collector, bytes memory validateData) = abi.decode(data, (address, bytes));
 

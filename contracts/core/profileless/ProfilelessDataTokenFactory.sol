@@ -1,6 +1,8 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.10;
 
+import {ReentrancyGuard} from "openzeppelin-contracts/contracts/security/ReentrancyGuard.sol";
+
 import {ProfilelessDataTokenFactoryBase} from "./base/ProfilelessDataTokenFactoryBase.sol";
 import {ProfilelessDataToken} from "./ProfilelessDataToken.sol";
 import {IDataTokenModule} from "./interface/IDataTokenModule.sol";
@@ -10,7 +12,7 @@ import {DataTypes} from "../../libraries/DataTypes.sol";
 import {Errors} from "../../libraries/Errors.sol";
 import {Events} from "../../libraries/Events.sol";
 
-contract ProfilelessDataTokenFactory is ProfilelessDataTokenFactoryBase, IDataTokenFactory {
+contract ProfilelessDataTokenFactory is ProfilelessDataTokenFactoryBase, IDataTokenFactory, ReentrancyGuard {
     address internal immutable DATA_TOKEN_HUB;
 
     constructor(address dataTokenHub) {
@@ -20,7 +22,7 @@ contract ProfilelessDataTokenFactory is ProfilelessDataTokenFactoryBase, IDataTo
     /**
      * @inheritdoc IDataTokenFactory
      */
-    function createDataToken(bytes calldata initVars) external returns (address) {
+    function createDataToken(bytes calldata initVars) external nonReentrant returns (address) {
         DataTypes.PostParams memory postParams = abi.decode(initVars, (DataTypes.PostParams));
         return _createDataToken(msg.sender, postParams);
     }
@@ -28,7 +30,7 @@ contract ProfilelessDataTokenFactory is ProfilelessDataTokenFactoryBase, IDataTo
     /**
      * @inheritdoc IDataTokenFactory
      */
-    function createDataTokenWithSig(bytes memory initVars) external returns (address) {
+    function createDataTokenWithSig(bytes memory initVars) external nonReentrant returns (address) {
         (DataTypes.PostParams memory postParams, DataTypes.EIP712Signature memory signature) =
             abi.decode(initVars, (DataTypes.PostParams, DataTypes.EIP712Signature));
         address recoveredAddr = _recoverSigner(

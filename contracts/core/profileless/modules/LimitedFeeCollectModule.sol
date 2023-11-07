@@ -46,13 +46,14 @@ contract LimitedFeeCollectModule is ProfilelessCollectModuleBase {
             revert Errors.InitParamsInvalid();
         }
 
-        ProfilePublicationData memory _profilePublicationData;
-
-        _profilePublicationData.collectLimit = collectLimit;
-        _profilePublicationData.amount = amount;
-        _profilePublicationData.currency = currency;
-        _profilePublicationData.recipient = recipient;
-        _profilePublicationData.dataToken = dataToken;
+        ProfilePublicationData memory _profilePublicationData = ProfilePublicationData({
+            collectLimit: collectLimit,
+            currentCollects: 0,
+            amount: amount,
+            currency: currency,
+            recipient: recipient,
+            dataToken: dataToken
+        });
 
         _dataByPublication[pubId] = _profilePublicationData;
 

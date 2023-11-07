@@ -1,6 +1,8 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.10;
 
+import {ReentrancyGuard} from "openzeppelin-contracts/contracts/security/ReentrancyGuard.sol";
+
 import {LensTypes} from "../../vendor/lens/LensTypes.sol";
 import {ILensHub} from "../../vendor/lens/ILensHub.sol";
 import {ICollectPublicationAction} from "../../vendor/lens/ICollectPublicationAction.sol";
@@ -12,7 +14,7 @@ import {DataTypes} from "../../libraries/DataTypes.sol";
 import {Errors} from "../../libraries/Errors.sol";
 import {Events} from "../../libraries/Events.sol";
 
-contract LensDataTokenFactory is IDataTokenFactory {
+contract LensDataTokenFactory is IDataTokenFactory, ReentrancyGuard {
     address internal immutable DATA_TOKEN_HUB;
     address internal immutable LENS_HUB;
 
@@ -24,7 +26,7 @@ contract LensDataTokenFactory is IDataTokenFactory {
     /**
      * @inheritdoc IDataTokenFactory
      */
-    function createDataToken(bytes calldata initVars) external returns (address) {
+    function createDataToken(bytes calldata initVars) external nonReentrant returns (address) {
         (LensTypes.PostParams memory postParams, LensTypes.EIP712Signature memory signature) =
             abi.decode(initVars, (LensTypes.PostParams, LensTypes.EIP712Signature));
         // check caller is profile owner
@@ -38,7 +40,7 @@ contract LensDataTokenFactory is IDataTokenFactory {
     /**
      * @inheritdoc IDataTokenFactory
      */
-    function createDataTokenWithSig(bytes calldata initVars) external returns (address) {
+    function createDataTokenWithSig(bytes calldata initVars) external nonReentrant returns (address) {
         (LensTypes.PostParams memory postParams, LensTypes.EIP712Signature memory signature) =
             abi.decode(initVars, (LensTypes.PostParams, LensTypes.EIP712Signature));
         address profileOwner = IERC721(LENS_HUB).ownerOf(postParams.profileId);

@@ -32,13 +32,13 @@ abstract contract ProfilelessDataTokenBase is ERC721Enumerable, DataTokenBase {
         return (_getProfilelessTokenOwner(), (salePrice * _royaltyRate) / Constants.BASIS_POINTS);
     }
 
+    function supportsInterface(bytes4 interfaceId) public pure override returns (bool) {
+        return interfaceId == INTERFACE_ID_ERC2981;
+    }
+
     function _mintCollectNFT(address to) internal returns (uint256) {
         _safeMint(to, _tokenIdCount);
         return _tokenIdCount++;
-    }
-
-    function supportsInterface(bytes4 interfaceId) public pure override returns (bool) {
-        return interfaceId == INTERFACE_ID_ERC2981;
     }
 
     function _getProfilelessTokenOwner() internal view returns (address) {
