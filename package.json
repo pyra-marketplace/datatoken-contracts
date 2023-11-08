@@ -11,7 +11,9 @@
     "deploy:bsc_testnet": "source .env && forge script script/Deploy.s.sol --rpc-url bsc_testnet --broadcast --legacy -vvvv",
     "deploy:scroll_sepolia": "source .env && forge script script/Deploy.s.sol --rpc-url scroll_sepolia --broadcast --legacy -vvvv",
     "deploy:filecoin_calibration": "source .env && forge script script/Deploy.s.sol --rpc-url filecoin_calibration --broadcast -vvvv",
-    "lint": "solhint contracts/**/*.sol"
+    "solhint": "solhint contracts/**/*.sol",
+    "slither:detail": "slither .",
+    "slither:summary": "slither . --print human-summary"
   },
   "keywords": [],
   "author": "",
