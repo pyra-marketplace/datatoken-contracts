@@ -1,7 +1,6 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.10;
 
-import {ReentrancyGuard} from "openzeppelin-contracts/contracts/security/ReentrancyGuard.sol";
 import {IERC721} from "openzeppelin-contracts/contracts/token/ERC721/IERC721.sol";
 
 import {CyberTypes} from "../../graph/cyber/CyberTypes.sol";
@@ -13,7 +12,7 @@ import {DataTypes} from "../../libraries/DataTypes.sol";
 import {Errors} from "../../libraries/Errors.sol";
 import {Events} from "../../libraries/Events.sol";
 
-contract CyberDataTokenFactory is IDataTokenFactory, ReentrancyGuard {
+contract CyberDataTokenFactory is IDataTokenFactory {
     address internal immutable DATA_TOKEN_HUB;
     address internal immutable CYBER_PROFILE_NFT;
 
@@ -25,7 +24,7 @@ contract CyberDataTokenFactory is IDataTokenFactory, ReentrancyGuard {
     /**
      * @inheritdoc IDataTokenFactory
      */
-    function createDataToken(bytes calldata initVars) external nonReentrant returns (address) {
+    function createDataToken(bytes calldata initVars) external returns (address) {
         (
             CyberTypes.RegisterEssenceParams memory essenceParams,
             bytes memory initData,

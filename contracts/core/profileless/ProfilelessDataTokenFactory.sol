@@ -1,8 +1,6 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.10;
 
-import {ReentrancyGuard} from "openzeppelin-contracts/contracts/security/ReentrancyGuard.sol";
-
 import {ProfilelessDataToken} from "./ProfilelessDataToken.sol";
 import {IProfilelessHub} from "../../graph/profileless/interfaces/IProfilelessHub.sol";
 import {ProfilelessTypes} from "../../graph/profileless/libraries/ProfilelessTypes.sol";
@@ -12,7 +10,7 @@ import {DataTypes} from "../../libraries/DataTypes.sol";
 import {Errors} from "../../libraries/Errors.sol";
 import {Events} from "../../libraries/Events.sol";
 
-contract ProfilelessDataTokenFactory is IDataTokenFactory, ReentrancyGuard {
+contract ProfilelessDataTokenFactory is IDataTokenFactory {
     address internal immutable DATA_TOKEN_HUB;
     address internal immutable PROFILELESS_HUB;
 
@@ -24,7 +22,7 @@ contract ProfilelessDataTokenFactory is IDataTokenFactory, ReentrancyGuard {
     /**
      * @inheritdoc IDataTokenFactory
      */
-    function createDataToken(bytes calldata initVars) external nonReentrant returns (address) {
+    function createDataToken(bytes calldata initVars) external returns (address) {
         (ProfilelessTypes.PostParams memory postParams, ProfilelessTypes.EIP712Signature memory signature) =
             abi.decode(initVars, (ProfilelessTypes.PostParams, ProfilelessTypes.EIP712Signature));
 

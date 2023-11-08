@@ -1,7 +1,6 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.10;
 
-import {ReentrancyGuard} from "openzeppelin-contracts/contracts/security/ReentrancyGuard.sol";
 import {IERC721} from "openzeppelin-contracts/contracts/token/ERC721/IERC721.sol";
 
 import {CyberTypes} from "../../graph/cyber/CyberTypes.sol";
@@ -13,7 +12,7 @@ import {DataTokenBase} from "../../base/DataTokenBase.sol";
 import {DataTypes} from "../../libraries/DataTypes.sol";
 import {Errors} from "../../libraries/Errors.sol";
 
-contract CyberDataToken is DataTokenBase, IDataToken, ReentrancyGuard {
+contract CyberDataToken is DataTokenBase, IDataToken {
     /**
      * @inheritdoc IDataToken
      */
@@ -26,7 +25,7 @@ contract CyberDataToken is DataTokenBase, IDataToken, ReentrancyGuard {
     /**
      * @inheritdoc IDataToken
      */
-    function collect(bytes memory data) external nonReentrant returns (uint256) {
+    function collect(bytes memory data) external returns (uint256) {
         // 1.decode
         (
             CyberTypes.CollectParams memory collectParams,

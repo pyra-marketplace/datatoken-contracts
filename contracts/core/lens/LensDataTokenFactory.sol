@@ -1,8 +1,6 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.10;
 
-import {ReentrancyGuard} from "openzeppelin-contracts/contracts/security/ReentrancyGuard.sol";
-
 import {LensTypes} from "../../graph/lens/LensTypes.sol";
 import {ILensHub} from "../../graph/lens/ILensHub.sol";
 import {ICollectPublicationAction} from "../../graph/lens/ICollectPublicationAction.sol";
@@ -14,7 +12,7 @@ import {DataTypes} from "../../libraries/DataTypes.sol";
 import {Errors} from "../../libraries/Errors.sol";
 import {Events} from "../../libraries/Events.sol";
 
-contract LensDataTokenFactory is IDataTokenFactory, ReentrancyGuard {
+contract LensDataTokenFactory is IDataTokenFactory {
     address internal immutable DATA_TOKEN_HUB;
     address internal immutable LENS_HUB;
 
@@ -26,7 +24,7 @@ contract LensDataTokenFactory is IDataTokenFactory, ReentrancyGuard {
     /**
      * @inheritdoc IDataTokenFactory
      */
-    function createDataToken(bytes calldata initVars) external nonReentrant returns (address) {
+    function createDataToken(bytes calldata initVars) external returns (address) {
         (LensTypes.PostParams memory postParams, LensTypes.EIP712Signature memory signature) =
             abi.decode(initVars, (LensTypes.PostParams, LensTypes.EIP712Signature));
 
