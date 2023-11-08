@@ -8,11 +8,4 @@ interface IDataTokenFactory {
      * @return address deployed data token contract address
      */
     function createDataToken(bytes calldata initVars) external returns (address);
-
-    /**
-     * @dev create data token from lens, cyberconnect or profileless
-     * @param initVars encoded bytes contains initialization and signature data
-     * @return address deployed data token contract address
-     */
-    function createDataTokenWithSig(bytes memory initVars) external returns (address);
 }

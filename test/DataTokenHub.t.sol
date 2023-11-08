@@ -44,7 +44,7 @@ contract DataTokenHubTest is Test {
 
         dataTokenHubProxy = new ERC1967Proxy(address(dataTokenHub), new bytes(0));
         IDataTokenHub(address(dataTokenHubProxy)).initialize();
-        profilelessDataTokenFactory = new ProfilelessDataTokenFactory(address(dataTokenHubProxy));
+        profilelessDataTokenFactory = new ProfilelessDataTokenFactory(address(dataTokenHubProxy), address(0));
 
         IDataTokenHub(address(dataTokenHubProxy)).whitelistDataTokenFactory(address(profilelessDataTokenFactory), true);
         vm.stopPrank();

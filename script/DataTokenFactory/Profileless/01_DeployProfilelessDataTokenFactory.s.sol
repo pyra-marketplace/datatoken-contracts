@@ -11,7 +11,7 @@ contract DeployProfilelessDataTokenFactory is Script, Config {
         _privateKey = vm.envUint("PRIVATE_KEY");
 
         vm.startBroadcast(_privateKey);
-        ProfilelessDataTokenFactory factory = new ProfilelessDataTokenFactory(dataTokenHub);
+        ProfilelessDataTokenFactory factory = new ProfilelessDataTokenFactory(dataTokenHub, _profilelessHub);
         vm.stopBroadcast();
 
         return address(factory);

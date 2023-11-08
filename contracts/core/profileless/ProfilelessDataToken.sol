@@ -2,21 +2,23 @@
 pragma solidity ^0.8.10;
 
 import {ReentrancyGuard} from "openzeppelin-contracts/contracts/security/ReentrancyGuard.sol";
+import {IERC721} from "openzeppelin-contracts/contracts/token/ERC721/IERC721.sol";
 
-import {ProfilelessDataTokenBase} from "./base/ProfilelessDataTokenBase.sol";
-import {IDataTokenModule} from "./interface/IDataTokenModule.sol";
+import {IProfilelessHub} from "../../graph/profileless/interfaces/IProfilelessHub.sol";
+import {ProfilelessTypes} from "../../graph/profileless/libraries/ProfilelessTypes.sol";
 import {IDataToken} from "../../interfaces/IDataToken.sol";
 import {IDataTokenHub} from "../../interfaces/IDataTokenHub.sol";
+import {DataTokenBase} from "../../base/DataTokenBase.sol";
 import {DataTypes} from "../../libraries/DataTypes.sol";
 
-contract ProfilelessDataToken is ProfilelessDataTokenBase, IDataToken, ReentrancyGuard {
+contract ProfilelessDataToken is DataTokenBase, IDataToken, ReentrancyGuard {
     /**
      * @inheritdoc IDataToken
      */
     DataTypes.GraphType public constant graphType = DataTypes.GraphType.Profileless;
 
     constructor(address dataTokenHub, string memory contentURI, DataTypes.Metadata memory metadata)
-        ProfilelessDataTokenBase(dataTokenHub, contentURI, metadata)
+        DataTokenBase(dataTokenHub, contentURI, metadata)
     {}
 
     /**
@@ -24,14 +26,15 @@ contract ProfilelessDataToken is ProfilelessDataTokenBase, IDataToken, Reentranc
      */
     function collect(bytes memory data) external nonReentrant returns (uint256) {
         // 1.decode
-        (address collector, bytes memory validateData) = abi.decode(data, (address, bytes));
+        (ProfilelessTypes.CollectParams memory collectParams, ProfilelessTypes.EIP712Signature memory signature) =
+            abi.decode(data, (ProfilelessTypes.CollectParams, ProfilelessTypes.EIP712Signature));
 
         // 2.collect
-        IDataTokenModule(_metadata.collectMiddleware).processCollect(_metadata.pubId, collector, validateData);
-        uint256 tokenId = _mintCollectNFT(collector);
+        uint256 tokenId = IProfilelessHub(_metadata.originalContract).collectWithSig(collectParams, signature);
 
         // 3.emit event
-        IDataTokenHub(DATA_TOKEN_HUB).emitCollected(collector, address(this), tokenId);
+        address collectNFT = _getProfilelessCollectNFT();
+        IDataTokenHub(DATA_TOKEN_HUB).emitCollected(signature.signer, collectNFT, tokenId);
 
         return tokenId;
     }
@@ -47,9 +50,15 @@ contract ProfilelessDataToken is ProfilelessDataTokenBase, IDataToken, Reentranc
      * @inheritdoc IDataToken
      */
     function isCollected(address user) external view returns (bool) {
-        if (_getProfilelessTokenOwner() == user || balanceOf(user) > 0) {
+        if (user == _getProfilelessTokenOwner()) {
             return true;
         }
+
+        address collectNFT = _getProfilelessCollectNFT();
+        if (collectNFT != address(0) && IERC721(collectNFT).balanceOf(user) > 0) {
+            return true;
+        }
+
         return false;
     }
 
@@ -57,7 +66,7 @@ contract ProfilelessDataToken is ProfilelessDataTokenBase, IDataToken, Reentranc
      * @inheritdoc IDataToken
      */
     function getCollectNFT() public view returns (address) {
-        return address(this);
+        return _getProfilelessCollectNFT();
     }
 
     /**
@@ -72,5 +81,13 @@ contract ProfilelessDataToken is ProfilelessDataTokenBase, IDataToken, Reentranc
      */
     function getDataTokenOwner() external view override returns (address) {
         return _getProfilelessTokenOwner();
+    }
+
+    function _getProfilelessTokenOwner() internal view returns (address) {
+        return IERC721(_metadata.originalContract).ownerOf(_metadata.pubId);
+    }
+
+    function _getProfilelessCollectNFT() internal view returns (address) {
+        return IProfilelessHub(_metadata.originalContract).getPublication(_metadata.pubId).collectNFT;
     }
 }

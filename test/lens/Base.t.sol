@@ -1,8 +1,8 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.10;
 
-import {ILensHub} from "../../contracts/vendor/lens/ILensHub.sol";
-import {IProfileCreationProxy} from "../../contracts/vendor/lens/IProfileCreationProxy.sol";
+import {ILensHub} from "../../contracts/graph/lens/ILensHub.sol";
+import {IProfileCreationProxy} from "../../contracts/graph/lens/IProfileCreationProxy.sol";
 import {DataTokenHub} from "../../contracts/DataTokenHub.sol";
 import {Test} from "forge-std/Test.sol";
 import {console} from "forge-std/console.sol";

@@ -2,7 +2,7 @@
 pragma solidity 0.8.14;
 
 import {IERC721} from "openzeppelin-contracts/contracts/token/ERC721/IERC721.sol";
-import {CyberTypes} from "../../contracts/vendor/cyber/CyberTypes.sol";
+import {CyberTypes} from "../../contracts/graph/cyber/CyberTypes.sol";
 import {TestLib712} from "cybercontracts/test/utils/TestLib712.sol";
 import {Constants} from "cybercontracts/src/libraries/Constants.sol";
 

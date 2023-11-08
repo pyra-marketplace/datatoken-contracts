@@ -2,11 +2,11 @@
 pragma solidity ^0.8.10;
 
 import {ReentrancyGuard} from "openzeppelin-contracts/contracts/security/ReentrancyGuard.sol";
-
-import {LensTypes} from "../../vendor/lens/LensTypes.sol";
-import {ILensHub} from "../../vendor/lens/ILensHub.sol";
-import {ICollectPublicationAction} from "../../vendor/lens/ICollectPublicationAction.sol";
 import {IERC721} from "openzeppelin-contracts/contracts/token/ERC721/IERC721.sol";
+
+import {LensTypes} from "../../graph/lens/LensTypes.sol";
+import {ILensHub} from "../../graph/lens/ILensHub.sol";
+import {ICollectPublicationAction} from "../../graph/lens/ICollectPublicationAction.sol";
 import {IDataToken} from "../../interfaces/IDataToken.sol";
 import {IDataTokenFactory} from "../../interfaces/IDataTokenFactory.sol";
 import {IDataTokenHub} from "../../interfaces/IDataTokenHub.sol";
@@ -53,7 +53,7 @@ contract LensDataToken is DataTokenBase, IDataToken, ReentrancyGuard {
     /**
      * @inheritdoc IDataToken
      */
-    function getDataTokenOwner() public view returns (address) {
+    function getDataTokenOwner() external view returns (address) {
         return _getLensTokenOwner();
     }
 
@@ -61,7 +61,7 @@ contract LensDataToken is DataTokenBase, IDataToken, ReentrancyGuard {
      * @inheritdoc IDataToken
      */
     function isCollected(address user) external view returns (bool) {
-        if (user == getDataTokenOwner()) {
+        if (user == _getLensTokenOwner()) {
             return true;
         }
 
@@ -85,15 +85,6 @@ contract LensDataToken is DataTokenBase, IDataToken, ReentrancyGuard {
      */
     function getMetadata() external view returns (DataTypes.Metadata memory) {
         return _metadata;
-    }
-
-    /**
-     * @inheritdoc DataTokenBase
-     */
-    function _checkDataTokenOwner() internal view override {
-        if (msg.sender != getDataTokenOwner()) {
-            revert Errors.NotDataTokenOwner();
-        }
     }
 
     function _getLensTokenOwner() internal view returns (address) {

@@ -2,9 +2,9 @@
 pragma solidity ^0.8.10;
 
 import {IERC20} from "openzeppelin-contracts/contracts/token/ERC20/IERC20.sol";
-import {LensTypes} from "../../contracts/vendor/lens/LensTypes.sol";
-import {Typehash} from "../../contracts/vendor/lens/Typehash.sol";
-import {ICollectPublicationAction} from "../../contracts/vendor/lens/ICollectPublicationAction.sol";
+import {LensTypes} from "../../contracts/graph/lens/LensTypes.sol";
+import {Typehash} from "../../contracts/graph/lens/Typehash.sol";
+import {ICollectPublicationAction} from "../../contracts/graph/lens/ICollectPublicationAction.sol";
 import {LensDataTokenFactory} from "../../contracts/core/lens/LensDataTokenFactory.sol";
 import {LensDataToken} from "../../contracts/core/lens/LensDataToken.sol";
 import {IDataToken} from "../../contracts/interfaces/IDataToken.sol";

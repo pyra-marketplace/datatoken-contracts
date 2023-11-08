@@ -4,8 +4,8 @@ pragma solidity ^0.8.10;
 import {ReentrancyGuard} from "openzeppelin-contracts/contracts/security/ReentrancyGuard.sol";
 import {IERC721} from "openzeppelin-contracts/contracts/token/ERC721/IERC721.sol";
 
-import {CyberTypes} from "../../vendor/cyber/CyberTypes.sol";
-import {IProfileNFT, CyberTypes} from "../../vendor/cyber/IProfileNFT.sol";
+import {CyberTypes} from "../../graph/cyber/CyberTypes.sol";
+import {IProfileNFT, CyberTypes} from "../../graph/cyber/IProfileNFT.sol";
 import {IDataToken} from "../../interfaces/IDataToken.sol";
 import {IDataTokenFactory} from "../../interfaces/IDataTokenFactory.sol";
 import {IDataTokenHub} from "../../interfaces/IDataTokenHub.sol";
@@ -57,7 +57,7 @@ contract CyberDataToken is DataTokenBase, IDataToken, ReentrancyGuard {
     /**
      * @inheritdoc IDataToken
      */
-    function getDataTokenOwner() public view returns (address) {
+    function getDataTokenOwner() external view returns (address) {
         return _getCyberTokenOwner();
     }
 
@@ -65,7 +65,7 @@ contract CyberDataToken is DataTokenBase, IDataToken, ReentrancyGuard {
      * @inheritdoc IDataToken
      */
     function isCollected(address user) external view returns (bool) {
-        if (user == getDataTokenOwner()) return true;
+        if (user == _getCyberTokenOwner()) return true;
 
         address collectNFT = _getCyberCollectNFT();
         if (collectNFT != address(0) && IERC721(collectNFT).balanceOf(user) > 0) {
@@ -87,15 +87,6 @@ contract CyberDataToken is DataTokenBase, IDataToken, ReentrancyGuard {
      */
     function getMetadata() external view returns (DataTypes.Metadata memory) {
         return _metadata;
-    }
-
-    /**
-     * @inheritdoc DataTokenBase
-     */
-    function _checkDataTokenOwner() internal view override {
-        if (msg.sender != getDataTokenOwner()) {
-            revert Errors.NotDataTokenOwner();
-        }
     }
 
     function _getCyberTokenOwner() internal view returns (address) {

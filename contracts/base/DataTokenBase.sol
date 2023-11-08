@@ -18,11 +18,4 @@ abstract contract DataTokenBase {
 
         _contentURI = contentURI;
     }
-
-    modifier onlyDataTokenOwner() {
-        _checkDataTokenOwner();
-        _;
-    }
-
-    function _checkDataTokenOwner() internal virtual;
 }
