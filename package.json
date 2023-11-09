@@ -1,13 +1,20 @@
 {
-  "name": "datatoken-contracts",
+  "name": "@dataverse/datatoken-contracts",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build": "forge build",
-    "test": "forge test",
+    "build": "forge build --sizes",
+    "test": "source .env && forge test",
     "format": "forge fmt",
-    "lint": "solhint contracts/**/*.sol"
+    "deploy:polygon_mumbai": "source .env && forge script script/Deploy.s.sol --rpc-url polygon_mumbai --broadcast --legacy",
+    "deploy:bsc_testnet": "source .env && forge script script/Deploy.s.sol --rpc-url bsc_testnet --broadcast --legacy",
+    "deploy:scroll_sepolia": "source .env && forge script script/Deploy.s.sol --rpc-url scroll_sepolia --broadcast --legacy",
+    "deploy:filecoin_calibration": "source .env && forge script script/Deploy.s.sol --rpc-url filecoin_calibration --broadcast",
+    "solhint": "solhint contracts/**/*.sol",
+    "solhint:fix": "solhint contracts/**/*.sol --fix",
+    "slither:detail": "slither .",
+    "slither:summary": "slither . --print human-summary"
   },
   "keywords": [],
   "author": "",

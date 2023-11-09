@@ -1,0 +1,49 @@
+{
+    "Polygon": {},
+    "PolygonMumbai": {
+      "DataTokenHub": "0xb7946018a85DE197250a4fAB1222467860D4c5f6",
+      "Lens": {
+         "DataTokenFactory": "0xBc1C7E0FAa7c6B869475adF92cd39521C62933C2",
+         "LensHubProxy": "0xC1E77eE73403B8a7478884915aA599932A677870",
+         "CollectPublicationAction": "0x5FE7918C3Ef48E6C5Fd79dD22A3120a3C4967aC2",
+         "SimpleFeeCollectModule": "0x98daD8B389417A5A7D971D7F83406Ac7c646A8e2",
+         "MultirecipientFeeCollectModule": "0xa878101e04518693ABE7fccd03778174A2B08159"
+      },
+      "Profileless": {
+         "DataTokenFactory": "0x2b7b2128a84Cfe57eB53Aae3f1E9cFB9dEa3e5A4",
+         "ProfilelessHub": "0x4cd3De11135DfBeec3E73afB2927130c37177E77",
+         "FreeCollectModule": "0xB2669b700c7A5d846883b1474CD83bA562382bC4",
+         "LimitedFeeCollectModule": "0x35F90Fc39C5B370C0614dbd81Cfd240D561d2D79",
+         "LimitedTimedFeeCollectModule": "0xBBeCb796B2861a3066d2e247a7A69ccFac43Bbe4"
+      }
+    },
+    "BSC": {},
+    "BSCTestnet": {
+      "DataTokenHub": "0xe7c295c05cf8Cd4C22F45010E3A8d4622bC35Ae6",
+      "Cyber": {
+         "DataTokenFactory": "0xe01c67B21A9B6079B9AaAeaFf954A0C63B52e9db",
+         "CyberProfileProxy": "0x57e12b7a5F38A7F9c23eBD0400e6E53F2a45F271",
+         "CollectPaidMw": "0x4e0D14e52418881511Fd8156585D4B03eEc1FF36"
+      },
+      "Profileless": {
+         "DataTokenFactory": "0x7C975eea56948CDa3e064277771E420e4c75eC97",
+         "ProfilelessHub": "0xFf6041B8C2310d7aD2a1e89D5BA8F59F1e1340a8",
+         "FreeCollectModule": "0x7Eda4446BB1Fb68E41e532B2A07A96B6bD912d23",
+         "LimitedFeeCollectModule": "0xD7F28d9758f95d492f588deABCbaD7b932f1CEda",
+         "LimitedTimedFeeCollectModule": "0x2e43c080B56c644F548610f45998399d42e3d400"
+      }
+    },
+    "Scroll": {},
+    "ScrollSepolia": {
+      "DataTokenHub": "0x121c234a61761b7BF34b302D6FaDB0ba4Ec11F52",
+      "Profileless": {
+         "DataTokenFactory": "0xE1D47818C2BC359D94a505757b44d61Cf94Dde41",
+         "ProfilelessHub": "0xEC77B3C524F4C58c6F42E7ea5cBB7859817514E6",
+         "FreeCollectModule": "0xa2222AA826d340d60a92f2Db11a9b3e4402fd0FC",
+         "LimitedFeeCollectModule": "0x98116a0670424262a07914C4ca2f7b21a23846Dc",
+         "LimitedTimedFeeCollectModule": "0x78b83fFaAB583167D22AAd35ec3CacA0ac2eef6c"
+      }
+    },
+    "Filecoin":{},
+    "FilecoinCalibration": {}
+}

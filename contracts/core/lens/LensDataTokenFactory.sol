@@ -1,8 +1,9 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.10;
 
-import {DataTypes as LensTypes} from "lens-core/contracts/libraries/DataTypes.sol";
-import {ILensHub} from "lens-core/contracts/interfaces/ILensHub.sol";
+import {LensTypes} from "../../graph/lens/LensTypes.sol";
+import {ILensHub} from "../../graph/lens/ILensHub.sol";
+import {ICollectPublicationAction} from "../../graph/lens/ICollectPublicationAction.sol";
 import {IERC721} from "openzeppelin-contracts/contracts/token/ERC721/IERC721.sol";
 import {LensDataToken} from "./LensDataToken.sol";
 import {IDataTokenHub} from "../../interfaces/IDataTokenHub.sol";
@@ -15,53 +16,42 @@ contract LensDataTokenFactory is IDataTokenFactory {
     address internal immutable DATA_TOKEN_HUB;
     address internal immutable LENS_HUB;
 
-    constructor(address lensHub, address dataTokenHub) {
-        LENS_HUB = lensHub;
+    constructor(address dataTokenHub, address lensHub) {
+        if (dataTokenHub == address(0) || lensHub == address(0)) {
+            revert Errors.ZeroAddress();
+        }
         DATA_TOKEN_HUB = dataTokenHub;
+        LENS_HUB = lensHub;
     }
 
     /**
      * @inheritdoc IDataTokenFactory
      */
     function createDataToken(bytes calldata initVars) external returns (address) {
-        LensTypes.PostWithSigData memory postWithSigData = abi.decode(initVars, (LensTypes.PostWithSigData));
+        (LensTypes.PostParams memory postParams, LensTypes.EIP712Signature memory signature) =
+            abi.decode(initVars, (LensTypes.PostParams, LensTypes.EIP712Signature));
 
-        // check caller is profile owner
-        address profileOwner = IERC721(LENS_HUB).ownerOf(postWithSigData.profileId);
-        if (profileOwner != msg.sender) {
-            revert Errors.NotProfileOwner(msg.sender);
-        }
-        return _createDataToken(profileOwner, postWithSigData);
-    }
+        address profileOwner = IERC721(LENS_HUB).ownerOf(postParams.profileId);
 
-    function createDataTokenWithSig(bytes calldata initVars) external returns (address) {
-        LensTypes.PostWithSigData memory postWithSigData = abi.decode(initVars, (LensTypes.PostWithSigData));
-        address profileOwner = IERC721(LENS_HUB).ownerOf(postWithSigData.profileId);
-        return _createDataToken(profileOwner, postWithSigData);
-    }
-
-    function _createDataToken(address dataTokenCreator, LensTypes.PostWithSigData memory postWithSigData)
-        internal
-        returns (address)
-    {
-        // 1. forward post() get pubId and init collect module by passing encoded parameters
-        uint256 pubId = ILensHub(LENS_HUB).postWithSig(postWithSigData);
-        string memory contentURI = ILensHub(LENS_HUB).getContentURI(postWithSigData.profileId, pubId);
+        // 1. forward postWithSig to get pubId and init collect module by passing encoded parameters
+        uint256 pubId = ILensHub(LENS_HUB).postWithSig(postParams, signature);
+        string memory contentURI = ILensHub(LENS_HUB).getContentURI(postParams.profileId, pubId);
 
         // 2. create DataToken contract
-        DataTypes.Metadata memory metadata;
-        metadata.originalContract = LENS_HUB;
-        metadata.profileId = postWithSigData.profileId;
-        metadata.pubId = pubId;
-        metadata.collectModule = postWithSigData.collectModule;
+        DataTypes.Metadata memory metadata = DataTypes.Metadata({
+            originalContract: LENS_HUB,
+            profileId: postParams.profileId,
+            pubId: pubId,
+            collectMiddleware: postParams.actionModules[0]
+        });
 
         LensDataToken lensDataToken = new LensDataToken(DATA_TOKEN_HUB, contentURI, metadata);
 
         // 3. register DataToke to DataTokenHub
-        IDataTokenHub(DATA_TOKEN_HUB).registerDataToken(dataTokenCreator, LENS_HUB, address(lensDataToken));
+        IDataTokenHub(DATA_TOKEN_HUB).registerDataToken(profileOwner, LENS_HUB, address(lensDataToken));
 
         // 4. emit Events
-        emit Events.DataTokenCreated(dataTokenCreator, LENS_HUB, address(lensDataToken));
+        emit Events.DataTokenCreated(profileOwner, LENS_HUB, address(lensDataToken));
         return address(lensDataToken);
     }
 }

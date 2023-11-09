@@ -8,9 +8,11 @@
 
 # DataToken Contracts
 
+**⚠️ Warning: This Smart Contract has not been professionally audited.**
+
 ## Overview
 
-The main goal of this project is to abstract the `post` and `collect` functionalities from popular social protocols such as [Lens Protocol](https://github.com/lens-protocol/core) and [Cyber Connect](https://github.com/cyberconnecthq/cybercontracts) into a unified concept called `DataToken`. With the help of different types of `DataTokenFactory`, users can create various types of DataTokens. These DataTokens can then be collected by other users.
+The main goal of this project is to abstract the `post` and `collect` functionalities from popular social protocols such as [Lens Protocol V2](https://github.com/lens-protocol/core) and [Cyber Connect](https://github.com/cyberconnecthq/cybercontracts) into a unified concept called `DataToken`. With the help of different types of `DataTokenFactory`, users can create various types of DataTokens. These DataTokens can then be collected by other users.
 
 - **DataTokenHub**: DataTokenHub contract serves as a central hub for managing DataTokenFactory instances. Its primary functions include whitelisting DataTokenFactories, registering DataTokens, and emitting the "Collected" event in a unified manner.
 
@@ -36,19 +38,19 @@ forge install
 ## Compile
 
 ```
-forge build
+npm run build
 ```
 
 ## Test
 
 ```
-forge test
+npm run test
 ```
 
 Test the code with logs and traces:
 
 ```
-forge test -vvvv
+npm run test -vvvv
 ```
 
 ## Deploy
@@ -56,71 +58,12 @@ forge test -vvvv
 Please add a new file named `.env` and configure your environment as `.env.example` showed.
 
 ```
-MUMBAI_RPC_URL=
-BSCT_RPC_URL=
-PRIVATE_KEY=
-```
-
-Then source `.env` in shell:
-
-```
-source .env
-```
-
-The combined deploy script is `script/Deploy.s.sol`.
-
-```
-forge script script/Deploy.s.sol --rpc-url $MUMBAI_RPC_URL --broadcast --legacy
-forge script script/Deploy.s.sol --rpc-url $BSCT_RPC_URL --broadcast --legacy
+npm run deploy:polygon_mumbai
+npm run deploy:bsc_testnet
+npm run deploy:scroll_sepolia
+npm run deploy:filecoin_calibration
 ```
 
 ## Deployed Contract Address
 
-```json
-{
-  "Mumbai": {
-    "DataTokenHub": "0x30E1568C539346bc1eddd7781C4B442397BE067D",
-    "Lens": {
-      "DataTokenFactory": "0xBD33A154970C33c99233971509aaED4322b84961",
-
-      "LensHub": "0x60Ae865ee4C725cd04353b5AAb364553f56ceF82",
-
-      "LimitedFeeCollectModule": "0xFCDA2801a31ba70dfe542793020a934F880D54aB",
-      "FreeCollectModule": "0x0BE6bD7092ee83D44a6eC1D949626FeE48caB30c",
-      "LimitedTimedFeeCollectModule":
-        "0xDa76E44775C441eF53B9c769d175fB2948F15e1C",
-    },
-    "Cyber": {},
-    "Profileless": {
-      "DataTokenFactory": "0x6431eBEfE13E87bde75585C6fd1ea5596161732f",
-
-      "LimitedFeeCollectModule": "0xE8c5253778f1Fd4502CF291e64a8031B9c364760",
-      "FreeCollectModule": "0x9347A77e2622536b99Dde836B444be4E89533DE7",
-      "LimitedTimedFeeCollectModule":
-        "0x45b9fA329b4f96901d326bD3bd2E745Bcbd34D01",
-    },
-  },
-  "BSCT": {
-    "DataTokenHub": "0x66B17D5E86109D9C977Bac5fB030738Ff668Df70",
-    "Lens": {},
-    "Cyber": {
-      "DataTokenFactory": "0x9580915945BBB1675e7a4df340dab4137E514fe7",
-
-      "CyberProfileImpl": "0xeD2788C005C8715cFC7C2A29fF81B40b479Cc6fb",
-      "CyberProfileProxy": "0x57e12b7a5F38A7F9c23eBD0400e6E53F2a45F271",
-      "CollectPaidMw": "0x4e0d14e52418881511fd8156585d4b03eec1ff36",
-      "CollectDisallowedMw": "0xea5ec5a6b2613eebe7df63a6ac394759514baa3f",
-      "CollectOnlySubscribedMw": "0x13fc351b4daaddd5dd4768ca62f41a10fe548642",
-      "CollectMerkleDropMw": "0x1488e8f5aab7f609cfdc04997d5c73e4d7b6ad0d",
-      "SignaturePermissionEssenceMw":
-        "0x733142f467904f9a2e8efa0119523d3cc7a99b0b",
-      "CollectPermissionMw": "0xbbbab0257edba5823ddb5aa62c08f07bd0d302d9",
-      "StableFeeCreationMw": "0x4db6b3f3236adb0fb85a3957e740f07481c1dc99",
-      "PermissionedFeeCreationMw": "0xd1587f68e9d9f9ee93c9aa6fc60c7da414e90818",
-    },
-    "Profileless": {},
-  },
-  "Polygon": {},
-  "BSC": {},
-};
-```
+The contract addresses deployed on different blockchain networks are listed in the `addresses.json` file.
