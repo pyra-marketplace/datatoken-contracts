@@ -7,8 +7,6 @@ import {Errors} from "../../libraries/Errors.sol";
 abstract contract CollectModuleBase {
     address internal immutable PROFILELESS_HUB;
 
-    mapping(address => mapping(address => bool)) internal _isRequestByCollectorByDataToken;
-
     constructor(address profilelessHub) {
         if (profilelessHub == address(0)) {
             revert Errors.ZeroAddress();

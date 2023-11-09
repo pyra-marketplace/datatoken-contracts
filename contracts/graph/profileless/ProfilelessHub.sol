@@ -76,6 +76,9 @@ contract ProfilelessHub is IProfilelessHub, PublicateNFT, EIP712 {
      * @inheritdoc IProfilelessHub
      */
     function whitelistCurrency(address currency, bool isWhitelisted) external onlyGovernor {
+        if (currency == address(0)) {
+            revert Errors.ZeroAddress();
+        }
         _isCurrencyWhitelisted[currency] = isWhitelisted;
         emit Events.CurrencyWhitelisted(currency, isWhitelisted);
     }
@@ -91,6 +94,9 @@ contract ProfilelessHub is IProfilelessHub, PublicateNFT, EIP712 {
      * @inheritdoc IProfilelessHub
      */
     function whitelistCollectModule(address collectModule, bool isWhitelisted) external onlyGovernor {
+        if (collectModule == address(0)) {
+            revert Errors.ZeroAddress();
+        }
         _isCollectModuleWhitelisted[collectModule] = isWhitelisted;
         emit Events.CollectModuleWhitelisted(collectModule, isWhitelisted);
     }
@@ -187,11 +193,12 @@ contract ProfilelessHub is IProfilelessHub, PublicateNFT, EIP712 {
             collectNFT: address(0)
         });
 
-        ICollectModule(postParams.collectModule).initializePublicationCollectModule(
-            pubId, postParams.collectModuleInitData
-        );
+        bytes memory collectModuleReturnData = ICollectModule(postParams.collectModule)
+            .initializePublicationCollectModule(pubId, postParams.collectModuleInitData);
 
-        emit Events.PublicationPosted(author, pubId, postParams.contentURI, postParams.collectModule);
+        emit Events.PublicationPosted(
+            author, pubId, postParams.contentURI, postParams.collectModule, collectModuleReturnData
+        );
 
         return pubId;
     }
