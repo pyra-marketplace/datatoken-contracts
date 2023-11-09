@@ -1,47 +1,47 @@
 {
     "Polygon": {},
     "PolygonMumbai": {
-      "DataTokenHub": "0xEA033627267654124fb0554b2B56eE230e4728ae",
+      "DataTokenHub": "0x883ba5Fb174c00be6a556f23A276C0CCb413C028",
       "Lens": {
-         "DataTokenFactory": "0x58eEe65533d67B1Da6168FAc984d200c6419Dd81",
+         "DataTokenFactory": "0xBe0c63dEa465AbE15D87E5FBDFC609aF3CE4769b",
          "LensHubProxy": "0xC1E77eE73403B8a7478884915aA599932A677870",
          "CollectPublicationAction": "0x5FE7918C3Ef48E6C5Fd79dD22A3120a3C4967aC2",
          "SimpleFeeCollectModule": "0x98daD8B389417A5A7D971D7F83406Ac7c646A8e2",
          "MultirecipientFeeCollectModule": "0xa878101e04518693ABE7fccd03778174A2B08159"
       },
       "Profileless": {
-         "DataTokenFactory": "0x7D1ad43277FD0f1E9f3f3f245456631927FA0715",
-         "ProfilelessHub": "0xD722d47a7c810666e427E98b29699F9AdBFE112D",
-         "FreeCollectModule": "0x0335833E817d8DD73AF66Ba834EB7d6EB7e5f940",
-         "LimitedFeeCollectModule": "0xa831851E1680fCE88a44477eA3A058d42F64b821",
-         "LimitedTimedFeeCollectModule": "0x4fFEd1537f7a48424d78A4B63A961f1b351aa318"
+         "DataTokenFactory": "0xaC4f04E1b631470C07F4ebD961aF1B9107C723aE",
+         "ProfilelessHub": "0x8d09a53Bf56aF625FBb85Ebeae0a2e33cfBAAdb6",
+         "FreeCollectModule": "0xEB7A7E30Ab9a5e24f1Cb976834073a76aAE37B79",
+         "LimitedFeeCollectModule": "0x083e4da5F36DC907B4d5F4384E75CD911AdD383d",
+         "LimitedTimedFeeCollectModule": "0x9292838Af464885A4f667279dbF33D75c01CB6c0"
       }
     },
     "BSC": {},
     "BSCTestnet": {
-      "DataTokenHub": "0x5597e3B5f469F39966AdCB3c48249fa9F3f23E1D",
+      "DataTokenHub": "0xBe9B270eaf1359Ff81884a757a976a53f4bDa21d",
       "Cyber": {
-         "DataTokenFactory": "0xC5d4382Aef1C81398e283263815f6924cae68912",
+         "DataTokenFactory": "0x341a2B55c5F8b537D94d1A97027f0bBB597d1462",
          "CyberProfileProxy": "0x57e12b7a5F38A7F9c23eBD0400e6E53F2a45F271",
          "CollectPaidMw": "0x4e0D14e52418881511Fd8156585D4B03eEc1FF36"
       },
       "Profileless": {
-         "DataTokenFactory": "0x0746C8E62a1bedAE17C516BF9232bf83Bddf9Df2",
-         "ProfilelessHub": "0x5f8a77054cC504AEAcAA28565202CbE971Bcda69",
-         "FreeCollectModule": "0x3d013b3F7038F2B2AE60A0D173805ecAF4294Dae",
-         "LimitedFeeCollectModule": "0xDC1c280eC42C8634B8652BE5f659F75C0f7c4173",
-         "LimitedTimedFeeCollectModule": "0x65356EC7088764F5E7885Eb1A3846c45F8c92C94"
+         "DataTokenFactory": "0x838783194CDf8DE7640be4d7AEee6d300B673c4f",
+         "ProfilelessHub": "0x1D9ce182DD7bA8740A54766B9115D3a0e0869766",
+         "FreeCollectModule": "0xBFcd91D6853C75c0dB8F03634EB612530CB19280",
+         "LimitedFeeCollectModule": "0x131BA8708175D2463904F3cB67c42645e9B83c15",
+         "LimitedTimedFeeCollectModule": "0xe0839506aDcb40790D8973b41C6c6eF58Cdf33B6"
       }
     },
     "Scroll": {},
     "ScrollSepolia": {
-      "DataTokenHub": "0x35A450879227287351574CA4c8E10390b71F16bE",
+      "DataTokenHub": "0xa3EFb397e49d36D4F8d59A4bad62d63e3a8aB91d",
       "Profileless": {
-         "DataTokenFactory": "0xbcda60E0d436477e432f7125bD46F1673cC34cf1",
-         "ProfilelessHub": "0x60A0fe994591086e5294EFDF9903a3c1c09e1322",
-         "FreeCollectModule": "0xe7bA6F76d36d3ea0e27293055B424E4084cE2a34",
-         "LimitedFeeCollectModule": "0xf3baecC8e77bD7d126F8D553C5Fd2Af0c83bf431",
-         "LimitedTimedFeeCollectModule": "0xD1A2689cB55Cce7276087d01fcC578B6eA61FfF2"
+         "DataTokenFactory": "0xB072a20f711aeD4a96A5F6F502cF7EbF3BFb3aE7",
+         "ProfilelessHub": "0xCd6125b57070Ea8400cDefaF548C7bE5774149C1",
+         "FreeCollectModule": "0x9e5eE64B7c5Eaa01d1282568405299C5cc772680",
+         "LimitedFeeCollectModule": "0x7151D42f4564e26f2FfeC2044f01623eDDa46f83",
+         "LimitedTimedFeeCollectModule": "0xAc1dA4CBa58Ad7a7FA4aD90a04fdb6296AF44644"
       }
     },
     "Filecoin":{},

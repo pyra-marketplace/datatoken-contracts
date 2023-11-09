@@ -10,8 +10,8 @@ contract PublicateNFT is ERC721Enumerable {
 
     constructor() ERC721("Profileless Publicate NFT", "PPN") {}
 
-    function _mintPublicateNFT(address to) internal returns (uint256) {
-        _safeMint(to, _tokenIdCount);
-        return _tokenIdCount++;
+    function _mintPublicateNFT(address to) internal returns (uint256 tokenId) {
+        tokenId = _tokenIdCount;
+        _safeMint(to, _tokenIdCount++);
     }
 }

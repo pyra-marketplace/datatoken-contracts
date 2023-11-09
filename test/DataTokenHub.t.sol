@@ -16,6 +16,7 @@ contract DataTokenHubTest is Test {
 
     DataTokenHub dataTokenHub;
     ProfilelessDataTokenFactory profilelessDataTokenFactory;
+    address profilelessHub;
     address unwhitelistedDataTokenFactory;
     address governor;
     address newGovernor;
@@ -38,13 +39,14 @@ contract DataTokenHubTest is Test {
         originalContract = makeAddr("originalContract");
         dataToken = makeAddr("dataToken");
         unwhitelistedDataTokenFactory = makeAddr("unwhitelistedDataTokenFactory");
+        profilelessHub = makeAddr("profilelessHub");
 
         vm.startPrank(governor);
         dataTokenHub = new DataTokenHub();
 
         dataTokenHubProxy = new ERC1967Proxy(address(dataTokenHub), new bytes(0));
         IDataTokenHub(address(dataTokenHubProxy)).initialize();
-        profilelessDataTokenFactory = new ProfilelessDataTokenFactory(address(dataTokenHubProxy), address(0));
+        profilelessDataTokenFactory = new ProfilelessDataTokenFactory(address(dataTokenHubProxy), profilelessHub);
 
         IDataTokenHub(address(dataTokenHubProxy)).whitelistDataTokenFactory(address(profilelessDataTokenFactory), true);
         vm.stopPrank();

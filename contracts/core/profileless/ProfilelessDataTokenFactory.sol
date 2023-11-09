@@ -15,6 +15,9 @@ contract ProfilelessDataTokenFactory is IDataTokenFactory {
     address internal immutable PROFILELESS_HUB;
 
     constructor(address dataTokenHub, address profilelessHub) {
+        if (dataTokenHub == address(0) || profilelessHub == address(0)) {
+            revert Errors.ZeroAddress();
+        }
         DATA_TOKEN_HUB = dataTokenHub;
         PROFILELESS_HUB = profilelessHub;
     }

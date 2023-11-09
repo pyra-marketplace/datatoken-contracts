@@ -17,6 +17,9 @@ contract CyberDataTokenFactory is IDataTokenFactory {
     address internal immutable CYBER_PROFILE_NFT;
 
     constructor(address dataTokenHub, address cyberProfileNFT) {
+        if (dataTokenHub == address(0) || cyberProfileNFT == address(0)) {
+            revert Errors.ZeroAddress();
+        }
         DATA_TOKEN_HUB = dataTokenHub;
         CYBER_PROFILE_NFT = cyberProfileNFT;
     }

@@ -180,16 +180,16 @@ contract ProfilelessHub is IProfilelessHub, PublicateNFT, EIP712 {
         }
         uint256 pubId = _mintPublicateNFT(author);
 
-        ICollectModule(postParams.collectModule).initializePublicationCollectModule(
-            pubId, postParams.collectModuleInitData
-        );
-
         _publicationById[pubId] = ProfilelessTypes.Publication({
             pubId: pubId,
             contentURI: postParams.contentURI,
             collectModule: postParams.collectModule,
             collectNFT: address(0)
         });
+
+        ICollectModule(postParams.collectModule).initializePublicationCollectModule(
+            pubId, postParams.collectModuleInitData
+        );
 
         emit Events.PublicationPosted(author, pubId, postParams.contentURI, postParams.collectModule);
 
@@ -204,10 +204,11 @@ contract ProfilelessHub is IProfilelessHub, PublicateNFT, EIP712 {
         if (targetPublication.collectNFT == address(0)) {
             targetPublication.collectNFT = address(new CollectNFT(address(this)));
         }
+        uint256 collectTokenId = CollectNFT(targetPublication.collectNFT).mintCollectNFT(collector);
+
         ICollectModule(targetPublication.collectModule).processCollect(
             targetPublication.pubId, collector, collectParams.collectModuleValidateData
         );
-        uint256 collectTokenId = CollectNFT(targetPublication.collectNFT).mintCollectNFT(collector);
 
         emit Events.PublicationCollected(collector, collectParams.pubId);
 

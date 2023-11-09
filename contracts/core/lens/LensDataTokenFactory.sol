@@ -17,6 +17,9 @@ contract LensDataTokenFactory is IDataTokenFactory {
     address internal immutable LENS_HUB;
 
     constructor(address dataTokenHub, address lensHub) {
+        if (dataTokenHub == address(0) || lensHub == address(0)) {
+            revert Errors.ZeroAddress();
+        }
         DATA_TOKEN_HUB = dataTokenHub;
         LENS_HUB = lensHub;
     }
