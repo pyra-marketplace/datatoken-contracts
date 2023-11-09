@@ -2,7 +2,10 @@
 pragma solidity ^0.8.10;
 
 import {ProfilelessHub} from "../../../../contracts/graph/profileless/ProfilelessHub.sol";
-import {LimitedTimedFeeCollectModule, ProfilePublicationData} from "../../../../contracts/graph/profileless/modules/LimitedTimedFeeCollectModule.sol";
+import {
+    LimitedTimedFeeCollectModule,
+    ProfilePublicationData
+} from "../../../../contracts/graph/profileless/modules/LimitedTimedFeeCollectModule.sol";
 import {CurrencyMock} from "../../../../contracts/mocks/CurrencyMock.sol";
 import {Test} from "forge-std/Test.sol";
 
@@ -23,7 +26,7 @@ contract LimitedTimedFeeCollectModuleTest is Test {
     function setUp() public {
         governor = makeAddr("governor");
         collector = makeAddr("collector");
-    
+
         ProfilelessHub profilelessHubInstance = new ProfilelessHub(governor);
         profilelessHub = address(profilelessHubInstance);
 
@@ -87,7 +90,6 @@ contract LimitedTimedFeeCollectModuleTest is Test {
 
         vm.prank(profilelessHub);
         limitedTimedFeeCollectModule.initializePublicationCollectModule(pubId, initData);
-
 
         vm.expectRevert(CollectExpired.selector);
         vm.warp(endTimestamp + 1 days);

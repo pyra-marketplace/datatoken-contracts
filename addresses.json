@@ -1,50 +1,47 @@
 {
     "Polygon": {},
     "PolygonMumbai": {
-      "DataTokenHub": "0x70D924CD4D501B2d9b61dD4DD4f6d0cEfC4Cc45c",
+      "DataTokenHub": "0xEA033627267654124fb0554b2B56eE230e4728ae",
       "Lens": {
-        "DataTokenFactory": "0x6881AA9ead354F46409faFfc796241Fec7100A36",
-  
-        "LensHubProxy": "0xC1E77eE73403B8a7478884915aA599932A677870",
-        "CollectPublicationAction": "0x5FE7918C3Ef48E6C5Fd79dD22A3120a3C4967aC2",
-        "SimpleFeeCollectModule": "0x98daD8B389417A5A7D971D7F83406Ac7c646A8e2",
-        "MultirecipientFeeCollectModule": "0xa878101e04518693ABE7fccd03778174A2B08159"
+         "DataTokenFactory": "0x58eEe65533d67B1Da6168FAc984d200c6419Dd81",
+         "LensHubProxy": "0xC1E77eE73403B8a7478884915aA599932A677870",
+         "CollectPublicationAction": "0x5FE7918C3Ef48E6C5Fd79dD22A3120a3C4967aC2",
+         "SimpleFeeCollectModule": "0x98daD8B389417A5A7D971D7F83406Ac7c646A8e2",
+         "MultirecipientFeeCollectModule": "0xa878101e04518693ABE7fccd03778174A2B08159"
       },
       "Profileless": {
-        "DataTokenFactory": "0xa14b7c7ac3E37B9c7f3C11B9cCE10e463eB342cf",
-  
-        "LimitedFeeCollectModule": "0xC2694E1885a4636629dB0d108D7Ad2eA8586fd79",
-        "FreeCollectModule": "0xC95D076438B2A3cA317068Fd98B6B5156a0fD51e",
-        "LimitedTimedFeeCollectModule": "0x7A7C2b8fD257757091B103f35Bd2753fC9Df215e"
+         "DataTokenFactory": "0x7D1ad43277FD0f1E9f3f3f245456631927FA0715",
+         "ProfilelessHub": "0xD722d47a7c810666e427E98b29699F9AdBFE112D",
+         "FreeCollectModule": "0x0335833E817d8DD73AF66Ba834EB7d6EB7e5f940",
+         "LimitedFeeCollectModule": "0xa831851E1680fCE88a44477eA3A058d42F64b821",
+         "LimitedTimedFeeCollectModule": "0x4fFEd1537f7a48424d78A4B63A961f1b351aa318"
       }
     },
     "BSC": {},
     "BSCTestnet": {
-      "DataTokenHub": "0xD1A2689cB55Cce7276087d01fcC578B6eA61FfF2",
+      "DataTokenHub": "0x5597e3B5f469F39966AdCB3c48249fa9F3f23E1D",
       "Cyber": {
-        "DataTokenFactory": "0x3409eC9676458572A95FCf2067DAA9957B02dF16",
-  
-        "CyberProfileProxy": "0x57e12b7a5F38A7F9c23eBD0400e6E53F2a45F271",
-        "CollectPaidMw": "0x4e0d14e52418881511fd8156585d4b03eec1ff36"
+         "DataTokenFactory": "0xC5d4382Aef1C81398e283263815f6924cae68912",
+         "CyberProfileProxy": "0x57e12b7a5F38A7F9c23eBD0400e6E53F2a45F271",
+         "CollectPaidMw": "0x4e0D14e52418881511Fd8156585D4B03eEc1FF36"
       },
       "Profileless": {
-        "DataTokenFactory": "0xFd6c37C7A9b488078Ed5051a0D7C8546A4C058B1",
-  
-        "LimitedFeeCollectModule": "0xe39E927680Ca513C0Ad602208455F98eD9178DF3",
-        "FreeCollectModule": "0xc1247AdcB029C6952535c7562EaB8C749D8307B2",
-        "LimitedTimedFeeCollectModule":
-          "0x35A450879227287351574CA4c8E10390b71F16bE"
+         "DataTokenFactory": "0x0746C8E62a1bedAE17C516BF9232bf83Bddf9Df2",
+         "ProfilelessHub": "0x5f8a77054cC504AEAcAA28565202CbE971Bcda69",
+         "FreeCollectModule": "0x3d013b3F7038F2B2AE60A0D173805ecAF4294Dae",
+         "LimitedFeeCollectModule": "0xDC1c280eC42C8634B8652BE5f659F75C0f7c4173",
+         "LimitedTimedFeeCollectModule": "0x65356EC7088764F5E7885Eb1A3846c45F8c92C94"
       }
     },
     "Scroll": {},
     "ScrollSepolia": {
-      "DataTokenHub": "0x212406d063631Fb5CBca3800c27E33e3E4948e22",
+      "DataTokenHub": "0x35A450879227287351574CA4c8E10390b71F16bE",
       "Profileless": {
-        "DataTokenFactory": "0xF3185eC274AE3074E040a538AB5D6abb79343b40",
-  
-        "LimitedFeeCollectModule": "0x1E78dDBCA386B3303318512D56d16fdc7e157E90",
-        "FreeCollectModule": "0x3B9d1Ec3A252F1010566e67C81db575512b46a51",
-        "LimitedTimedFeeCollectModule": "0x82ADCe787883CA32cB21DC7E698280E48eF53AF7"
+         "DataTokenFactory": "0xbcda60E0d436477e432f7125bD46F1673cC34cf1",
+         "ProfilelessHub": "0x60A0fe994591086e5294EFDF9903a3c1c09e1322",
+         "FreeCollectModule": "0xe7bA6F76d36d3ea0e27293055B424E4084cE2a34",
+         "LimitedFeeCollectModule": "0xf3baecC8e77bD7d126F8D553C5Fd2Af0c83bf431",
+         "LimitedTimedFeeCollectModule": "0xD1A2689cB55Cce7276087d01fcC578B6eA61FfF2"
       }
     },
     "Filecoin":{},

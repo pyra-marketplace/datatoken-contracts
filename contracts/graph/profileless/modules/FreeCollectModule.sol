@@ -14,7 +14,6 @@ struct ProfilePublicationData {
 contract FreeCollectModule is CollectModuleBase, ICollectModule {
     error InitParamsInvalid();
     error ExceedCollectLimit();
-    error ModuleDataMismatch();
 
     using SafeERC20 for IERC20;
 
@@ -46,8 +45,7 @@ contract FreeCollectModule is CollectModuleBase, ICollectModule {
     /**
      * @inheritdoc ICollectModule
      */
-    function processCollect(uint256 pubId, address collector, bytes calldata) external onlyHub {
-        (collector);
+    function processCollect(uint256 pubId, address, bytes calldata) external onlyHub {
         if (_publicationDataById[pubId].currentCollects >= _publicationDataById[pubId].collectLimit) {
             revert ExceedCollectLimit();
         }

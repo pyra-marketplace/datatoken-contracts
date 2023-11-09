@@ -6,7 +6,7 @@ import {ProfilelessHub} from "../../../contracts/graph/profileless/ProfilelessHu
 import {Config} from "../../Config.sol";
 
 contract DeployProfilelessHub is Script, Config {
-    function run() public {
+    function run() public returns (address) {
         _baseSetUp();
         _privateKey = vm.envUint("PRIVATE_KEY");
 
@@ -14,6 +14,6 @@ contract DeployProfilelessHub is Script, Config {
         ProfilelessHub profilelessHub = new ProfilelessHub(vm.addr(_privateKey));
         vm.stopBroadcast();
 
-        _profilelessHub = address(profilelessHub);
+        return address(profilelessHub);
     }
 }

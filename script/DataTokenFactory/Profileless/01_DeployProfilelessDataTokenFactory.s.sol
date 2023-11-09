@@ -6,12 +6,12 @@ import {ProfilelessDataTokenFactory} from "../../../contracts/core/profileless/P
 import {Config} from "../../Config.sol";
 
 contract DeployProfilelessDataTokenFactory is Script, Config {
-    function run(address dataTokenHub) public returns (address) {
+    function run(address dataTokenHub, address profilelessHub) public returns (address) {
         _baseSetUp();
         _privateKey = vm.envUint("PRIVATE_KEY");
 
         vm.startBroadcast(_privateKey);
-        ProfilelessDataTokenFactory factory = new ProfilelessDataTokenFactory(dataTokenHub, _profilelessHub);
+        ProfilelessDataTokenFactory factory = new ProfilelessDataTokenFactory(dataTokenHub, profilelessHub);
         vm.stopBroadcast();
 
         return address(factory);

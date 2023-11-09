@@ -18,7 +18,6 @@ struct ProfilePublicationData {
 contract LimitedTimedFeeCollectModule is CollectModuleBase, ICollectModule {
     error InitParamsInvalid();
     error ExceedCollectLimit();
-    error ModuleDataMismatch();
     error CollectExpired();
 
     using SafeERC20 for IERC20;

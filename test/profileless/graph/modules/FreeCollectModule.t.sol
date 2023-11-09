@@ -1,7 +1,10 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.10;
 
-import {FreeCollectModule, ProfilePublicationData} from "../../../../contracts/graph/profileless/modules/FreeCollectModule.sol";
+import {
+    FreeCollectModule,
+    ProfilePublicationData
+} from "../../../../contracts/graph/profileless/modules/FreeCollectModule.sol";
 import {Test} from "forge-std/Test.sol";
 
 contract FreeCollectModuleTest is Test {

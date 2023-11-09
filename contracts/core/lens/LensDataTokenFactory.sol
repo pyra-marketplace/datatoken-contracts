@@ -30,7 +30,7 @@ contract LensDataTokenFactory is IDataTokenFactory {
 
         address profileOwner = IERC721(LENS_HUB).ownerOf(postParams.profileId);
 
-         // 1. forward postWithSig to get pubId and init collect module by passing encoded parameters
+        // 1. forward postWithSig to get pubId and init collect module by passing encoded parameters
         uint256 pubId = ILensHub(LENS_HUB).postWithSig(postParams, signature);
         string memory contentURI = ILensHub(LENS_HUB).getContentURI(postParams.profileId, pubId);
 

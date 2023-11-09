@@ -175,7 +175,7 @@ contract ProfilelessHub is IProfilelessHub, PublicateNFT, EIP712 {
     }
 
     function _post(ProfilelessTypes.PostParams memory postParams, address author) internal returns (uint256) {
-        if(!_isCollectModuleWhitelisted[postParams.collectModule]) {
+        if (!_isCollectModuleWhitelisted[postParams.collectModule]) {
             revert Errors.CollectModuleNotWhitelisted();
         }
         uint256 pubId = _mintPublicateNFT(author);

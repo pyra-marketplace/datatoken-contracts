@@ -2,7 +2,10 @@
 pragma solidity ^0.8.10;
 
 import {ProfilelessHub} from "../../../../contracts/graph/profileless/ProfilelessHub.sol";
-import {LimitedFeeCollectModule, ProfilePublicationData} from "../../../../contracts/graph/profileless/modules/LimitedFeeCollectModule.sol";
+import {
+    LimitedFeeCollectModule,
+    ProfilePublicationData
+} from "../../../../contracts/graph/profileless/modules/LimitedFeeCollectModule.sol";
 import {CurrencyMock} from "../../../../contracts/mocks/CurrencyMock.sol";
 import {Test} from "forge-std/Test.sol";
 
@@ -20,7 +23,7 @@ contract LimitedFeeCollectModuleTest is Test {
     function setUp() public {
         governor = makeAddr("governor");
         collector = makeAddr("collector");
-    
+
         ProfilelessHub profilelessHubInstance = new ProfilelessHub(governor);
         profilelessHub = address(profilelessHubInstance);
 

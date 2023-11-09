@@ -56,8 +56,6 @@ contract ProfilelessDataTokenFactoryTest is ProfilelessBaseTest {
     function test_CollectDataToken() public {
         assertFalse(profilelessDataToken.isCollected(dataTokenCollector));
 
-        uint256 pubId = profilelessDataToken.getMetadata().pubId;
-
         ProfilelessTypes.CollectParams memory collectParams = ProfilelessTypes.CollectParams({
             pubId: profilelessDataToken.getMetadata().pubId,
             collectModuleValidateData: abi.encode(address(currency), amount)
@@ -68,7 +66,7 @@ contract ProfilelessDataTokenFactoryTest is ProfilelessBaseTest {
 
         vm.startPrank(dataTokenCollector);
         currency.approve(address(collectModule), amount);
-        uint256 collectTokenId = profilelessDataToken.collect(data);
+        profilelessDataToken.collect(data);
         vm.stopPrank();
 
         assertTrue(profilelessDataToken.isCollected(dataTokenCollector));
@@ -100,7 +98,8 @@ contract ProfilelessDataTokenFactoryTest is ProfilelessBaseTest {
             collectModule: address(collectModule),
             collectModuleInitData: abi.encode(collectLimit, amount, address(currency), dataTokenOwner)
         });
-        ProfilelessTypes.EIP712Signature memory signature = _getEIP721PostSignature(postParams, dataTokenOwner, dataTokenOwnerPK);
+        ProfilelessTypes.EIP712Signature memory signature =
+            _getEIP721PostSignature(postParams, dataTokenOwner, dataTokenOwnerPK);
         bytes memory initVars = abi.encode(postParams, signature);
 
         vm.prank(dataTokenOwner);
@@ -108,8 +107,6 @@ contract ProfilelessDataTokenFactoryTest is ProfilelessBaseTest {
         profilelessDataToken = ProfilelessDataToken(dataToken);
     }
 }
-
-
 
 // import {DataTokenHub} from "../../contracts/DataTokenHub.sol";
 // import {ProfilelessDataTokenFactory} from "../../contracts/core/profileless/ProfilelessDataTokenFactory.sol";
