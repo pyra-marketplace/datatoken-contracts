@@ -8,9 +8,11 @@
 
 # DataToken Contracts
 
+**⚠️ Warning: This Smart Contract has not been professionally audited.**
+
 ## Overview
 
-The main goal of this project is to abstract the `post` and `collect` functionalities from popular social protocols such as [Lens Protocol](https://github.com/lens-protocol/core) and [Cyber Connect](https://github.com/cyberconnecthq/cybercontracts) into a unified concept called `DataToken`. With the help of different types of `DataTokenFactory`, users can create various types of DataTokens. These DataTokens can then be collected by other users.
+The main goal of this project is to abstract the `post` and `collect` functionalities from popular social protocols such as [Lens Protocol V2](https://github.com/lens-protocol/core) and [Cyber Connect](https://github.com/cyberconnecthq/cybercontracts) into a unified concept called `DataToken`. With the help of different types of `DataTokenFactory`, users can create various types of DataTokens. These DataTokens can then be collected by other users.
 
 - **DataTokenHub**: DataTokenHub contract serves as a central hub for managing DataTokenFactory instances. Its primary functions include whitelisting DataTokenFactories, registering DataTokens, and emitting the "Collected" event in a unified manner.
 
