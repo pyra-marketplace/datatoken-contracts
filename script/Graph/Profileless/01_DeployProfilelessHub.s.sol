@@ -7,7 +7,6 @@ import {Config} from "../../Config.sol";
 
 contract DeployProfilelessHub is Script, Config {
     function run() public returns (address) {
-        _baseSetUp();
         _privateKey = vm.envUint("PRIVATE_KEY");
 
         vm.startBroadcast(_privateKey);

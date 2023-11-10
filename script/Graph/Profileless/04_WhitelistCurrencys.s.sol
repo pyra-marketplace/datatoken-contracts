@@ -7,7 +7,6 @@ import {Config} from "../../Config.sol";
 
 contract WhitelistCurrencys is Script, Config {
     function run(address profilelessHub) public {
-        _baseSetUp();
         _privateKey = vm.envUint("PRIVATE_KEY");
 
         vm.startBroadcast(_privateKey);

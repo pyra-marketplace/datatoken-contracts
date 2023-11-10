@@ -10,6 +10,7 @@ contract Config {
     uint256 internal constant ScrollSepolia = 534351;
     uint256 internal constant Filecoin = 34;
     uint256 internal constant FilecoinCalibration = 314159;
+    uint256 internal constant PhenixTestnet = 5432;
 
     uint256 internal _privateKey;
 
@@ -27,7 +28,7 @@ contract Config {
     address internal _profilelessHub;
     address[] internal _currencys;
 
-    function _baseSetUp() internal {
+    constructor() {
         if (block.chainid == Polygon) {
             _lensHubProxy = 0xDb46d1Dc155634FbC732f92E853b10B288AD5a1d;
         }
@@ -71,6 +72,14 @@ contract Config {
             _currencys.push(WETH);
             _currencys.push(USDC);
             _currencys.push(USDT);
+        }
+        if (block.chainid == FilecoinCalibration) {
+            address WFIL = 0xaC26a4Ab9cF2A8c5DBaB6fb4351ec0F4b07356c4;
+            _currencys.push(WFIL);
+        }
+        if (block.chainid == PhenixTestnet) {
+            address PHET = 0xb942C11C074a7D9018d8569B2389d1F331e52fA6;
+            _currencys.push(PHET);
         }
     }
 }

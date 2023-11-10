@@ -45,5 +45,14 @@
       }
     },
     "Filecoin":{},
-    "FilecoinCalibration": {}
+    "FilecoinCalibration": {
+      "DataTokenHub": "0x4eE00F4331cc6D47802A46Cd45943E1dE44b8981",
+      "Profileless": {
+         "DataTokenFactory": "0x60A0fe994591086e5294EFDF9903a3c1c09e1322",
+         "ProfilelessHub": "0xc45e3Fed573a2af97e37ee7C172E303fd92DeD16",
+         "FreeCollectModule": "0x4cB21B5A4225e64A7F77e43F72d653274EF1C853",
+         "LimitedFeeCollectModule": "0x829a880e3AC8b24a262fC9e7957D862770314423",
+         "LimitedTimedFeeCollectModule": "0xFc8aa004fb58Cb965AFa2b81BFaA3dC1d1748710"
+      }
+    }
 }

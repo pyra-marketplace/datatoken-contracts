@@ -27,9 +27,22 @@ contract Deploy is Script, Config {
 
     WhitelistDataTokenFactory whitelistDataTokenFactory;
 
-    function run() public {
-        _setUp();
+    constructor() {
+        deployProfilelessHub = new DeployProfilelessHub();
+        deployCollectModules = new DeployCollectModules();
+        whitelistCollectModules = new WhitelistCollectModules();
+        whitelistCurrencys = new WhitelistCurrencys();
 
+        deployDataTokenHub = new DeployDataTokenHub();
+
+        deployLensDataTokenFactory = new DeployLensDataTokenFactory();
+        deployCyberDataTokenFactory = new DeployCyberDataTokenFactory();
+        deployProfilelessDataTokenFactory = new DeployProfilelessDataTokenFactory();
+
+        whitelistDataTokenFactory = new WhitelistDataTokenFactory();
+    }
+
+    function run() public {
         address profilelessHub = deployProfilelessHub.run();
         address[] memory collectModules = deployCollectModules.run(profilelessHub);
         whitelistCollectModules.run(profilelessHub, collectModules);
@@ -46,47 +59,31 @@ contract Deploy is Script, Config {
 
         whitelistDataTokenFactory.run(dataTokenHub, factories);
 
-        console.log("\"%s\": \"%s\",", "DataTokenHub", dataTokenHub);
+        console.log('"%s": "%s",', "DataTokenHub", dataTokenHub);
 
         if (lensDataTokenFactory != address(0)) {
-            console.log("\"Lens\": {");
-            console.log("   \"%s\": \"%s\",", "DataTokenFactory", lensDataTokenFactory);
-            console.log("   \"%s\": \"%s\",", "LensHubProxy", _lensHubProxy);
-            console.log("   \"%s\": \"%s\",", "CollectPublicationAction", _collectPublicationAction);
-            console.log("   \"%s\": \"%s\",", "SimpleFeeCollectModule", _simpleFeeCollectModule);
-            console.log("   \"%s\": \"%s\"", "MultirecipientFeeCollectModule", _multirecipientFeeCollectModule);
+            console.log('"Lens": {');
+            console.log('   "%s": "%s",', "DataTokenFactory", lensDataTokenFactory);
+            console.log('   "%s": "%s",', "LensHubProxy", _lensHubProxy);
+            console.log('   "%s": "%s",', "CollectPublicationAction", _collectPublicationAction);
+            console.log('   "%s": "%s",', "SimpleFeeCollectModule", _simpleFeeCollectModule);
+            console.log('   "%s": "%s"', "MultirecipientFeeCollectModule", _multirecipientFeeCollectModule);
             console.log("},");
         }
         if (cyberDataTokenFactory != address(0)) {
-            console.log("\"Cyber\": {");
-            console.log("   \"%s\": \"%s\",", "DataTokenFactory", cyberDataTokenFactory);
-            console.log("   \"%s\": \"%s\",", "CyberProfileProxy", _cyberProfileProxy);
-            console.log("   \"%s\": \"%s\"", "CollectPaidMw", _collectPaidMw);
+            console.log('"Cyber": {');
+            console.log('   "%s": "%s",', "DataTokenFactory", cyberDataTokenFactory);
+            console.log('   "%s": "%s",', "CyberProfileProxy", _cyberProfileProxy);
+            console.log('   "%s": "%s"', "CollectPaidMw", _collectPaidMw);
             console.log("},");
         }
 
-        console.log("\"Profileless\": {");
-        console.log("   \"%s\": \"%s\",", "DataTokenFactory", profilelessDataTokenFactory);
-        console.log("   \"%s\": \"%s\",", "ProfilelessHub", profilelessHub);
-        console.log("   \"%s\": \"%s\",", "FreeCollectModule", collectModules[0]);
-        console.log("   \"%s\": \"%s\",", "LimitedFeeCollectModule", collectModules[1]);
-        console.log("   \"%s\": \"%s\"", "LimitedTimedFeeCollectModule", collectModules[2]);
+        console.log('"Profileless": {');
+        console.log('   "%s": "%s",', "DataTokenFactory", profilelessDataTokenFactory);
+        console.log('   "%s": "%s",', "ProfilelessHub", profilelessHub);
+        console.log('   "%s": "%s",', "FreeCollectModule", collectModules[0]);
+        console.log('   "%s": "%s",', "LimitedFeeCollectModule", collectModules[1]);
+        console.log('   "%s": "%s"', "LimitedTimedFeeCollectModule", collectModules[2]);
         console.log("}");
-    }
-
-    function _setUp() internal {
-        _baseSetUp();
-        deployProfilelessHub = new DeployProfilelessHub();
-        deployCollectModules = new DeployCollectModules();
-        whitelistCollectModules = new WhitelistCollectModules();
-        whitelistCurrencys = new WhitelistCurrencys();
-
-        deployDataTokenHub = new DeployDataTokenHub();
-
-        deployLensDataTokenFactory = new DeployLensDataTokenFactory();
-        deployCyberDataTokenFactory = new DeployCyberDataTokenFactory();
-        deployProfilelessDataTokenFactory = new DeployProfilelessDataTokenFactory();
-
-        whitelistDataTokenFactory = new WhitelistDataTokenFactory();
     }
 }

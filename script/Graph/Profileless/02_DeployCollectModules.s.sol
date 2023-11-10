@@ -11,7 +11,6 @@ import {Config} from "../../Config.sol";
 
 contract DeployCollectModules is Script, Config {
     function run(address profilelessHub) public returns (address[] memory collectModules) {
-        _baseSetUp();
         _privateKey = vm.envUint("PRIVATE_KEY");
 
         vm.startBroadcast(_privateKey);

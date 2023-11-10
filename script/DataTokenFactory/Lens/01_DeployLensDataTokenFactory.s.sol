@@ -7,7 +7,6 @@ import {Config} from "../../Config.sol";
 
 contract DeployLensDataTokenFactory is Script, Config {
     function run(address dataTokenHub) public returns (address) {
-        _baseSetUp();
         if (_lensHubProxy != address(0)) {
             _privateKey = vm.envUint("PRIVATE_KEY");
 

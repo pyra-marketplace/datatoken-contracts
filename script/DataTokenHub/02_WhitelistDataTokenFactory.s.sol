@@ -7,7 +7,6 @@ import {Config} from "../Config.sol";
 
 contract WhitelistDataTokenFactory is Script, Config {
     function run(address dataTokenHub, address[] memory factories) public {
-        _baseSetUp();
         _privateKey = vm.envUint("PRIVATE_KEY");
 
         vm.startBroadcast(_privateKey);

@@ -7,7 +7,6 @@ import {Config} from "../../Config.sol";
 
 contract WhitelistCollectModules is Script, Config {
     function run(address profilelessHub, address[] memory collectModules) public {
-        _baseSetUp();
         _privateKey = vm.envUint("PRIVATE_KEY");
 
         vm.startBroadcast(_privateKey);
