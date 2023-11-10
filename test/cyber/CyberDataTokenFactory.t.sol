@@ -1,117 +1,105 @@
 // SPDX-License-Identifier: MIT
-pragma solidity 0.8.14;
+pragma solidity ^0.8.10;
 
 import {CyberTypes} from "../../contracts/graph/cyber/CyberTypes.sol";
-import {TestLib712} from "cybercontracts/test/utils/TestLib712.sol";
-import {Constants} from "cybercontracts/src/libraries/Constants.sol";
+import {Constants} from "../../contracts/graph/cyber/Constants.sol";
 
-import {CyberDataToken} from "../../contracts/core/cyber/CyberDataToken.sol";
 import {CyberDataTokenFactory} from "../../contracts/core/cyber/CyberDataTokenFactory.sol";
-import {DataTokenHub} from "../../contracts/DataTokenHub.sol";
-import {CurrencyMock} from "../../contracts/mocks/CurrencyMock.sol";
+import {CyberDataToken} from "../../contracts/core/cyber/CyberDataToken.sol";
 import {DataTypes} from "../../contracts/libraries/DataTypes.sol";
-import {IDataToken} from "../../contracts/interfaces/IDataToken.sol";
-
 import {CyberBaseTest} from "./Base.t.sol";
 
 contract CyberDataTokenFactoryTest is CyberBaseTest {
-    DataTokenHub dataTokenHub;
-    CyberDataTokenFactory cyberDataTokenFactory;
     address governor;
+    address dataTokenOwner;
+    uint256 dataTokenOwnerPK;
+    uint256 dataTokenOwnerProfileId;
+
+    CyberDataTokenFactory cyberDataTokenFactory;
 
     string contentURI;
     uint256 deadline;
 
+    uint256 totalSupply;
+    address currency;
+    uint256 amount;
+    bool subscribeRequired;
+
     function setUp() public {
         _setUp();
-        _setupCyberEnv();
-
         governor = makeAddr("governor");
+        dataTokenOwnerPK = vm.envUint("PRIVATE_KEY");
+        dataTokenOwner = vm.addr(dataTokenOwnerPK);
+
         contentURI = "https://dataverse-os.com";
         deadline = block.timestamp + 1 days;
-        vm.startPrank(governor);
-        dataTokenHub = new DataTokenHub();
-        dataTokenHub.initialize();
-        cyberDataTokenFactory = new CyberDataTokenFactory(address(dataTokenHub), address(link5Profile));
 
+        totalSupply = 100;
+        currency = CYBER_CONTRACTS.LINK;
+        amount = 1e5;
+        subscribeRequired = false;
+
+        vm.startPrank(governor);
+        _createDataTokenHub();
+        cyberDataTokenFactory = new CyberDataTokenFactory(address(dataTokenHub), address(CYBER_CONTRACTS.profileNFT));
         dataTokenHub.whitelistDataTokenFactory(address(cyberDataTokenFactory), true);
         vm.stopPrank();
+
+        dataTokenOwnerProfileId = _createCyberProfile(dataTokenOwner);
     }
 
     function test_CreateDataToken() public {
-        CyberTypes.RegisterEssenceParams memory params = CyberTypes.RegisterEssenceParams(
-            profileIdBob, BOB_ESSENCE_NAME, BOB_ESSENCE_SYMBOL, contentURI, essenceMw, true, false
+        bytes memory collectMwInitData = abi.encode(totalSupply, amount, dataTokenOwner, currency, subscribeRequired);
+
+        CyberTypes.RegisterEssenceParams memory postParams = CyberTypes.RegisterEssenceParams(
+            dataTokenOwnerProfileId,
+            "ESSENCE NAME",
+            "ESSENCE SYMBOL",
+            contentURI,
+            CYBER_CONTRACTS.collectPaidMw,
+            true,
+            false
         );
 
+        CyberTypes.EIP712Signature memory signature =
+            _generateEIP721PostSignature(postParams, collectMwInitData, dataTokenOwner, dataTokenOwnerPK);
+
+        bytes memory initVars = abi.encode(postParams, collectMwInitData, signature);
+        vm.prank(dataTokenOwner);
+        address dataToken = cyberDataTokenFactory.createDataToken(initVars);
+
+        DataTypes.Metadata memory metadata = CyberDataToken(dataToken).getMetadata();
+        assertEq(metadata.profileId, postParams.profileId);
+    }
+
+    function _generateEIP721PostSignature(
+        CyberTypes.RegisterEssenceParams memory postParams,
+        bytes memory collectMwInitData,
+        address signer,
+        uint256 signerPK
+    ) internal view returns (CyberTypes.EIP712Signature memory) {
         (uint8 v, bytes32 r, bytes32 s) = vm.sign(
-            bobPk,
-            TestLib712.hashTypedDataV4(
-                address(link5Profile),
+            signerPK,
+            _hashTypedDataV4(
+                address(CYBER_CONTRACTS.profileNFT),
                 keccak256(
                     abi.encode(
                         Constants._REGISTER_ESSENCE_TYPEHASH,
-                        params.profileId,
-                        keccak256(bytes(params.name)),
-                        keccak256(bytes(params.symbol)),
-                        keccak256(bytes(params.essenceTokenURI)),
-                        params.essenceMw,
-                        params.transferable,
-                        keccak256(new bytes(0)),
-                        link5Profile.nonces(bob),
+                        postParams.profileId,
+                        keccak256(bytes(postParams.name)),
+                        keccak256(bytes(postParams.symbol)),
+                        keccak256(bytes(postParams.essenceTokenURI)),
+                        postParams.essenceMw,
+                        postParams.transferable,
+                        keccak256(collectMwInitData),
+                        CYBER_CONTRACTS.profileNFT.nonces(signer),
                         deadline
                     )
                 ),
-                link5Profile.name(),
+                CYBER_CONTRACTS.profileNFT.name(),
                 "1"
             )
         );
-
-        CyberTypes.EIP712Signature memory signature = CyberTypes.EIP712Signature(v, r, s, deadline);
-
-        bytes memory initVars = abi.encode(params, new bytes(0), signature);
-        vm.prank(bob);
-        address dataToken = cyberDataTokenFactory.createDataToken(initVars);
-
-        DataTypes.Metadata memory metadata = IDataToken(dataToken).getMetadata();
-        assertEq(metadata.profileId, params.profileId);
+        return CyberTypes.EIP712Signature(v, r, s, deadline);
     }
-
-    // function test_CreateDataTokenWithSig() public {
-    //     CyberTypes.RegisterEssenceParams memory params = CyberTypes.RegisterEssenceParams(
-    //         profileIdBob, BOB_ESSENCE_NAME, BOB_ESSENCE_SYMBOL, contentURI, essenceMw, true, false
-    //     );
-
-    //     (uint8 v, bytes32 r, bytes32 s) = vm.sign(
-    //         bobPk,
-    //         TestLib712.hashTypedDataV4(
-    //             address(link5Profile),
-    //             keccak256(
-    //                 abi.encode(
-    //                     Constants._REGISTER_ESSENCE_TYPEHASH,
-    //                     params.profileId,
-    //                     keccak256(bytes(params.name)),
-    //                     keccak256(bytes(params.symbol)),
-    //                     keccak256(bytes(params.essenceTokenURI)),
-    //                     params.essenceMw,
-    //                     params.transferable,
-    //                     keccak256(new bytes(0)),
-    //                     link5Profile.nonces(bob),
-    //                     deadline
-    //                 )
-    //             ),
-    //             link5Profile.name(),
-    //             "1"
-    //         )
-    //     );
-
-    //     CyberTypes.EIP712Signature memory signature = CyberTypes.EIP712Signature(v, r, s, deadline);
-
-    //     bytes memory initVars = abi.encode(params, new bytes(0), signature);
-    //     vm.prank(bob);
-    //     address dataToken = cyberDataTokenFactory.createDataTokenWithSig(initVars);
-
-    //     DataTypes.Metadata memory metadata = IDataToken(dataToken).getMetadata();
-    //     assertEq(metadata.profileId, params.profileId);
-    //     assertEq(metadata.collectMiddleware, essenceMw);
-    // }
 }

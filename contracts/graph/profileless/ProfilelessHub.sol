@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.10;
 
-import {EIP712} from "openzeppelin-contracts/contracts/utils/cryptography/draft-EIP712.sol";
+import {EIP712} from "openzeppelin-contracts/contracts/utils/cryptography/EIP712.sol";
 import {PublicateNFT} from "./PublicateNFT.sol";
 import {CollectNFT} from "./CollectNFT.sol";
 import {IProfilelessHub} from "./interfaces/IProfilelessHub.sol";

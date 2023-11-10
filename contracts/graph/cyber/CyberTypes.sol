@@ -2,6 +2,14 @@
 pragma solidity ^0.8.10;
 
 library CyberTypes {
+    struct CreateProfileParams {
+        address to;
+        string handle;
+        string avatar;
+        string metadata;
+        address operator;
+    }
+
     struct RegisterEssenceParams {
         uint256 profileId;
         string name;

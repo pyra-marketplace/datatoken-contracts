@@ -4,6 +4,31 @@ pragma solidity ^0.8.10;
 import {CyberTypes} from "./CyberTypes.sol";
 
 interface IProfileNFT {
+    function name() external view returns (string memory _name);
+
+    function nonces(address account) external view returns (uint256);
+
+    /*
+     * @notice Creates a profile and mints it to the recipient address.
+     *
+     * @param params contains all params.
+     * @param data contains extra data.
+     *
+     * @dev The current function validates the caller address and the handle before minting
+     * and the following conditions must be met:
+     * - The caller address must be the engine address.
+     * - The recipient address must be a valid Ethereum address.
+     * - The handle must contain only a-z, A-Z, 0-9.
+     * - The handle must not be already used.
+     * - The handle must not be longer than 27 bytes.
+     * - The handle must not be empty.
+     */
+    function createProfile(
+        CyberTypes.CreateProfileParams calldata params,
+        bytes calldata preData,
+        bytes calldata postData
+    ) external payable returns (uint256);
+
     /**
      * @notice Register an essence with signature.
      *
