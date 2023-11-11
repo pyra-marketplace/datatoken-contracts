@@ -54,5 +54,15 @@
          "LimitedFeeCollectModule": "0x829a880e3AC8b24a262fC9e7957D862770314423",
          "LimitedTimedFeeCollectModule": "0xFc8aa004fb58Cb965AFa2b81BFaA3dC1d1748710"
       }
+    },
+    "PhenixDevnet": {
+      "DataTokenHub": "0x088B4DddbdaFF5E006D033A46e89b0D0ec0Be0C8",
+      "Profileless": {
+         "DataTokenFactory": "0xc1D4a3082C88BE811aD59DD0A0F339cc08815b1F",
+         "ProfilelessHub": "0xF8042a09E7A1600aD252e52575A883D8f62a0DBB",
+         "FreeCollectModule": "0x44eA84a9b384e8b3358232b5F3e799e5e51e1442",
+         "LimitedFeeCollectModule": "0xc4Da9a318Ad98b2910399E19447ab1B575E2de25",
+         "LimitedTimedFeeCollectModule": "0x85707147354a9036DE4b6Ab9Fc05F399Bf7b55d0"
+      }
     }
 }
