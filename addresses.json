@@ -55,7 +55,7 @@
          "LimitedTimedFeeCollectModule": "0xFc8aa004fb58Cb965AFa2b81BFaA3dC1d1748710"
       }
     },
-    "PhenixDevnet": {
+    "FhenixDevnet": {
       "DataTokenHub": "0x088B4DddbdaFF5E006D033A46e89b0D0ec0Be0C8",
       "Profileless": {
          "DataTokenFactory": "0xc1D4a3082C88BE811aD59DD0A0F339cc08815b1F",

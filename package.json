@@ -1,7 +1,7 @@
 {
   "name": "@dataverse/datatoken-contracts",
   "version": "1.0.0",
-  "description": "",
+  "description": "A simple, aggregated social graph module.",
   "main": "index.js",
   "scripts": {
     "build": "forge build --sizes",
@@ -11,7 +11,7 @@
     "deploy:bsc_testnet": "source .env && forge script script/Deploy.s.sol --rpc-url bsc_testnet --broadcast --legacy",
     "deploy:scroll_sepolia": "source .env && forge script script/Deploy.s.sol --rpc-url scroll_sepolia --broadcast --legacy",
     "deploy:filecoin_calibration": "source .env && forge script script/Deploy.s.sol --rpc-url filecoin_calibration --broadcast -g 300000",
-    "deploy:phenix_devnet": "source .env && forge script script/Deploy.s.sol --rpc-url phenix_devnet --broadcast",
+    "deploy:fhenix_devnet": "source .env && forge script script/Deploy.s.sol --rpc-url fhenix_devnet --broadcast",
     "solhint": "solhint contracts/**/*.sol",
     "solhint:fix": "solhint contracts/**/*.sol --fix",
     "slither:detail": "slither .",

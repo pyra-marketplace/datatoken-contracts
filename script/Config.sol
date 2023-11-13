@@ -10,7 +10,7 @@ contract Config {
     uint256 internal constant ScrollSepolia = 534351;
     uint256 internal constant Filecoin = 34;
     uint256 internal constant FilecoinCalibration = 314159;
-    uint256 internal constant PhenixDevnet = 5432;
+    uint256 internal constant FhenixDevnet = 5432;
 
     uint256 internal _privateKey;
 
@@ -77,7 +77,7 @@ contract Config {
             address WFIL = 0xaC26a4Ab9cF2A8c5DBaB6fb4351ec0F4b07356c4;
             _currencys.push(WFIL);
         }
-        if (block.chainid == PhenixDevnet) {
+        if (block.chainid == FhenixDevnet) {
             address PHET = 0xb942C11C074a7D9018d8569B2389d1F331e52fA6;
             _currencys.push(PHET);
         }
