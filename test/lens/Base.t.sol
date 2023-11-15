@@ -2,14 +2,15 @@
 pragma solidity ^0.8.10;
 
 import {ILensHub} from "../../contracts/graph/lens/ILensHub.sol";
+import {LensTypes} from "../../contracts/graph/lens/LensTypes.sol";
 import {IProfileCreationProxy} from "../../contracts/graph/lens/IProfileCreationProxy.sol";
 import {DataTokenHub} from "../../contracts/DataTokenHub.sol";
 import {Test} from "forge-std/Test.sol";
-import {console} from "forge-std/console.sol";
 
 contract LensBaseTest is Test {
     struct LensDeployedContracts {
         ILensHub lensHub;
+        IProfileCreationProxy profileCreationProxy;
         address collectPublicationAction;
         address simpleFeeCollectModule;
         address WMATIC;
@@ -24,6 +25,7 @@ contract LensBaseTest is Test {
 
         LENS_CONTRACTS = LensDeployedContracts({
             lensHub: ILensHub(0xC1E77eE73403B8a7478884915aA599932A677870),
+            profileCreationProxy: IProfileCreationProxy(0x2549f9Bbccdc5a65DDCeA45eF91dC9BdE30697c2),
             collectPublicationAction: 0x5FE7918C3Ef48E6C5Fd79dD22A3120a3C4967aC2,
             simpleFeeCollectModule: 0x98daD8B389417A5A7D971D7F83406Ac7c646A8e2,
             WMATIC: 0x9c3C9283D3e44854697Cd22D3Faa240Cfb032889
@@ -35,31 +37,15 @@ contract LensBaseTest is Test {
         dataTokenHub.initialize();
     }
 
-    function _getLensProfiles(address profileOwner) internal pure returns (uint256[] memory profileIds) {
-        profileIds = new uint256[](1);
-        profileIds[0] = 0x0250;
-    }
+    function _createLensProfile(address creator, string memory handle) internal returns (uint256) {
+        address profileCreationProxyOwner = LENS_CONTRACTS.profileCreationProxy.OWNER();
+        vm.prank(profileCreationProxyOwner);
+        (uint256 profileId,) = LENS_CONTRACTS.profileCreationProxy.proxyCreateProfileWithHandle(
+            LensTypes.CreateProfileParams({to: creator, followModule: address(0), followModuleInitData: new bytes(0)}),
+            handle
+        );
 
-    function _createLensProfile(address creator, string memory handle) internal view returns (uint256) {
-        // vm.prank(creator);
-        // profileId = lensContracts.lensHub.createProfile(
-        //     LensTypes.CreateProfileData({
-        //         to: creator,
-        //         handle: handle,
-        //         imageURI: "",
-        //         followModule: address(lensContracts.approvalFollowModule),
-        //         followModuleInitData: "",
-        //         followNFTURI: ""
-        //     })
-        // );
-        // (profileId, ) = LENS_CONTRACTS.profileCreationProxy.proxyCreateProfileWithHandle(
-        //     LensTypes.CreateProfileParams({to: creator, followModule: address(0), followModuleInitData: new bytes(0)}),
-        //     handle
-        // );
-        console.log("Lens protocol unable to create profile except owner");
-        console.log("Please go to lens mumbai testnent hey.xyz to get a profile");
-
-        return 0;
+        return profileId;
     }
 
     function _calculateDigest(bytes32 domainSeparator, bytes32 hashedMessage) internal pure returns (bytes32) {

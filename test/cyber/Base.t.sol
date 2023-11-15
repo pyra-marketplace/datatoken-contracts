@@ -1,6 +1,7 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.10;
 
+import {Strings} from "openzeppelin-contracts/contracts/utils/Strings.sol";
 import {IProfileNFT} from "../../contracts/graph/cyber/IProfileNFT.sol";
 import {CyberTypes} from "../../contracts/graph/cyber/CyberTypes.sol";
 import {DataTokenHub} from "../../contracts/DataTokenHub.sol";
@@ -37,7 +38,9 @@ contract CyberBaseTest is Test {
 
     function _createCyberProfile(address profileOwner) internal returns (uint256) {
         uint256 profileId = CYBER_CONTRACTS.profileNFT.createProfile(
-            CyberTypes.CreateProfileParams(profileOwner, "testprofile123", "", "", address(0)),
+            CyberTypes.CreateProfileParams(
+                profileOwner, string.concat("profile", Strings.toString(block.number + 1)), "", "", address(0)
+            ),
             new bytes(0),
             new bytes(0)
         );

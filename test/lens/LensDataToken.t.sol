@@ -1,6 +1,7 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.10;
 
+import {Strings} from "openzeppelin-contracts/contracts/utils/Strings.sol";
 import {IERC20} from "openzeppelin-contracts/contracts/token/ERC20/IERC20.sol";
 import {LensTypes} from "../../contracts/graph/lens/LensTypes.sol";
 import {Typehash} from "../../contracts/graph/lens/Typehash.sol";
@@ -59,8 +60,9 @@ contract LensDataTokenTest is Test, LensBaseTest {
         dataTokenHub.whitelistDataTokenFactory(address(dataTokenFactory), true);
         vm.stopPrank();
 
-        dataTokenOwnerProfileId = _getLensProfiles(dataTokenOwner)[0];
-        collectorProfileId = _getLensProfiles(collector)[0];
+        dataTokenOwnerProfileId =
+            _createLensProfile(dataTokenOwner, string.concat("profile", Strings.toString(block.number + 1)));
+        collectorProfileId = _createLensProfile(collector, string.concat("profile", Strings.toString(block.number + 2)));
 
         lensDataToken = _createDataToken();
     }
