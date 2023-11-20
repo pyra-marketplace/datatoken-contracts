@@ -8,6 +8,10 @@
 
 # DataToken Contracts
 
+[![npm version](https://img.shields.io/npm/v/@dataverse/datatoken-contracts.svg)](https://www.npmjs.com/package/@dataverse/datatoken-contracts)
+![npm](https://img.shields.io/npm/dw/@dataverse/datatoken-contracts)
+[![License](https://img.shields.io/npm/l/@dataverse/datatoken-contracts.svg)](https://github.com/dataverse-os/datatoken-contracts/blob/main/LICENSE.md)
+
 **⚠️ Warning: This Smart Contract has not been professionally audited.**
 
 ## Overview
@@ -32,6 +36,7 @@ foundryup
 Install dependencies:
 
 ```
+npm install
 forge install
 ```
 

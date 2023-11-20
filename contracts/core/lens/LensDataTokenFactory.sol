@@ -4,7 +4,7 @@ pragma solidity ^0.8.10;
 import {LensTypes} from "../../graph/lens/LensTypes.sol";
 import {ILensHub} from "../../graph/lens/ILensHub.sol";
 import {ICollectPublicationAction} from "../../graph/lens/ICollectPublicationAction.sol";
-import {IERC721} from "openzeppelin-contracts/contracts/token/ERC721/IERC721.sol";
+import {IERC721} from "@openzeppelin/contracts/token/ERC721/IERC721.sol";
 import {LensDataToken} from "./LensDataToken.sol";
 import {IDataTokenHub} from "../../interfaces/IDataTokenHub.sol";
 import {IDataTokenFactory} from "../../interfaces/IDataTokenFactory.sol";

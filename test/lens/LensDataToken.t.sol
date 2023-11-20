@@ -1,8 +1,8 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.10;
 
-import {Strings} from "openzeppelin-contracts/contracts/utils/Strings.sol";
-import {IERC20} from "openzeppelin-contracts/contracts/token/ERC20/IERC20.sol";
+import {Strings} from "@openzeppelin/contracts/utils/Strings.sol";
+import {IERC20} from "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 import {LensTypes} from "../../contracts/graph/lens/LensTypes.sol";
 import {Typehash} from "../../contracts/graph/lens/Typehash.sol";
 import {ICollectPublicationAction} from "../../contracts/graph/lens/ICollectPublicationAction.sol";

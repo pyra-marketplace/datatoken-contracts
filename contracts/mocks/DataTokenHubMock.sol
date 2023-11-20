@@ -5,7 +5,7 @@ import {IDataTokenHub} from "../interfaces/IDataTokenHub.sol";
 import {Constants} from "../libraries/Constants.sol";
 import {Errors} from "../libraries/Errors.sol";
 import {Events} from "../libraries/Events.sol";
-import {Initializable} from "openzeppelin-contracts/contracts/proxy/utils/Initializable.sol";
+import {Initializable} from "@openzeppelin/contracts/proxy/utils/Initializable.sol";
 
 contract DataTokenHubMock is IDataTokenHub, Initializable {
     string public constant version = "2.0";
