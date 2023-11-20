@@ -20,7 +20,7 @@
   "author": "",
   "license": "MIT",
   "devDependencies": {
-    "@openzeppelin/contracts": "4.8.0",
+    "@openzeppelin/contracts": "4.9.3",
     "solhint": "^3.6.2"
   }
 }
