@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.10;
 
-import {IERC721} from "openzeppelin-contracts/contracts/token/ERC721/IERC721.sol";
+import {IERC721} from "@openzeppelin/contracts/token/ERC721/IERC721.sol";
 
 import {CyberTypes} from "../../graph/cyber/CyberTypes.sol";
 import {IProfileNFT, CyberTypes} from "../../graph/cyber/IProfileNFT.sol";

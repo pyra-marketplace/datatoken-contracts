@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.10;
 
-import {IERC721} from "openzeppelin-contracts/contracts/token/ERC721/IERC721.sol";
+import {IERC721} from "@openzeppelin/contracts/token/ERC721/IERC721.sol";
 import {ProfilelessHub} from "../../contracts/graph/profileless/ProfilelessHub.sol";
 import {ProfilelessTypes} from "../../contracts/graph/profileless/libraries/ProfilelessTypes.sol";
 import {LimitedFeeCollectModule} from "../../contracts/graph/profileless/modules/LimitedFeeCollectModule.sol";

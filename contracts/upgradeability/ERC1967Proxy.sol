@@ -1,8 +1,8 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.10;
 
-import {Proxy} from "openzeppelin-contracts/contracts/proxy/Proxy.sol";
-import {ERC1967Upgrade} from "openzeppelin-contracts/contracts/proxy/ERC1967/ERC1967Upgrade.sol";
+import {Proxy} from "@openzeppelin/contracts/proxy/Proxy.sol";
+import {ERC1967Upgrade} from "@openzeppelin/contracts/proxy/ERC1967/ERC1967Upgrade.sol";
 
 contract ERC1967Proxy is Proxy, ERC1967Upgrade {
     /**

@@ -21,6 +21,7 @@
   "author": "",
   "license": "MIT",
   "devDependencies": {
+    "@openzeppelin/contracts": "4.8.0",
     "solhint": "^3.6.2"
   }
 }

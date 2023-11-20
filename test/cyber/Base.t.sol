@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.10;
 
-import {Strings} from "openzeppelin-contracts/contracts/utils/Strings.sol";
+import {Strings} from "@openzeppelin/contracts/utils/Strings.sol";
 import {IProfileNFT} from "../../contracts/graph/cyber/IProfileNFT.sol";
 import {CyberTypes} from "../../contracts/graph/cyber/CyberTypes.sol";
 import {DataTokenHub} from "../../contracts/DataTokenHub.sol";
