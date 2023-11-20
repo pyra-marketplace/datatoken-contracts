@@ -32,6 +32,7 @@ foundryup
 Install dependencies:
 
 ```
+npm install
 forge install
 ```
 
