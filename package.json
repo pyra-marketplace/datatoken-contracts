@@ -2,7 +2,6 @@
   "name": "@dataverse/datatoken-contracts",
   "version": "1.0.0",
   "description": "A simple, aggregated social graph module.",
-  "main": "index.js",
   "scripts": {
     "build": "forge build --sizes",
     "test": "source .env && forge test",
