@@ -5,19 +5,11 @@ import {IERC721} from "@openzeppelin/contracts/token/ERC721/IERC721.sol";
 import {ProfilelessHub} from "../../contracts/graph/profileless/ProfilelessHub.sol";
 import {ProfilelessTypes} from "../../contracts/graph/profileless/libraries/ProfilelessTypes.sol";
 import {LimitedFeeCollectModule} from "../../contracts/graph/profileless/modules/LimitedFeeCollectModule.sol";
+import {Typehash} from "../../contracts/graph/profileless/libraries/Typehash.sol";
 import {CurrencyMock} from "../../contracts/mocks/CurrencyMock.sol";
 import {Test} from "forge-std/Test.sol";
 
 contract ProfilelessBaseTest is Test {
-    bytes32 internal constant POST_WITH_SIG_TYPEHASH = keccak256(
-        bytes(
-            "PostWithSig(string contentURI,address collectModule,bytes collectModuleInitData,uint256 nonce,uint256 deadline)"
-        )
-    );
-
-    bytes32 internal constant COLLECT_WITH_SIG_TYPEHASH =
-        keccak256(bytes("CollectWithSig(uint256 pubId,bytes collectModuleValidateData,uint256 nonce,uint256 deadline)"));
-
     address public governor;
     address public notGovernor;
     address public pubOwner;
@@ -41,7 +33,7 @@ contract ProfilelessBaseTest is Test {
 
         contentURI = "https://dataverse-os.com";
         collectLimit = 10000;
-        amount = 10e8;
+        amount = 1e8;
 
         vm.startPrank(governor);
         currency = new CurrencyMock("Test Currency", "TC");
@@ -65,7 +57,7 @@ contract ProfilelessBaseTest is Test {
         {
             bytes32 hashedMessage = keccak256(
                 abi.encode(
-                    POST_WITH_SIG_TYPEHASH,
+                    Typehash.POST_WITH_SIG_TYPEHASH,
                     keccak256(bytes(postParams.contentURI)),
                     postParams.collectModule,
                     keccak256(bytes(postParams.collectModuleInitData)),
@@ -100,9 +92,43 @@ contract ProfilelessBaseTest is Test {
         {
             bytes32 hashedMessage = keccak256(
                 abi.encode(
-                    COLLECT_WITH_SIG_TYPEHASH,
+                    Typehash.COLLECT_WITH_SIG_TYPEHASH,
                     collectParams.pubId,
                     keccak256(bytes(collectParams.collectModuleValidateData)),
+                    nonce,
+                    deadline
+                )
+            );
+
+            digest = _calculateDigest(domainSeparator, hashedMessage);
+        }
+        ProfilelessTypes.EIP712Signature memory signature;
+        {
+            (uint8 v, bytes32 r, bytes32 s) = vm.sign(signerPK, digest);
+            signature.v = v;
+            signature.r = r;
+            signature.s = s;
+            signature.deadline = deadline;
+            signature.signer = signer;
+        }
+        return signature;
+    }
+
+    function _getEIP721RestrictSignature(
+        ProfilelessTypes.RestrictParams memory restrictParams,
+        address signer,
+        uint256 signerPK
+    ) internal view returns (ProfilelessTypes.EIP712Signature memory) {
+        uint256 nonce = profilelessHub.getSigNonces(signer);
+        bytes32 domainSeparator = profilelessHub.getDomainSeparator();
+        uint256 deadline = block.timestamp + 1 days;
+        bytes32 digest;
+        {
+            bytes32 hashedMessage = keccak256(
+                abi.encode(
+                    Typehash.RESTRICT_WITH_SIG_TYPEHASH,
+                    restrictParams.account,
+                    restrictParams.restricted,
                     nonce,
                     deadline
                 )

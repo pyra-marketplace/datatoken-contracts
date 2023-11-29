@@ -1,6 +1,7 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.10;
 
+import {Errors} from "../../../contracts/graph/profileless/libraries/Errors.sol";
 import "../Base.t.sol";
 
 contract ProfilelessHubTest is ProfilelessBaseTest {
@@ -42,6 +43,18 @@ contract ProfilelessHubTest is ProfilelessBaseTest {
         vm.prank(governor);
         profilelessHub.whitelistCollectModule(newCollectModule, true);
         assertTrue(profilelessHub.isCollectModuleWhitelisted(newCollectModule));
+    }
+
+    function test_IsRestricted() public {
+        assertFalse(profilelessHub.isRestricted(collector, pubOwner));
+
+        ProfilelessTypes.RestrictParams memory restrictParams =
+            ProfilelessTypes.RestrictParams({account: collector, restricted: true});
+
+        vm.prank(pubOwner);
+        profilelessHub.restrict(restrictParams);
+
+        assertTrue(profilelessHub.isRestricted(collector, pubOwner));
     }
 
     function test_Post() public {
@@ -121,5 +134,57 @@ contract ProfilelessHubTest is ProfilelessBaseTest {
         uint256 collectTokenId = profilelessHub.collectWithSig(collectParams, signature);
         vm.stopPrank();
         assertEq(IERC721(profilelessHub.getPublication(pubId).collectNFT).ownerOf(collectTokenId), collector);
+    }
+
+    function testRevert_Collect_WhenRestricted() public {
+        ProfilelessTypes.PostParams memory postParams = ProfilelessTypes.PostParams({
+            contentURI: contentURI,
+            collectModule: address(collectModule),
+            collectModuleInitData: abi.encode(collectLimit, amount, address(currency), pubOwner)
+        });
+        ProfilelessTypes.RestrictParams memory restrictParams =
+            ProfilelessTypes.RestrictParams({account: collector, restricted: true});
+
+        vm.startPrank(pubOwner);
+        uint256 pubId = profilelessHub.post(postParams);
+        profilelessHub.restrict(restrictParams);
+        vm.stopPrank();
+
+        ProfilelessTypes.CollectParams memory collectParams = ProfilelessTypes.CollectParams({
+            pubId: pubId,
+            collectModuleValidateData: abi.encode(address(currency), amount)
+        });
+
+        vm.startPrank(collector);
+        currency.approve(address(collectModule), amount);
+        vm.expectRevert(Errors.AccountRestricted.selector);
+        profilelessHub.collect(collectParams);
+        vm.stopPrank();
+    }
+
+    function test_Restrict() public {
+        assertFalse(profilelessHub.isRestricted(collector, pubOwner));
+
+        ProfilelessTypes.RestrictParams memory restrictParams =
+            ProfilelessTypes.RestrictParams({account: collector, restricted: true});
+
+        vm.prank(pubOwner);
+        profilelessHub.restrict(restrictParams);
+
+        assertTrue(profilelessHub.isRestricted(collector, pubOwner));
+    }
+
+    function test_RestrictWithSig() public {
+        assertFalse(profilelessHub.isRestricted(collector, pubOwner));
+
+        ProfilelessTypes.RestrictParams memory restrictParams =
+            ProfilelessTypes.RestrictParams({account: collector, restricted: true});
+        ProfilelessTypes.EIP712Signature memory signature =
+            _getEIP721RestrictSignature(restrictParams, pubOwner, pubOwnerPK);
+
+        vm.prank(pubOwner);
+        profilelessHub.restrictWithSig(restrictParams, signature);
+
+        assertTrue(profilelessHub.isRestricted(collector, pubOwner));
     }
 }

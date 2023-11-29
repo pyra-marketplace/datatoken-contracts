@@ -7,24 +7,17 @@ import {CollectNFT} from "./CollectNFT.sol";
 import {IProfilelessHub} from "./interfaces/IProfilelessHub.sol";
 import {ICollectModule} from "./interfaces/ICollectModule.sol";
 import {ProfilelessTypes} from "./libraries/ProfilelessTypes.sol";
+import {Typehash} from "./libraries/Typehash.sol";
 import {Events} from "./libraries/Events.sol";
 import {Errors} from "./libraries/Errors.sol";
 
 contract ProfilelessHub is IProfilelessHub, PublicateNFT, EIP712 {
-    bytes32 internal constant POST_WITH_SIG_TYPEHASH = keccak256(
-        bytes(
-            "PostWithSig(string contentURI,address collectModule,bytes collectModuleInitData,uint256 nonce,uint256 deadline)"
-        )
-    );
-
-    bytes32 internal constant COLLECT_WITH_SIG_TYPEHASH =
-        keccak256(bytes("CollectWithSig(uint256 pubId,bytes collectModuleValidateData,uint256 nonce,uint256 deadline)"));
-
     address internal _governor;
     mapping(address => uint256) internal _sigNonces;
     mapping(address => bool) internal _isCurrencyWhitelisted;
     mapping(address => bool) internal _isCollectModuleWhitelisted;
     mapping(uint256 => ProfilelessTypes.Publication) internal _publicationById;
+    mapping(address => mapping(address => bool)) internal _restrictedStatus;
 
     constructor(address governor) EIP712("Profileless Hub", "1") {
         _setGovernor(governor);
@@ -111,6 +104,13 @@ contract ProfilelessHub is IProfilelessHub, PublicateNFT, EIP712 {
     /**
      * @inheritdoc IProfilelessHub
      */
+    function isRestricted(address account, address byAccount) external view returns (bool) {
+        return _restrictedStatus[byAccount][account];
+    }
+
+    /**
+     * @inheritdoc IProfilelessHub
+     */
     function post(ProfilelessTypes.PostParams memory postParams) external returns (uint256) {
         return _post(postParams, msg.sender);
     }
@@ -126,7 +126,7 @@ contract ProfilelessHub is IProfilelessHub, PublicateNFT, EIP712 {
             _hashTypedDataV4(
                 keccak256(
                     abi.encode(
-                        POST_WITH_SIG_TYPEHASH,
+                        Typehash.POST_WITH_SIG_TYPEHASH,
                         keccak256(bytes(postParams.contentURI)),
                         postParams.collectModule,
                         keccak256(bytes(postParams.collectModuleInitData)),
@@ -163,7 +163,7 @@ contract ProfilelessHub is IProfilelessHub, PublicateNFT, EIP712 {
             _hashTypedDataV4(
                 keccak256(
                     abi.encode(
-                        COLLECT_WITH_SIG_TYPEHASH,
+                        Typehash.COLLECT_WITH_SIG_TYPEHASH,
                         collectParams.pubId,
                         keccak256(bytes(collectParams.collectModuleValidateData)),
                         _sigNonces[signature.signer]++,
@@ -178,6 +178,42 @@ contract ProfilelessHub is IProfilelessHub, PublicateNFT, EIP712 {
             revert Errors.SignatureMismatch();
         }
         return _collect(collectParams, signature.signer);
+    }
+
+    /**
+     * @inheritdoc IProfilelessHub
+     */
+    function restrict(ProfilelessTypes.RestrictParams memory restrictParams) external {
+        _restrict(restrictParams, msg.sender);
+    }
+
+    /**
+     * @inheritdoc IProfilelessHub
+     */
+    function restrictWithSig(
+        ProfilelessTypes.RestrictParams memory restrictParams,
+        ProfilelessTypes.EIP712Signature memory signature
+    ) external {
+        address recoveredAddr = _recoverSigner(
+            _hashTypedDataV4(
+                keccak256(
+                    abi.encode(
+                        Typehash.RESTRICT_WITH_SIG_TYPEHASH,
+                        restrictParams.account,
+                        restrictParams.restricted,
+                        _sigNonces[signature.signer]++,
+                        signature.deadline
+                    )
+                )
+            ),
+            signature
+        );
+
+        if (signature.signer != recoveredAddr) {
+            revert Errors.SignatureMismatch();
+        }
+
+        _restrict(restrictParams, signature.signer);
     }
 
     function _post(ProfilelessTypes.PostParams memory postParams, address author) internal returns (uint256) {
@@ -207,6 +243,9 @@ contract ProfilelessHub is IProfilelessHub, PublicateNFT, EIP712 {
         internal
         returns (uint256)
     {
+        if (_restrictedStatus[ownerOf(collectParams.pubId)][collector]) {
+            revert Errors.AccountRestricted();
+        }
         ProfilelessTypes.Publication storage targetPublication = _publicationById[collectParams.pubId];
         if (targetPublication.collectNFT == address(0)) {
             targetPublication.collectNFT = address(new CollectNFT(address(this)));
@@ -220,6 +259,11 @@ contract ProfilelessHub is IProfilelessHub, PublicateNFT, EIP712 {
         emit Events.PublicationCollected(collector, collectParams.pubId);
 
         return collectTokenId;
+    }
+
+    function _restrict(ProfilelessTypes.RestrictParams memory restrictParams, address byAccount) internal {
+        _restrictedStatus[byAccount][restrictParams.account] = restrictParams.restricted;
+        emit Events.AccountRestricted(restrictParams.account, byAccount, restrictParams.restricted);
     }
 
     function _setGovernor(address newGovernor) internal {

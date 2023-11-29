@@ -13,4 +13,5 @@ library Events {
         bytes collectModuleReturnData
     );
     event PublicationCollected(address indexed collector, uint256 indexed pubId);
+    event AccountRestricted(address indexed account, address indexed byAccount, bool restricted);
 }

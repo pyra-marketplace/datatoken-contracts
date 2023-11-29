@@ -20,6 +20,11 @@ library ProfilelessTypes {
         bytes collectModuleValidateData;
     }
 
+    struct RestrictParams {
+        address account;
+        bool restricted;
+    }
+
     struct EIP712Signature {
         address signer;
         uint8 v;

@@ -9,4 +9,5 @@ library Errors {
     error SignatureExpired();
     error ModuleDataMismatch();
     error CollectModuleNotWhitelisted();
+    error AccountRestricted();
 }
