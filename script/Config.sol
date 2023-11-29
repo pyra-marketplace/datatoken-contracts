@@ -18,7 +18,6 @@ contract Config {
     address internal _lensHubProxy;
     address internal _collectPublicationAction;
     address internal _simpleFeeCollectModule;
-    address internal _multirecipientFeeCollectModule;
 
     // Graph: Cyber
     address internal _cyberProfileProxy;
@@ -33,10 +32,9 @@ contract Config {
             _lensHubProxy = 0xDb46d1Dc155634FbC732f92E853b10B288AD5a1d;
         }
         if (block.chainid == PolygonMumbai) {
-            _lensHubProxy = 0xC1E77eE73403B8a7478884915aA599932A677870;
-            _collectPublicationAction = 0x5FE7918C3Ef48E6C5Fd79dD22A3120a3C4967aC2;
-            _simpleFeeCollectModule = 0x98daD8B389417A5A7D971D7F83406Ac7c646A8e2;
-            _multirecipientFeeCollectModule = 0xa878101e04518693ABE7fccd03778174A2B08159;
+            _lensHubProxy = 0x4fbffF20302F3326B20052ab9C217C44F6480900;
+            _collectPublicationAction = 0x4FdAae7fC16Ef41eAE8d8f6578d575C9d64722f2;
+            _simpleFeeCollectModule = 0x345Cc3A3F9127DE2C69819C2E07bB748dE6E45ee;
 
             address WMATIC = 0x9c3C9283D3e44854697Cd22D3Faa240Cfb032889;
             address WETH = 0x3C68CE8504087f89c640D02d133646d98e64ddd9;

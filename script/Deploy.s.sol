@@ -67,7 +67,6 @@ contract Deploy is Script, Config {
             console.log('   "%s": "%s",', "LensHubProxy", _lensHubProxy);
             console.log('   "%s": "%s",', "CollectPublicationAction", _collectPublicationAction);
             console.log('   "%s": "%s",', "SimpleFeeCollectModule", _simpleFeeCollectModule);
-            console.log('   "%s": "%s"', "MultirecipientFeeCollectModule", _multirecipientFeeCollectModule);
             console.log("},");
         }
         if (cyberDataTokenFactory != address(0)) {
