@@ -8,6 +8,9 @@ out/
 # Dotenv file
 .env
 
+# vscode
+.vscode
+
 # sdk
 node_modules
 pnpm-lock.yaml

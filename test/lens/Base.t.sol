@@ -24,10 +24,10 @@ contract LensBaseTest is Test {
         _forkPolygonMumbai = vm.createSelectFork("polygon_mumbai");
 
         LENS_CONTRACTS = LensDeployedContracts({
-            lensHub: ILensHub(0xC1E77eE73403B8a7478884915aA599932A677870),
-            profileCreationProxy: IProfileCreationProxy(0x2549f9Bbccdc5a65DDCeA45eF91dC9BdE30697c2),
-            collectPublicationAction: 0x5FE7918C3Ef48E6C5Fd79dD22A3120a3C4967aC2,
-            simpleFeeCollectModule: 0x98daD8B389417A5A7D971D7F83406Ac7c646A8e2,
+            lensHub: ILensHub(0x4fbffF20302F3326B20052ab9C217C44F6480900),
+            profileCreationProxy: IProfileCreationProxy(0x0554a7163C3aa423429719940FFE179F21cD83f6),
+            collectPublicationAction: 0x4FdAae7fC16Ef41eAE8d8f6578d575C9d64722f2,
+            simpleFeeCollectModule: 0x345Cc3A3F9127DE2C69819C2E07bB748dE6E45ee,
             WMATIC: 0x9c3C9283D3e44854697Cd22D3Faa240Cfb032889
         });
     }

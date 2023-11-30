@@ -22,6 +22,8 @@ interface IProfilelessHub {
 
     function getPublication(uint256 pubId) external view returns (ProfilelessTypes.Publication memory);
 
+    function isRestricted(address account, address byAccount) external view returns (bool);
+
     function post(ProfilelessTypes.PostParams memory postParams) external returns (uint256);
 
     function postWithSig(
@@ -35,4 +37,11 @@ interface IProfilelessHub {
         ProfilelessTypes.CollectParams memory collectParams,
         ProfilelessTypes.EIP712Signature memory signature
     ) external returns (uint256);
+
+    function restrict(ProfilelessTypes.RestrictParams memory restrictParams) external;
+
+    function restrictWithSig(
+        ProfilelessTypes.RestrictParams memory restrictParams,
+        ProfilelessTypes.EIP712Signature memory signature
+    ) external;
 }

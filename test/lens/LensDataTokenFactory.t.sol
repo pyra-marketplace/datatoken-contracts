@@ -68,21 +68,6 @@ contract LensDataTokenFactoryTest is Test, LensBaseTest {
         assertEq(collectData.collectModule, LENS_CONTRACTS.simpleFeeCollectModule);
     }
 
-    // function test_CreateDataTokenWithSig() public {
-    //     vm.prank(dataTokenOwner);
-    //     address dataToken = dataTokenFactory.createDataTokenWithSig(initVars);
-
-    //     DataTypes.Metadata memory metadata = IDataToken(dataToken).getMetadata();
-    //     assertEq(metadata.originalContract, address(LENS_CONTRACTS.lensHub));
-    //     assertEq(metadata.profileId, dataTokenOwnerProfileId);
-    //     assertEq(metadata.collectMiddleware, LENS_CONTRACTS.collectPublicationAction);
-    //     ICollectPublicationAction.CollectData memory collectData = ICollectPublicationAction(
-    //         LENS_CONTRACTS.collectPublicationAction
-    //     ).getCollectData(metadata.profileId, metadata.pubId);
-    //     assertEq(collectData.collectNFT, address(0));
-    //     assertEq(collectData.collectModule, LENS_CONTRACTS.simpleFeeCollectModule);
-    // }
-
     function _getPostWithSigDataBytes() internal view returns (bytes memory) {
         address[] memory actionModules = new address[](1);
         actionModules[0] = LENS_CONTRACTS.collectPublicationAction;
