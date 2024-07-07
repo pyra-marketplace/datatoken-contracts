@@ -61,7 +61,7 @@ contract ProfilelessDataTokenFactoryTest is ProfilelessBaseTest {
             collectModuleValidateData: abi.encode(address(currency), amount)
         });
         ProfilelessTypes.EIP712Signature memory signature =
-            _getEIP721CollectSignature(collectParams, dataTokenCollector, dataTokenCollectorPK);
+            _getEIP712CollectSignature(collectParams, dataTokenCollector, dataTokenCollectorPK);
         bytes memory data = abi.encode(collectParams, signature);
 
         vm.startPrank(dataTokenCollector);
@@ -80,7 +80,7 @@ contract ProfilelessDataTokenFactoryTest is ProfilelessBaseTest {
             collectModuleValidateData: abi.encode(address(currency), amount)
         });
         ProfilelessTypes.EIP712Signature memory signature =
-            _getEIP721CollectSignature(collectParams, dataTokenCollector, dataTokenCollectorPK);
+            _getEIP712CollectSignature(collectParams, dataTokenCollector, dataTokenCollectorPK);
         bytes memory data = abi.encode(collectParams, signature);
 
         vm.startPrank(dataTokenCollector);
@@ -99,7 +99,7 @@ contract ProfilelessDataTokenFactoryTest is ProfilelessBaseTest {
             collectModuleInitData: abi.encode(collectLimit, amount, address(currency), dataTokenOwner)
         });
         ProfilelessTypes.EIP712Signature memory signature =
-            _getEIP721PostSignature(postParams, dataTokenOwner, dataTokenOwnerPK);
+            _getEIP712PostSignature(postParams, dataTokenOwner, dataTokenOwnerPK);
         bytes memory initVars = abi.encode(postParams, signature);
 
         vm.prank(dataTokenOwner);

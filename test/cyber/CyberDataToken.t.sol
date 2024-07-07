@@ -108,7 +108,7 @@ contract CyberDataTokenTest is CyberBaseTest {
         bytes memory collectMwInitData = abi.encode(totalSupply, amount, dataTokenOwner, currency, subscribeRequired);
 
         CyberTypes.EIP712Signature memory signature =
-            _generateEIP721PostSignature(postParams, collectMwInitData, dataTokenOwner, dataTokenOwnerPK);
+            _generateEIP712PostSignature(postParams, collectMwInitData, dataTokenOwner, dataTokenOwnerPK);
 
         bytes memory initVars = abi.encode(postParams, collectMwInitData, signature);
 
@@ -137,7 +137,7 @@ contract CyberDataTokenTest is CyberBaseTest {
         return collectTokenId;
     }
 
-    function _generateEIP721PostSignature(
+    function _generateEIP712PostSignature(
         CyberTypes.RegisterEssenceParams memory postParams,
         bytes memory collectMwInitData,
         address signer,

@@ -45,7 +45,7 @@ contract ProfilelessBaseTest is Test {
         vm.stopPrank();
     }
 
-    function _getEIP721PostSignature(ProfilelessTypes.PostParams memory postParams, address signer, uint256 signerPK)
+    function _getEIP712PostSignature(ProfilelessTypes.PostParams memory postParams, address signer, uint256 signerPK)
         internal
         view
         returns (ProfilelessTypes.EIP712Signature memory)
@@ -80,7 +80,7 @@ contract ProfilelessBaseTest is Test {
         return signature;
     }
 
-    function _getEIP721CollectSignature(
+    function _getEIP712CollectSignature(
         ProfilelessTypes.CollectParams memory collectParams,
         address signer,
         uint256 signerPK
@@ -114,7 +114,7 @@ contract ProfilelessBaseTest is Test {
         return signature;
     }
 
-    function _getEIP721RestrictSignature(
+    function _getEIP712RestrictSignature(
         ProfilelessTypes.RestrictParams memory restrictParams,
         address signer,
         uint256 signerPK

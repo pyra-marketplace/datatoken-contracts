@@ -62,7 +62,7 @@ contract CyberDataTokenFactoryTest is CyberBaseTest {
         );
 
         CyberTypes.EIP712Signature memory signature =
-            _generateEIP721PostSignature(postParams, collectMwInitData, dataTokenOwner, dataTokenOwnerPK);
+            _generateEIP712PostSignature(postParams, collectMwInitData, dataTokenOwner, dataTokenOwnerPK);
 
         bytes memory initVars = abi.encode(postParams, collectMwInitData, signature);
         vm.prank(dataTokenOwner);
@@ -72,7 +72,7 @@ contract CyberDataTokenFactoryTest is CyberBaseTest {
         assertEq(metadata.profileId, postParams.profileId);
     }
 
-    function _generateEIP721PostSignature(
+    function _generateEIP712PostSignature(
         CyberTypes.RegisterEssenceParams memory postParams,
         bytes memory collectMwInitData,
         address signer,
