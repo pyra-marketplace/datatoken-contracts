@@ -35,7 +35,7 @@ contract ProfilelessDataTokenFactoryTest is ProfilelessBaseTest {
             collectModuleInitData: abi.encode(collectLimit, amount, address(currency), dataTokenOwner)
         });
         ProfilelessTypes.EIP712Signature memory signature =
-            _getEIP721PostSignature(postParams, dataTokenOwner, dataTokenOwnerPK);
+            _getEIP712PostSignature(postParams, dataTokenOwner, dataTokenOwnerPK);
         bytes memory initVars = abi.encode(postParams, signature);
 
         vm.prank(dataTokenOwner);

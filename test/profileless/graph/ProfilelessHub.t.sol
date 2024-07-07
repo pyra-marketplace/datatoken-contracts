@@ -80,7 +80,7 @@ contract ProfilelessHubTest is ProfilelessBaseTest {
             collectModule: address(collectModule),
             collectModuleInitData: abi.encode(collectLimit, amount, address(currency), pubOwner)
         });
-        ProfilelessTypes.EIP712Signature memory signature = _getEIP721PostSignature(postParams, pubOwner, pubOwnerPK);
+        ProfilelessTypes.EIP712Signature memory signature = _getEIP712PostSignature(postParams, pubOwner, pubOwnerPK);
 
         vm.prank(pubOwner);
         uint256 pubId = profilelessHub.postWithSig(postParams, signature);
@@ -128,7 +128,7 @@ contract ProfilelessHubTest is ProfilelessBaseTest {
             collectModuleValidateData: abi.encode(address(currency), amount)
         });
         ProfilelessTypes.EIP712Signature memory signature =
-            _getEIP721CollectSignature(collectParams, collector, collectorPK);
+            _getEIP712CollectSignature(collectParams, collector, collectorPK);
         vm.startPrank(collector);
         currency.approve(address(collectModule), amount);
         uint256 collectTokenId = profilelessHub.collectWithSig(collectParams, signature);
@@ -180,7 +180,7 @@ contract ProfilelessHubTest is ProfilelessBaseTest {
         ProfilelessTypes.RestrictParams memory restrictParams =
             ProfilelessTypes.RestrictParams({account: collector, restricted: true});
         ProfilelessTypes.EIP712Signature memory signature =
-            _getEIP721RestrictSignature(restrictParams, pubOwner, pubOwnerPK);
+            _getEIP712RestrictSignature(restrictParams, pubOwner, pubOwnerPK);
 
         vm.prank(pubOwner);
         profilelessHub.restrictWithSig(restrictParams, signature);
